@@ -3,7 +3,7 @@ project:
 
 book:
   title: "This is my thesis"
-  author: "Susan Su"
+  author: "Hannah Olson-Williams"
   chapters:
     - text: "Front matter"
       file: index.qmd
@@ -17,8 +17,8 @@ bibliography: thesisrefs.bib
 csl: american-statistical-association.csl
 degreetype: Doctor of Philosophy
 submitted: 2024
-affiliation: Department of Econometrics & Business Statistics
-degrees: 'B.Sc. (Hons), University of Tangambalanga'
+affiliation: Department of Population Health
+degrees: 'B.S. Mathematics, Case Western Reserve University'
 
 format:
   monashthesis-html: default
