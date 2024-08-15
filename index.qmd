@@ -1,5 +1,5 @@
 ::: {.content-visible when-format="html"}
-A thesis submitted for the degree of {{< meta degreetype >}} at the UNIVERSITY OF WISCONSIN-MADISON, {{< meta affiliation >}}.
+A thesis submitted for the degree of {{< meta degreetype >}} at the {{< meta affiliation >}}.
 :::
 
 # Copyright notice {.unnumbered}
@@ -24,9 +24,9 @@ This thesis is an original work of my research and contains no material which ha
 
 #### Publications included in this dissertation  {.unnumbered}
 
-The material in @sec-intro has been published in the *Community Mental Health Journal* on January 12, 2023 [@olson-williams2023].
+The material in @sec-aim1 has been published in the *Community Mental Health Journal* on January 12, 2023 [@olson-williams2023].
 
-The material in @sec-litreview has been submitted to the journal *Spatial and Spatio-temporal Epidemiology* for possible publication.
+The material in @sec-aim2 has been submitted to the journal *Spatial and Spatio-temporal Epidemiology* for possible publication.
 
 #### Reproducibility statement
 

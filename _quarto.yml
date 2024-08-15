@@ -2,23 +2,26 @@ project:
   type: book
 
 book:
-  title: "This is my thesis"
+  title: "Migration, Urbanicity, and Health: A Comprehensive Study of Mutually Reinforcing Contextual and Compositional Place-Based Determinants of Health"
   author: "Hannah Olson-Williams"
   chapters:
     - text: "Front matter"
       file: index.qmd
-    - "01-chap1.qmd"
-    - "02-chap2.qmd"
+    - "intro.qmd"
+    - "aim1.qmd"
+    - "aim2.qmd"
+    - "aim3.qmd"
+    - "conclusion.qmd"
     - "refs.qmd"
   sidebar:
     style: "docked"
 
-bibliography: thesisrefs.bib
+bibliography: references.bib
 csl: american-statistical-association.csl
 degreetype: Doctor of Philosophy
 submitted: 2024
 affiliation: Department of Population Health
-degrees: 'B.S. Mathematics, Case Western Reserve University'
+#degrees: 'B.S. Mathematics, Case Western Reserve University'
 
 format:
   monashthesis-html: default

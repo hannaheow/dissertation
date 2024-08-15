@@ -27,7 +27,8 @@ contributes:
       - right=2.5cm
       block-headings: false
       colorlinks: true
-      linestretch: 1.5
+      linestretch: 2
+      output-file: "Olson-Williams_dissertation.pdf"
       template-partials:
         - "before-title.tex"
         - "title.tex"

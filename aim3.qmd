@@ -1,0 +1,278 @@
+---
+title: "Manuscript 3: Tensor Factorization of County-to-County Migration"
+format: html
+editor: visual
+bibliography: references.bib
+---
+
+<!--# notes from june 21: tensor stuff: need a non parametric two sample test such as: mann-whitney, kruskal-wallis, spearmans correlation to assess health-related differences; need to calculate the difference between population size rank and origin/destination rank (ie rank within factor matrices); maybe try grabbing the top most populous counties and comparing them to the largest migration sources/sinks (skip the clustering step, just rank the decomp factor matrices) -->
+
+<!--# my thoughts on aug 3: -->
+
+<!--# data: go back and get post pandemic migration values?? add back in HI and AK? and in migration where origid and destid match? remove NA instead of imputing? -->
+
+<!--# clusters/methods/etc: at one time i was using kmeans clusters (per chatgpts instructions) instead of using the threshold thing; need to learn more about these methods and figure out exactly what each is doing/what is best -->
+
+# Methods
+
+### Data
+
+[**Outcome:**]{.underline} Our primary outcome of interest is county-level premature age-adjusted mortality rates. We obtain these rates from CDC WONDER for all counties within the contiguous United States. We remove Alaska and Hawaii since they are spatially separate <!--# need some other justification here or need to decide to rewrangle to include AK and HI for this aim -->.
+
+[**Predictor:**]{.underline} We are interested in how county-to-county migration flows may be related to county-level overall health. We use IRS migration data from 2011 through 2019. <!--# perhaps it would be good to include pandemic years for this aim??? --> We examine both rates (number of migrants divided by origin population) and raw values (number of migrants) of migration. <!--# not sure here ; could also divide by dest population -->
+
+We model county-level migration patterns using an extension of the novel method, spatio-temporal tensor co-clustering (Almquist et al. 2021). A tensor can be thought of as an extension of a matrix, where a one-way tensor is a vector, a two-way tensor is a matrix, a three-way tensor is a cube, and a 4-way tensor is a hyper-rectangle (Blog, n.d.). Our tensor will have the following dimensions: origin county, destination county, and time period. A single entry of our three-way tensor 𝑋 can be represented as $X(a_i,b_j,c_k)$: the number of migrants from origin 𝑖 to destination $j$ in period $k$. This tensor can be further described as: $$𝑋≈ \sum_{r=1}^R{\lambda_ra_r•b_r•c_r}$$
+
+where $R$ is the number of components (rank) for the decomposition, $\lambda_r$ are the scalar weights for each rank-one tensor, and $a_r$, $b_r$, and $c_r$ represent the factor vectors corresponding to each dimension of the tensor. Therefore, it follows that if $a_i(r)=0$ we know that origin $i$ is not in the $rth$ migration system. On the other hand, if $a_i(r)$ is large, we can infer that the $rth$ migration system has lots of migration activity from origin 𝑖. This is a direct extension of the decomposition of a three-way tensor described in Almquist et al, 2021 [@almquist2021].
+
+After building the tensor, we apply CP tensor decomposition which creates a series of rank-one tensors that explain the majority of the variance within the data. This process yields a series of factor matrices corresponding to each dimension of the tensor (origin, destination, and year), as shown above. <!--# need to examine other types of decomposition??? at least need to justify this type --> We ran the CP decomposition a total of 10 times to account for random initialization. We selected the decomposition with the lowest reconstruction error. <!--# need to research this; what is reconstruction error (chaptgpt told me to use it) -->
+
+We then apply a threshold value to determine which counties have significant (greater than the threshold value) loadings in the factor matrices. Each row of each factor matrix is checked to see if the loadings exceed the threshold. Origin and destination counties that exceed the threshold can be considered part of the "core" migration system. We tested several different threshold values with a goal of maximizing the core while minimizing the threshold.
+
+After establishing core origin counties and core destination counties, we used a two sample t-test to compare the average health of core origins to the average health of core destinations as well as the average health of noncore counties to the average health of core origins and core destinations combined.
+
+```{r load data, create tensor }
+#this data was created in the wrangle_premature_norace.R script which is part of the separate migration_selection_sub git repo
+load("data_processed_aim2/migterm_imp.RData")
+
+library(rTensor)
+library(tidyverse)
+
+#need the following dimensions: origin, destination, year, n mig 
+#example data: 
+# num_origin_counties <- 5
+# num_dest_counties <- 5
+# num_time_periods <- 10
+# X <- array(runif(num_origin_counties * num_dest_counties * num_time_periods), 
+#            dim = c(num_origin_counties, num_dest_counties, num_time_periods))
+
+tsub = migterm_imp %>% # select(destid, origid, year, out_o) %>% 
+  filter(!is.na(origid))
+
+origid_unique = unique(tsub$origid)
+destid_unique = unique(tsub$destid)
+years = unique(tsub$year)
+
+tarray = array(0, 
+               dim = c(length(origid_unique), length(destid_unique), length(years)),
+               dimnames = c(list(origid = origid_unique, destid = destid_unique, year = years)))
+
+for (i in 1:nrow(tsub)) {
+  origid = as.character(tsub$origid[i])
+  destid = as.character(tsub$destid[i])
+  year = as.character(tsub$year[i])
+  nmig = tsub$out_o[i]
+  tarray[origid, destid, year] = nmig
+}
+
+migtensor = rTensor::as.tensor(tarray)
+
+
+##########################################################
+# now create a tensor that is population adjusted 
+
+# adjusting for origin population 
+
+#reinitialize and replace missings with 0  
+
+# Create the tensor
+tsub = migterm_imp %>%
+  filter(!is.na(origid)) %>%
+  mutate(out_o = ifelse(is.na(out_o), 0, out_o),
+         pop_o0 = as.numeric(pop_o0), 
+         out_o_popo = ifelse(is.na(out_o / pop_o0 * 1000), 0, round(out_o/pop_o0 *1000, 2)))  # Replace NAs with 0
+
+tarray = array(0, 
+               dim = c(length(origid_unique), length(destid_unique), length(years)),
+               dimnames = c(list(origid = origid_unique, destid = destid_unique, year = years)))
+
+for (i in 1:nrow(tsub)) {
+  origid = as.character(tsub$origid[i])
+  destid = as.character(tsub$destid[i])
+  year = as.character(tsub$year[i])
+  nmig = tsub$out_o_popo[i]
+  tarray[origid, destid, year] = nmig
+}
+
+migtensor_popo = rTensor::as.tensor(tarray)
+```
+
+```{r cp decomp accounting for best fit ; includes pop adj and no pop adj}
+
+# Function to perform CP decomposition and calculate the fit
+perform_cp_decomp <- function(tensor, num_components, seed) {
+  set.seed(seed)
+  cp_decomp <- cp(tensor, num_components)
+  # Calculate the reconstruction error
+  reconstructed_tensor <- cp_decomp$est
+  fit <- fnorm(tensor - reconstructed_tensor)
+  list(decomposition = cp_decomp, fit = fit)
+}
+
+# Number of components and number of runs
+num_components <- 3
+num_runs <- 1 #increase this number when prepared to wait for awhile..... 
+
+
+##################################################
+# no population 
+# List to store results
+results <- list()
+
+# Perform multiple decompositions
+for (i in 1:num_runs) {
+  seed <- as.numeric(12345 + i)  # Different seed for each run
+  result <- perform_cp_decomp(migtensor, num_components, seed)
+  results[[i]] <- result
+}
+
+
+# Select the best decomposition based on the fit
+best_result <- results[[which.min(sapply(results, function(x) x$fit))]]
+best_decomp <- best_result$decomposition
+
+# Extract factor matrices from the best decomposition
+A <- best_decomp$U[[1]]  # Factor matrix for origin
+B <- best_decomp$U[[2]]  # Factor matrix for destination
+C <- best_decomp$U[[3]]  # Factor matrix for year
+
+# Determine core counties based on factor loadings
+threshold <- 0.000000000000001  # Define a threshold for core membership
+core_origins <- origid_unique[apply(A, 1, function(x) any(x > threshold))]
+core_destinations <- destid_unique[apply(B, 1, function(x) any(x > threshold))]
+core_counties <- unique(c(core_origins, core_destinations))
+
+non_core_counties <- setdiff(unique(c(origid_unique, destid_unique)), core_counties)
+
+
+###################################################
+# population adjusted 
+results_popo = list() 
+# Perform multiple decompositions
+for (i in 1:num_runs) {
+  seed <- as.numeric(12345 + i)  # Different seed for each run
+  result <- perform_cp_decomp(migtensor_popo, num_components, seed)
+  results_popo[[i]] <- result
+}
+
+# Select the best decomposition based on the fit
+best_result_popo <- results[[which.min(sapply(results_popo, function(x) x$fit))]]
+best_decomp_popo <- best_result_popo$decomposition
+
+# Extract factor matrices from the best decomposition
+A_popo <- best_decomp_popo$U[[1]]  # Factor matrix for origin
+B_popo <- best_decomp_popo$U[[2]]  # Factor matrix for destination
+C_popo <- best_decomp_popo$U[[3]]  # Factor matrix for year
+
+# Determine core counties based on factor loadings
+threshold <- 0.1  # Define a threshold for core membership
+core_origins_popo <- origid_unique[apply(A_popo, 1, function(x) any(x > threshold))]
+core_destinations_popo <- destid_unique[apply(B_popo, 1, function(x) any(x > threshold))]
+core_counties_popo <- unique(c(core_origins, core_destinations))
+
+non_core_counties_popo <- setdiff(unique(c(origid_unique, destid_unique)), core_counties_popo)
+
+
+# no diff when pop adjusted!!! because what we're really asking is: which counties are linked most often 
+
+```
+
+```{r exploratory map of origins and destinations }
+
+library(sf)
+library(ggplot2)
+library(dplyr)
+
+
+# Load US counties shapefile
+counties <- st_read("https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json")
+
+# Filter out noncontiguous areas by removing counties with state FIPS codes for Alaska (02), Hawaii (15), and other noncontiguous areas
+noncontiguous_fips <- c("02", "15", "72")
+counties <- counties %>%
+  filter(!substr(id, 1, 2) %in% noncontiguous_fips)
+
+# Add columns to identify core destinations and origins
+counties <- counties %>%
+  mutate(core_dest = as.character(id) %in% core_destinations,
+         core_orig = as.character(id) %in% core_origins)
+
+# Plot the map
+ggplot() +
+  geom_sf(data = counties, aes(fill = ifelse(core_dest, "Core Destination", ifelse(core_orig, "Core Origin", "Other"))), color = "black") +
+  scale_fill_manual(values = c("Core Destination" = "red", "Core Origin" = "blue", "Other" = "white")) +
+  labs(title = "US Counties: Core Destinations (Red) and Core Origins (Blue)",
+       fill = "Category") +
+  theme_minimal()
+
+```
+
+```{r adding health data}
+#add health data
+
+# Create dataframes mapping county IDs to clusters
+# i don't totally trust this... seems like we need a way to verify that the order doesn't change 
+#origin_cluster_df <- data.frame(origid = origid_unique, cluster = clusters_origin)
+#destination_cluster_df <- data.frame(destid = destid_unique, cluster = clusters_destination)
+
+#tsub_o = tsub %>% filter(origid %in% origin_cluster_df$origid) %>% select(rate_o0, pop_o0, origid)
+#tsub_d = tsub %>% filter(destid %in% destination_cluster_df$destid) %>% select(rate_d0, pop_d0, destid)
+
+#origin_ch = merge(tsub_o, origin_cluster_df, by = "origid")
+#dest_ch = merge(tsub_d, destination_cluster_df, by = "destid")
+
+#hist(o_decomp)
+
+
+library(maps)
+
+#map("county", fill = TRUE, col = as.factor(origin_ch$cluster))
+#map("county", fill = TRUE, col = as.factor(dest_ch$cluster))
+
+
+```
+
+We expect to see high levels of dissimilarity in health among counties in the core tensor because migration is often bimodal indicating that counties with very poor health on average and very good health on average are most likely to be part of the tensor.
+
+Similar logic could be extended to the health distribution of migrants: only the most and least healthy individuals migrate. Because we suspect heterogeneity in the relationship between migration and health across counties, we also expect the health of counties included and excluded from our core tensor to be heterogeneous. Therefore, we expect counties and educational attainment groups in the core migration system to have significantly different health than counties not in the core migration system.
+
+# Discussion
+
+Originally, we proposed the use of ACS mobility data to assess migration because we thought that the IRS origin-destination pairs for each year could help us understand the effects of county-interconnectedness over time. However, because IRS and ACS datasets represent different populations, joining IRS county-to-county migration flow data to ACS demographic estimates required many assumptions. Thus, we have decided to use ACS five-year estimates of demographic mobility. As a result, our analyses will not be applicable to migration as a “system,” (i.e. origin and destination pairs) but instead will allow us to better understand how social groups of people migrate across the United States.
+
+Another downside of the ACS mobility data is that ACS does not publish single-year estimates of county-level socioeconomic group mobility. Therefore, we must use five-year estimates. Five-year estimates provide an imprecise understanding of migration over time; however, they allow for greater representation among small geographies and sociodemographic groups (less missingness due to suppression). Therefore, in this aim, we are unable to fully assess temporal patterns of migration. Instead, we prioritize understanding mobility patterns across sociodemographic identity, specifically educational attainment, rather than over time.
+
+There are many possible dimension reduction techniques that we could employ in place of or in addition to tensor factorization. If time, we will attempt to confirm our tensor factorization findings using principal component analysis (PCA) which has been used to study population mobility during the COVID-19 pandemic (Elarde et al. 2021), to assess factors related to illegal immigration into Nigeria (Uzomah and Madu 2020), and to measure urban population movement in China using cell phone data (Sun, and Axhausen, n.d.). PCA is a top-down approach which systematically discards components that do not explain variance in a dataset, sometimes resulting in loss of structure (Allen, n.d.). Meanwhile, our application of tensor factorization will assess dissimilarity within each component to indicate the components that are most meaningful. If implemented correctly, PCA and tensor factorization should yield similar results.
+
+# Methods
+
+```{r}
+# some more exploratory stuff 
+
+dest_ch %>% count(cluster)
+origin_ch %>% count(cluster)
+
+origin_ch %>% filter(cluster == 2)
+```
+
+<!--# grab the top most populous counties; grab the biggest sources and the biggest sinks and compare; don't need the cluster - just rank the decomp -->
+
+This is only the clusters identified via migration (this has been done already by that xchiv paper) Need to do another clustering of premature age-adjusted mortality.
+
+Origin map shows which counties are similar in terms of their frequency (?) of being origins.
+
+Destination map shows which counties are similar in terms of their frequency (?) of being destinations.
+
+Frequency has a question mark because I'm unsure how to define the fact that these are linked in terms of both number of migrants (ie the values of the tensor entries themselves) as well as year of migration (ie the third dimension of the tensor)
+
+State-level clustering (especially as shown in the origin map) might be the result of data collection things?? may need to investigate further
+
+<!--# mann whitney ?? something kruskal-wallis?? spearmans correlation (rank based correlation)?? need a non parametric two sample test  -->
+
+<!--# calculate the difference between population rank and migration rank (ie the rank within the  -->
+
+\###################################################################
+
+SCRATCH
+
+There are many different tensor decomposition methods. Two of the most common decomposition methods are Canonical Polyadic (CP) decomposition and Tucker3 decomposition. CP decomposition performs better than Tucker3 decomposition on sparse data (Schein et al. 2015a; Kolda and Bader 2008; Fanaee-T and Gama 2016). However, the Tucker3 decomposition method is commonly used when analyzing variability within multiple dimensions (Dong et al. 2010). Since we are interested in quantifying patterns across all dimensions of our tensor, the Tucker3 decomposition method is the best choice. The results of this decomposition will represent the most typical or strongest patterns of migration to destination for sociodemographic groups during specific time periods. In order to identify patterns in our data that do not represent the “typical” we will use a Gini coefficient to rank components of our factor matrices (Schein et al. 2015b). Components with the highest rank (largest Gini coefficient) will represent components that have the most extreme differences across the dimension of interest, i.e. components with the highest rank will represent counties, time periods, migration types, and educational attainment groups with anomalous migration patterns. The Gini coefficient has been used for this purpose by several other studies of migration (Schein et al. 2015c; Nguyen and Garimella 2017). Specifically, to test Hypothesis 3A, we will calculate and rank the Gini coefficient for each component of our tensor to establish the counties, time periods, migration types, and educational attainment groups with the most common and the least common migration patterns. To test Hypothesis 3B, we will use a simple two sample t-test to determine whether the self-reported poor mental health days and age-adjusted mortality rates of counties identified in Hypothesis 3A are like counties not identified in Hypothesis 3A. Self-reported poor mental health days and age-adjusted mortality were used in Aims 1 and 2 respectively, so we include them as outcomes of interest with hopes of confirming our findings of Aims 1 and 2.
