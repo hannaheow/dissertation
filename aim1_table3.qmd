@@ -1,0 +1,17 @@
+---
+title: "Table 3: Average effect of each potential mediator on poor mental health days when all mediators are included in the model for poor mental health days"
+editor: visual
+---
+
+| Mediator                    | Large Central Metro (Effect \[95% CI\]) | t      | df  | p        | Noncore (Effect \[95% CI\]) | t      | df   | p        |
+|--------|----------|--------|--------|--------|--------|--------|--------|--------|
+| **Income Inequality**       | 0.043 (0.011, 0.075)                    | 2.61   | 389 | 0.009    | 0.053 (0.028, 0.078)        | 4.17   | 1376 | \< 0.001 |
+| **Social associations**     | − 0.006 (− 0.042, 0.030)                | −0.34  | 389 | 0.73     | 0.032 (0.005, 0.058)        | 2.37   | 1376 | 0.02     |
+| **Access to exercise**      | − 0.104 (− 0.145, − 0.063)              | −5.02  | 389 | \< 0.001 | − 0.061 (− 0.082, − 0.040)  | −5.64  | 1376 | \< 0.001 |
+| **Food environment**        | − 0.187 (− 0.233, − 0.160)              | −10.49 | 389 | \< 0.001 | − 0.271 (− 0.297, − 0.246)  | −21.00 | 1376 | \< 0.001 |
+| **Mental health providers** | − 0.035 (− 0.071, − 0.0003)             | −1.98  | 389 | 0.05     | 0.050 (0.023, 0.077)        | 3.65   | 1376 | \< 0.001 |
+| **Air pollution**           | 0.018 (− 0.013, 0.049)                  | 1.12   | 389 | 0.26     | − 0.043 (− 0.070, − 0.016)  | −3.16  | 1376 | 0.002    |
+| **Violent crime**           | 0.062 (0.026, 0.097)                    | 3.44   | 389 | \< 0.001 | 0.048 (0.030, 0.067)        | 5.16   | 1376 | \< 0.001 |
+| **Severe housing cost**     | − 0.030 (− 0.073, 0.014)                | −1.34  | 389 | 0.18     | − 0.012 (− 0.037, 0.014)    | −0.91  | 1376 | 0.36     |
+
+*Note*: Small metro is the reference category for each urbanicity comparison, and each mediator is standardized to compare effects. This table includes only Large central metro and Noncore counties because these are the only categories for which the total effect of urbanicity on average poor mental health days was statistically significant. See Table 8 in the appendix for potential mediation effects for all urbanicity categories.

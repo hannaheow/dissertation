@@ -1,0 +1,14 @@
+---
+title: "Table 2: Average effect of urbanicity on poor mental health days reported per month after allowing average outcomes to vary by state and adjusting for age, income, education, and race/ethnicity"
+editor: visual
+---
+
+| Urbanicity Category     | State variation only (Estimate \[95% CI\]) | t    | df    | p        | State variation and demographic effects (Estimate \[95% CI\]) | t     | df   | p        |
+|--------|--------|--------|--------|--------|--------------|--------|--------|--------|
+| **Large Central Metro** | − 0.31 (− 0.40, − 0.22)                    | −6.8 | 388.2 | \< 0.001 | − 0.24 (− 0.31, − 0.16)                                       | −5.78 | 423  | \< 0.001 |
+| **Large Fringe Metro**  | − 0.26 (− 0.32, − 0.21)                    | −9.2 | 689.5 | \< 0.001 | − 0.04 (− 0.10, 0.01)                                         | −1.49 | 723  | 0.14     |
+| **Medium Metro**        | − 0.06 (− 0.11, − 0.01)                    | −2.5 | 686.2 | 0.01     | − 0.003 (− 0.05, 0.04)                                        | −0.14 | 727  | 0.89     |
+| **Micropolitan**        | 0.11 (0.07, 0.15)                          | 5.2  | 952.9 | \< 0.001 | − 0.004 (− 0.05, 0.04)                                        | −0.17 | 996  | 0.86     |
+| **Noncore**             | 0.21 (0.17, 0.25)                          | 10.7 | 1652  | \< 0.001 | 0.072 (0.026, 0.12)                                           | 3.06  | 1690 | 0.002    |
+
+*Note*: Small metro is the reference category for each urbanicity comparison.

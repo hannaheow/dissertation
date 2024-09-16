@@ -1,5 +1,7 @@
 ---
 title: "Manuscript 3: Tensor Factorization of County-to-County Migration"
+execute: 
+  eval: false
 format: html
 editor: visual
 bibliography: references.bib
@@ -31,7 +33,7 @@ We then apply a threshold value to determine which counties have significant (gr
 
 After establishing core origin counties and core destination counties, we used a two sample t-test to compare the average health of core origins to the average health of core destinations as well as the average health of noncore counties to the average health of core origins and core destinations combined.
 
-```{r load data, create tensor }
+```{r load data, create tensor, include = FALSE }
 #this data was created in the wrangle_premature_norace.R script which is part of the separate migration_selection_sub git repo
 load("data_processed_aim2/migterm_imp.RData")
 
@@ -97,7 +99,7 @@ for (i in 1:nrow(tsub)) {
 migtensor_popo = rTensor::as.tensor(tarray)
 ```
 
-```{r cp decomp accounting for best fit ; includes pop adj and no pop adj}
+```{r cp decomp accounting for best fit ; includes pop adj and no pop adj, include = FALSE}
 
 # Function to perform CP decomposition and calculate the fit
 perform_cp_decomp <- function(tensor, num_components, seed) {
@@ -177,7 +179,7 @@ non_core_counties_popo <- setdiff(unique(c(origid_unique, destid_unique)), core_
 
 ```
 
-```{r exploratory map of origins and destinations }
+```{r exploratory map of origins and destinations, include = FALSE}
 
 library(sf)
 library(ggplot2)
@@ -207,7 +209,7 @@ ggplot() +
 
 ```
 
-```{r adding health data}
+```{r adding health data, include = FALSE}
 #add health data
 
 # Create dataframes mapping county IDs to clusters
@@ -246,7 +248,7 @@ There are many possible dimension reduction techniques that we could employ in p
 
 # Methods
 
-```{r}
+```{r, include = FALSE}
 # some more exploratory stuff 
 
 dest_ch %>% count(cluster)

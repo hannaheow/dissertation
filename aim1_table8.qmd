@@ -1,0 +1,17 @@
+---
+title: "Table 8: Average effect (95% confidence interval) of each potential mediator on poor mental health days when all mediators are included in the model for poor mental health days"
+editor: visual
+---
+
+| Mediator                    | Large Central Metro (95% CI) | Large Fringe Metro (95% CI)    | Medium Metro (95% CI)          | Micropolitan (95% CI)          | Noncore (95% CI)           |
+|------------|------------|------------|------------|------------|------------|
+| **Income inequality**       | 0.043 (0.011, 0.075)         | **0.039 (0.013, 0.065)**       | **0.031 (0.003, 0.060)**       | **0.072 (0.045, 0.098)**       | 0.053 (0.028, 0.078)       |
+| **Social associations**     | − 0.006 (− 0.042, 0.030)     | **− 0.001 (− 0.025, 0.023)**   | **− 0.006 (− 0.030, 0.018)**   | **− 0.035 (− 0.057, − 0.013)** | 0.032 (0.005, 0.058)       |
+| **Access to exercise**      | − 0.104 (− 0.145, − 0.063)   | **− 0.140 (− 0.165, − 0.115)** | **− 0.097 (− 0.124, − 0.070)** | **− 0.067 (− 0.089, − 0.045)** | − 0.061 (− 0.082, − 0.040) |
+| **Food environment**        | − 0.187 (− 0.233, − 0.160)   | **− 0.278 (− 0.308, − 0.248)** | **− 0.222 (− 0.251, − 0.192)** | **− 0.216 (− 0.243, 0.190)**   | − 0.271 (− 0.297, − 0.246) |
+| **Mental health providers** | − 0.035 (− 0.071, − 0.0003)  | **− 0.061 (− 0.089, − 0.032)** | **− 0.012 (− 0.040, 0.015)**   | **0.012 (− 0.012, 0.036)**     | 0.050 (0.023, 0.077)       |
+| **Air pollution**           | 0.018 (− 0.013, 0.049)       | **0.027 (0.000, 0.054)**       | **0.020 (− 0.005, 0.045)**     | **0.038 (0.014, 0.063)**       | − 0.043 (− 0.070, − 0.016) |
+| **Violent crime**           | 0.062 (0.026, 0.097)         | **0.067 (0.042, 0.092)**       | **0.017 (− 0.008, 0.042)**     | **0.032 (0.011, 0.053)**       | 0.048 (0.030, 0.067)       |
+| **Severe housing cost**     | − 0.030 (− 0.073, 0.014)     | **− 0.030 (− 0.060, 0.001)**   | **− 0.034 (− 0.068, 0.000)**   | **− 0.072 (− 0.099, − 0.045)** | − 0.012 (− 0.037, 0.014)   |
+
+*Note*: Bolded entries highlight estimates that were not reported in the main text. Small metro is the reference category for each urbanicity comparison, and each mediator is standardized to compare effects. This table includes potential mediation effects for all urbanicity categories, even those which do not have statistically significant total effects on self-reported poor mental health days.

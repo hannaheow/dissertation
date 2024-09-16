@@ -1,0 +1,19 @@
+---
+title: "Table 7: Results from model selection"
+editor: visual
+---
+
+| Knots for income | Knots for education | Degrees of Freedom | AIC    |
+|------------------|---------------------|--------------------|--------|
+| 3                | 2                   | 10                 | 1225.3 |
+| 4                | 3                   | 12                 | 1226.2 |
+| 4                | 4                   | 13                 | 1226.7 |
+| 3                | 3                   | 11                 | 1227.2 |
+| 2                | 1                   | 8                  | 1227.3 |
+| 3                | 4                   | 12                 | 1227.5 |
+| 2                | 2                   | 9                  | 1229.1 |
+| 2                | 3                   | 10                 | 1231.2 |
+| 1                | 2                   | 8                  | 1260.2 |
+| 1                | 1                   | 7                  | 1260.6 |
+
+*Note*: In addition to splines for income and education, all models include a coefficient for the interaction between education and income and coefficients for percent over age 65, percent Black, and percent Hispanic. Note that these AIC values are for logistic regression predicting the probability of Micropolitan counties being the same as Small Metro counties. The model selected in this process was used to predict the probability of each urbanicity category with Small Metro treated as the reference category. Because AIC values for all models with greater than 2 splines for both income and education were approximately equivalent and because these models need to be applicable for all urbanicity comparisons in addition to Micropolitan versus Small Metro, we chose a final model with three knots for both income and education, believing this to be more applicable across urbanicity comparisons.
