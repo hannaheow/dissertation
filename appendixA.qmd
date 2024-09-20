@@ -1,0 +1,170 @@
+---
+title: "Supplementary material for manuscript 1"
+execute:
+  echo: false  # Hides all code
+  warning: false  # Suppresses warnings
+  message: false  # Suppresses messages
+  fig-cap: false 
+  fig-nofloat: true 
+---
+
+## Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
+
+::: {#tbl-aim1_table1}
+| Characteristic                        | Large Central Metro | Large Fringe Metro | Medium Metro | Small Metro | Micropolitan | Noncore     | Overall     |
+|---------|---------|---------|---------|---------|---------|---------|---------|
+| **n**                                 | 68                  | 368                | 372          | 357         | 641          | 1335        | 3141        |
+| **Some college (%)**                  | 70 (8)              | 64 (11)            | 61 (11)      | 61 (11)     | 57 (11)      | 55 (12)     | 58 (12)     |
+| **Median household income (\$K)**     | 70.7 (18.8)         | 74.6 (19.0)        | 59.6 (12.0)  | 56.6 (10.1) | 53.1 (11.1)  | 49.7 (9.8)  | 55.7 (14.5) |
+| **Over 65 (%)**                       | 14 (2)              | 17 (3)             | 18 (4)       | 19 (5)      | 19 (4)       | 22 (5)      | 20 (5)      |
+| **Black (%)**                         | 21 (14)             | 11 (14)            | 11 (14)      | 9 (12)      | 8 (14)       | 8 (15)      | 9 (14)      |
+| **Hispanic (%)**                      | 20 (15)             | 10 (10)            | 11 (15)      | 9 (12)      | 11 (16)      | 9 (14)      | 10 (14)     |
+| **Poor mental health days per month** | 4.35 (0.49)         | 4.43 (0.57)        | 4.68 (0.54)  | 4.66 (0.65) | 4.74 (0.64)  | 4.72 (0.73) | 4.67 (0.67) |
+:::
+
+------------------------------------------------------------------------
+
+## Table 2: Average Effect of Urbanicity on Poor Mental Health Days
+
+::: {#tbl-aim1_table2}
+| Urbanicity Category     | State Variation Only (Estimate \[95% CI\]) | t    | df    | p        | State Variation and Demographic Effects (Estimate \[95% CI\]) | t     | df   | p        |
+|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+| **Large Central Metro** | − 0.31 (− 0.40, − 0.22)                    | −6.8 | 388.2 | \< 0.001 | − 0.24 (− 0.31, − 0.16)                                       | −5.78 | 423  | \< 0.001 |
+| **Large Fringe Metro**  | − 0.26 (− 0.32, − 0.21)                    | −9.2 | 689.5 | \< 0.001 | − 0.04 (− 0.10, 0.01)                                         | −1.49 | 723  | 0.14     |
+| **Medium Metro**        | − 0.06 (− 0.11, − 0.01)                    | −2.5 | 686.2 | 0.01     | − 0.003 (− 0.05, 0.04)                                        | −0.14 | 727  | 0.89     |
+| **Micropolitan**        | 0.11 (0.07, 0.15)                          | 5.2  | 952.9 | \< 0.001 | − 0.004 (− 0.05, 0.04)                                        | −0.17 | 996  | 0.86     |
+| **Noncore**             | 0.21 (0.17, 0.25)                          | 10.7 | 1652  | \< 0.001 | 0.072 (0.026, 0.12)                                           | 3.06  | 1690 | 0.002    |
+:::
+
+------------------------------------------------------------------------
+
+## Table 3: Average Effect of Each Potential Mediator on Poor Mental Health Days
+
+::: {#tbl-aim1_table3}
+| Mediator                    | Large Central Metro (Effect \[95% CI\]) | t      | df  | p        | Noncore (Effect \[95% CI\]) | t      | df   | p        |
+|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+| **Income Inequality**       | 0.043 (0.011, 0.075)                    | 2.61   | 389 | 0.009    | 0.053 (0.028, 0.078)        | 4.17   | 1376 | \< 0.001 |
+| **Social associations**     | − 0.006 (− 0.042, 0.030)                | −0.34  | 389 | 0.73     | 0.032 (0.005, 0.058)        | 2.37   | 1376 | 0.02     |
+| **Access to exercise**      | − 0.104 (− 0.145, − 0.063)              | −5.02  | 389 | \< 0.001 | − 0.061 (− 0.082, − 0.040)  | −5.64  | 1376 | \< 0.001 |
+| **Food environment**        | − 0.187 (− 0.233, − 0.160)              | −10.49 | 389 | \< 0.001 | − 0.271 (− 0.297, − 0.246)  | −21.00 | 1376 | \< 0.001 |
+| **Mental health providers** | − 0.035 (− 0.071, − 0.0003)             | −1.98  | 389 | 0.05     | 0.050 (0.023, 0.077)        | 3.65   | 1376 | \< 0.001 |
+| **Air pollution**           | 0.018 (− 0.013, 0.049)                  | 1.12   | 389 | 0.26     | − 0.043 (− 0.070, − 0.016)  | −3.16  | 1376 | 0.002    |
+| **Violent crime**           | 0.062 (0.026, 0.097)                    | 3.44   | 389 | \< 0.001 | 0.048 (0.030, 0.067)        | 5.16   | 1376 | \< 0.001 |
+| **Severe housing cost**     | − 0.030 (− 0.073, 0.014)                | −1.34  | 389 | 0.18     | − 0.012 (− 0.037, 0.014)    | −0.91  | 1376 | 0.36     |
+:::
+
+------------------------------------------------------------------------
+
+## Table 4: Mediating Effects Between Urbanicity and Average Poor Mental Health Days
+
+::: {#tlb-aim1_table4}
+| Mediating Effect                | Large Central Metro (Effect \[95% CI\]) | Noncore (Effect \[95% CI\]) |
+|----------------------|----------------------------|----------------------|
+| **Total natural direct effect** | − 0.13 (− 0.14, − 0.13)                 | 0.09 (0.09, 0.09)           |
+| **Natural indirect effects**    |                                         |                             |
+| **Total**                       | − 0.11 (− 0.22, 0.02)                   | 0.005 (− 0.07, 0.11)        |
+| **Food environment**            | − 0.07 (− 0.14, 0.00)                   | 0.01 (− 0.06, 0.07)         |
+| **Violent crime**               | 0.10 (0.01, 0.19)                       | − 0.02 (− 0.04, 0.00)       |
+| **Housing**                     | − 0.04 (− 0.12, 0.05)                   | 0.00 (− 0.03, 0.03)         |
+| **Access to exercise**          | −                                       |                             |
+:::
+
+## Table 5: Data sources and years
+
+::: {#tbl-aim5_table5}
+| Variable                             | Description                                                                                 | Source                                                                | Year(s)       |
+|-----------------|---------------------|-----------------|-----------------|
+| **Poor mental health days**          | Average number of mentally unhealthy days reported in past 30 days (age-adjusted)           | Behavioral Risk Factor Surveillance System (BRFSS)                    | 2018          |
+| **Percent Non-Hispanic Black**       | Percentage of the population that is non-Hispanic Black or African American                 | US Census Bureau                                                      | 2019          |
+| **Percent Hispanic**                 | Percentage of the population that is Hispanic                                               | US Census Bureau                                                      | 2019          |
+| **Percent over 65**                  | Percentage of the population ages 65 and older                                              | US Census Bureau                                                      | 2019          |
+| **Median household income**          | The income where half of households in a county earn more and half of households earn less  | Small Area Income and Poverty Estimates (SAIPE)                       | 2019          |
+| **Some college**                     | Percentage of adults ages 25–44 with some post-secondary education                          | American Community Survey (ACS)                                       | 2015–2019     |
+| **Social associations**              | Number of membership associations per 10,000 population                                     | US Census, County business patterns                                   | 2018          |
+| **Access to exercise opportunities** | Percentage of population with adequate access to locations for physical activity            | Business Analyst, Delorme map data, ESRI, & US Census Tigerline Files | 2010 and 2019 |
+| **Food environment index**           | Index of factors that contribute to a healthy food environment, from 0 (worst) to 10 (best) | USDA Food Environment Atlas, Map the Meal Gap from Feeding America    | 2015 and 2018 |
+| **Mental health providers**          | Ratio of population to mental health providers                                              | National Provider Identification file                                 | 2020          |
+| **Air pollution—particulate matter** | Average daily density of fine particulate matter in micrograms per cubic meter (PM2.5)      | Environmental Public Health Tracking Network                          | 2016          |
+| **Violent crime**                    | Number of reported violent crime offenses per 100,000 population                            | Uniform crime reporting—FBI                                           | 2014 and 2016 |
+| **Severe housing cost burden**       | Percentage of households that spend 50% or more of their household income on housing        | American Community Survey, 5-year estimates                           | 2015–2019     |
+| **Income inequality**                | Ratio of household income at the 80th percentile to income at the 20th percentile           | American Community Survey, 5-year estimates                           | 2015–2019     |
+
+*Note*: When more than one year is reported, years were combined to create better estimates for small populations. Data and descriptions come from the 2021 CHRR publicly available dataset.
+:::
+
+## Table 6: Mean (SD) of all mediators by urbanicity category
+
+::: {#tbl-aim6_table6}
+| Mediator                       | Large Central Metro (n=68) | Large Fringe Metro (n=368) | Medium Metro (n=372) | Small Metro (n=357) | Micropolitan (n=641) | Noncore (n=1335) | Overall (n=3141) |
+|---------|---------|---------|---------|---------|---------|---------|---------|
+| **Income inequality**          | 5.20 (1.03)                | 4.26 (0.57)                | 4.51 (0.63)          | 4.55 (0.72)         | 4.54 (0.76)          | 4.51 (0.82)      | 4.51 (0.77)      |
+| **Social associations**        | 9.11 (4.02)                | 9.02 (3.06)                | 10.0 (3.78)          | 11.0 (4.31)         | 11.9 (4.45)          | 12.8 (7.52)      | 11.6 (5.93)      |
+| **Access to exercise**         | 0.96 (0.04)                | 0.74 (0.21)                | 0.70 (0.21)          | 0.67 (0.22)         | 0.65 (0.19)          | 0.54 (0.24)      | 0.63 (0.23)      |
+| **Food environment index**     | 8.00 (0.69)                | 8.26 (0.78)                | 7.63 (0.90)          | 7.62 (0.89)         | 7.36 (1.04)          | 7.14 (1.29)      | 7.45 (1.15)      |
+| **Mental health providers**    | 0.0034 (0.0019)            | 0.0017 (0.0015)            | 0.0020 (0.0017)      | 0.0019 (0.0017)     | 0.0019 (0.0017)      | 0.0013 (0.0020)  | 0.0017 (0.0018)  |
+| **Air pollution**              | 8.92 (1.52)                | 8.36 (1.41)                | 8.34 (1.56)          | 7.87 (1.54)         | 7.65 (1.61)          | 7.10 (1.68)      | 7.64 (1.69)      |
+| **Violent crime**              | 595 (335)                  | 227 (157)                  | 319 (198)            | 387 (195)           | 270 (177)            | 201 (165)        | 252 (193)        |
+| **Severe housing cost burden** | 0.17 (0.04)                | 0.12 (0.03)                | 0.12 (0.03)          | 0.12 (0.03)         | 0.11 (0.03)          | 0.098 (0.03)     | 0.11 (0.04)      |
+:::
+
+## Table 7: Results from Model Selection
+
+::: {#tbl-aim1_table7}
+| Knots for Income | Knots for Education | Degrees of Freedom | AIC    |
+|------------------|---------------------|--------------------|--------|
+| 3                | 2                   | 10                 | 1225.3 |
+| 4                | 3                   | 12                 | 1226.2 |
+| 4                | 4                   | 13                 | 1226.7 |
+| 3                | 3                   | 11                 | 1227.2 |
+| 2                | 1                   | 8                  | 1227.3 |
+| 3                | 4                   | 12                 | 1227.5 |
+| 2                | 2                   | 9                  | 1229.1 |
+| 2                | 3                   | 10                 | 1231.2 |
+| 1                | 2                   | 8                  | 1260.2 |
+| 1                | 1                   | 7                  | 1260.6 |
+
+\*Note\*: In addition to splines for income and education, all models include a coefficient for the interaction between education and income and coefficients for percent over age 65, percent Black, and percent Hispanic. Note that these AIC values are for logistic regression predicting the probability of Micropolitan counties being the same as Small Metro counties. The model selected in this process was used to predict the probability of each urbanicity category with Small Metro treated as the reference category. Because AIC values for all models with greater than 2 splines for both income and education were approximately equivalent and because these models need to be applicable for all urbanicity comparisons in addition to Micropolitan versus Small Metro, we chose a final model with three knots for both income and education, believing this to be more applicable across urbanicity comparisons.
+:::
+
+## Table 8: Average Effect (95% Confidence Interval) of Each Potential Mediator on Poor Mental Health Days
+
+::: {#tbl-aim1_table8}
+| Mediator                    | Large Central Metro (95% CI) | Large Fringe Metro (95% CI)    | Medium Metro (95% CI)          | Micropolitan (95% CI)          | Noncore (95% CI)           |
+|------------|------------|------------|------------|------------|------------|
+| **Income inequality**       | 0.043 (0.011, 0.075)         | **0.039 (0.013, 0.065)**       | **0.031 (0.003, 0.060)**       | **0.072 (0.045, 0.098)**       | 0.053 (0.028, 0.078)       |
+| **Social associations**     | − 0.006 (− 0.042, 0.030)     | **− 0.001 (− 0.025, 0.023)**   | **− 0.006 (− 0.030, 0.018)**   | **− 0.035 (− 0.057, − 0.013)** | 0.032 (0.005, 0.058)       |
+| **Access to exercise**      | − 0.104 (− 0.145, − 0.063)   | **− 0.140 (− 0.165, − 0.115)** | **− 0.097 (− 0.124, − 0.070)** | **− 0.067 (− 0.089, − 0.045)** | − 0.061 (− 0.082, − 0.040) |
+| **Food environment**        | − 0.187 (− 0.233, − 0.160)   | **− 0.278 (− 0.308, − 0.248)** | **− 0.222 (− 0.251, − 0.192)** | **− 0.216 (− 0.243, 0.190)**   | − 0.271 (− 0.297, − 0.246) |
+| **Mental health providers** | − 0.035 (− 0.071, − 0.0003)  | **− 0.061 (− 0.089, − 0.032)** | **− 0.012 (− 0.040, 0.015)**   | **0.012 (− 0.012, 0.036)**     | 0.050 (0.023, 0.077)       |
+| **Air pollution**           | 0.018 (− 0.013, 0.049)       | **0.027 (0.000, 0.054)**       | **0.020 (− 0.005, 0.045)**     | **0.038 (0.014, 0.063)**       | − 0.043 (− 0.070, − 0.016) |
+| **Violent crime**           | 0.062 (0.026, 0.097)         | **0.067 (0.042, 0.092)**       | **0.017 (− 0.008, 0.042)**     | **0.032 (0.011, 0.053)**       | 0.048 (0.030, 0.067)       |
+| **Severe housing cost**     | − 0.030 (− 0.073, 0.014)     | **− 0.030 (− 0.060, 0.001)**   | **− 0.034 (− 0.068, 0.000)**   | **− 0.072 (− 0.099, − 0.045)** | − 0.012 (− 0.037, 0.014)   |
+:::
+
+*Note*: Bolded entries highlight estimates that were not reported in the main text. Small metro is the reference category for each urbanicity comparison, and each mediator is standardized to compare effects. This table includes potential mediation effects for all urbanicity categories, even those which do not have statistically significant total effects on self-reported poor mental health days.
+
+## Figure 1: Average number of poor mental health days reported in past month per county by urbanicity category {#fig-aim1_fig1}
+
+```{r}
+#| label: fig-aim1_fig1
+#| fig-cap: "Violin plot of the average number of poor mental health days by urbanicity category" 
+knitr::include_graphics("aim1_files/aim1_fig1.jpg")
+```
+
+
+## Figure 2: Plot to justify nonlinear relationship between education and poor mental health days {#fig-aim1_fig2}
+
+```{r}
+#| label: fig-aim1_fig2
+#| fig-cap: "Relationship between percent adults over 25 years old with some college education and the average number of mentally unhealthy days per month"
+knitr::include_graphics("aim1_files/aim1_fig2.jpg")
+```
+
+
+## Figure 3: Plot to justify nonlinear relationship between income and poor mental health days {#fig-aim1_fig3}
+
+```{r}
+#| label: fig-aim1_fig3
+#| fig-cap: "Relationship between median household income and the average number of mentally unhealthy days per month"
+knitr::include_graphics("aim1_files/aim1_fig3.jpg")
+```

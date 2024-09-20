@@ -1,0 +1,24 @@
+---
+title: "README"
+output: pdf_document
+date: "2024-09-18"
+---
+
+To do: 
+
+- Double space pdf output 
+- reformat / resize all tables to print nicely 
+- check all citations - make sure in-text citations look nice 
+- check format of citations - what did ken and megan use? 
+- need one mega citations list 
+- move page numbers to top right 
+- check other UW formatting specifics to match 
+
+- Appendix A: 
+    - titles/ links of tables are misaligned 
+    - make sure in-text tables are linked instead of appendix tables (tables 1:4) 
+
+
+- Aim 2: 
+    - create aic table for appendix 
+    - make table 1 readable/ formatted correctly for pdf 

@@ -1,3 +1,5 @@
+\documentclass{report}
+
 %% CAPTIONS
 \usepackage{caption}
 \DeclareCaptionStyle{italic}[justification=centering]
@@ -6,34 +8,24 @@
 \captionsetup[table]{style=italic,format=hang,singlelinecheck=true}
 
 %% FONT
-\usepackage{bera}
+\usepackage{lmodern}
 \usepackage[charter]{mathdesign}
 \usepackage[scale=0.9]{sourcecodepro}
 \usepackage[lf,t]{FiraSans}
 \usepackage{fontawesome}
 
-
 %% HEADERS AND FOOTERS
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-% \rfoot{\Large\sffamily\raisebox{-0.1cm}{\textbf{\thepage}}} % Remove or comment out this line if not needed
-% \lhead{\textsf{\expandafter{\@title}}} % Remove or comment out this line to remove the page title
-\rhead{\normalsize\sffamily\raisebox{0cm}{\thepage}} % Page number in the top right corner
-\cfoot{} % Clear the center footer
-\lhead{} % Ensure that there is nothing in the left header
-\chead{} % Ensure that there is nothing in the center header
-\setlength{\headheight}{15pt}
-\renewcommand{\headrulewidth}{0pt} % Set to 0pt to remove the horizontal line in the header
-\renewcommand{\footrulewidth}{0pt} % You can keep this or remove it if you don't want a line in the footer
-\fancypagestyle{plain}{%
-\fancyhf{} % clear all header and footer fields
-\fancyhead[R]{\normalsize\sffamily\thepage} % Set page number in the top right corner for plain style pages
-\renewcommand{\headrulewidth}{0pt} % No header line in the plain style
-\renewcommand{\footrulewidth}{0pt} % No footer line in the plain style
-}
+\fancyhf{}  % Clear any previous header/footer settings
+\fancyhead[R]{\normalsize\sffamily\thepage}  % Page number in top-right corner
+\renewcommand{\headrulewidth}{0pt}  % No header line
+\renewcommand{\footrulewidth}{0pt}  % No footer line
+\cfoot{}  % Clear footer
 
-
-
+%% Double Spacing
+\usepackage{setspace}
+\doublespacing  % Apply double spacing throughout the document
 %% MATHS
 \usepackage{bm,amsmath}
 \allowdisplaybreaks

@@ -2,7 +2,7 @@
 title: "Manuscript 2: Accounting for migration in spatiotemporal models of county-level health"
 author: "Hannah Olson-Williams, Amy Cochran"
 format: 
-  docx:
+  pdf:
     message: false
     warning: false
     echo: false

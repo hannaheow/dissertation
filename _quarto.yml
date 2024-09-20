@@ -9,18 +9,13 @@ book:
       file: index.qmd
     - "intro.qmd"
     - "aim1.qmd"
-    - "aim1_table1.qmd"
-    - "aim1_table2.qmd"
-    - "aim1_table3.qmd"
-    - "aim1_table4.qmd"
-    - "aim1_table5.qmd"
-    - "aim1_table6.qmd"
-    - "aim1_table7.qmd"
-    - "aim1_table8.qmd"
     - "aim2.qmd"
     - "aim3.qmd"
     - "conclusion.qmd"
     - "refs.qmd"
+  appendices:
+    - "appendixA.qmd"
+    - "appendixB.qmd"
   sidebar:
     style: "docked"
 
