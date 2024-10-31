@@ -3,21 +3,8 @@ title: "Introduction"
 format: pdf
 editor: visual
 bibliography: references.bib
+citeproc: true
 ---
-
-Within each county, health is affected by compositional and contextual factors.
-
-define compositional
-
-define contextual
-
-Contextual and compositional factors are inherently linked and potentially cyclical.
-
-however, the contextual-compositional cycle does not occur in isolation. Affected by neighbors as well as state and regional policies.
-
-aim 1: only contextual
-
-aim 2: only composition
 
 Place-based measures of health can be simplified into "contextual" and "compositional" categories. **Contextual factors** refer to the structural characteristics of a place, such as greenspace, transportation options, and access to healthcare. In this dissertation, we consider contextual factors to be synonymous with structural factors since they represent the broader social, economic, and environmental structures that shape health outcomes. In contrast, **compositional factors** pertain to the characteristics of individuals within a place, including demographic attributes, behaviors, and health status [@macintyre2002a]. Though we may think of them separately, context and composition are mutually reinforcing [@cummins2007]. Contextual features (an isthmus, for example) shape the behaviors of a population (enjoyment of water and outdoor activities), and these behaviors then increase demand for additional contextual features (bike paths) which in turn affect the health of the total population residing in Madison. This interdependence highlights the complexity of addressing health disparities, as interventions must consider both the characteristics of the population and the structural conditions of the place. Moreover, both types of factors are inherently linked to population migration, as they both affect and are affected by the movement of people.
 
@@ -91,7 +78,7 @@ According to Lee’s theory of migration, migration is selective, meaning that i
 
 The displacement and concentration hypotheses discussed by Elliott and Pais [@elliott2010]align with Lee's framework of migration as a selective process driven by push and pull factors. The **displacement hypothesis** suggests that in more urban areas, socially vulnerable populations are disproportionately pushed out when a natural disaster occurs. This displacement occurs because these populations often lack the resources or social capital to recover in place, especially as wealthier residents leverage recovery dollars to rebuild and redevelop. This dynamic can be seen as a case of negative selection, where the most disadvantaged are pushed out of damaged regions due to the intersection of environmental hardship and personal financial strain.
 
-On the other hand, the **concentration hypothesis** posits that in rural areas, socially vulnerable populations are more likely to remain or even increase in number when a natural disaster occurs. Here, push factors may still be at play, but the ability or willingness of wealthier residents to leave, coupled with falling property values, leads to the concentration of disadvantaged groups in these areas. This scenario could reflect the opposite end of Lee’s migration selectivity, where those who are least able to move—due to financial constraints or lack of alternative options—end up staying in or moving into the most impacted regions, further reinforcing local disadvantages​.
+On the other hand, the **concentration hypothesis** posits that in rural areas, socially vulnerable populations are more likely to remain or even increase in number when a natural disaster occurs. Here, push factors may still be at play, but the ability or willingness of wealthier residents to leave, coupled with falling property values, leads to the concentration of disadvantaged groups in these areas. This scenario could reflect the opposite end of Lee’s migration selectivity, where those who are least able to move—due to financial constraints or lack of alternative options—end up staying in or moving into the most impacted regions, further reinforcing local disadvantages​. This pattern mirrors trends seen in rural gentrification where the arrival of affluent newcomers pushes low-income rural residents to marginalized areas, intensifying economic and social inequality [@golding2014]. In both cases, the persistence or influx of vulnerable populations amplifies place-based disparities and strains local resources.
 
 Research has shown that migrants moving from resource-depleted regions to areas with more resources tend to have better health than the average population at their destination, while those migrating from resource-rich areas to more depleted regions often have worse health compared to the local population at their new location [@norman2005]. Additionally, when barriers to migration are high, migrants are often healthier than the destination population, either because they have been selected through the migration process or because unhealthy individuals are less likely to migrate under difficult circumstances [@halliday2008]. Without knowing the individual circumstances or motivations behind migration, it is difficult to determine whether changes in health are driven by push or pull factors. Disentangling the relationship between health changes and migration patterns is one of the challenges when analyzing county-level data. <!--# removed cumulative causation theory and migration systems theory  -->
 
@@ -99,11 +86,11 @@ These theories of migration provide a comprehensive framework for understanding 
 
 ## Our Framework
 
-The framework we use to think about the relationships between migration, urbanicity, and contextual and compositional measures of the health of a place is shown in Fig 1 (DRAFT). The left circle represents contextual factors, specifically the structural determinants of health, such as access to education, infrastructure, and environmental conditions. The right circle represents compositional factors, focusing on demographic characteristics, like age, gender, and socioeconomic status. We have made the contextual circle larger to reflect our value choice that contextual factors are more important to explaining the health of a place than compositional factors. CITE.
+[![Figure 1: Our Framework](images/framework.png)](Figure 1)
+
+The framework we use to think about the relationships between migration, urbanicity, and contextual and compositional measures of the health of a place is shown in Figure 1. The left circle represents contextual factors, specifically the structural determinants of health, such as access to education, infrastructure, and environmental conditions. The right circle represents compositional factors, focusing on demographic characteristics, like age, gender, and socioeconomic status. We have made the contextual circle larger to reflect our value choice that contextual factors are more important to explaining the health of a place than compositional factors. CITE.
 
 Urbanicity impacts both spheres. It affects context by shaping the built environment, access to resources, and exposure to environmental stressors. Simultaneously, it influences composition through population density, migration patterns, and social networks, which vary between urban and rural areas. Migration, driven by both push and pull factors, modifies the effect of urbanicity on contextual and compositional factors, often reshaping the health outcomes of individuals and communities within places. Thus, urbanicity links the structural and individual determinants of health, demonstrating how place-based and population-specific characteristics jointly influence health disparities. This framework emphasizes the intertwined nature of urbanicity, migration, and health outcomes, illustrating how contextual (structural) and compositional (demographic) factors both contribute to place-based health disparities.
-
-![DRAFT](images/clipboard-1725722638.png){width="638"}
 
 ## Policy Implications
 

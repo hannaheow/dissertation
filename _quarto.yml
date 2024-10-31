@@ -2,7 +2,7 @@ project:
   type: book
 
 book:
-  title: "Migration, Urbanicity, and Health: A Comprehensive Study of Mutually Reinforcing Contextual and Compositional Place-Based Determinants of Health"
+  title: "Migration, Urbanicity, and Health: Mutually Reinforcing Contextual and Compositional Place-Based Determinants of Health"
   author: "Hannah Olson-Williams"
   chapters:
     - text: "Front matter"
@@ -29,3 +29,5 @@ affiliation: Department of Population Health
 format:
   monashthesis-html: default
   monashthesis-pdf: default
+  monashthesis-docx: default
+prefer-html: true

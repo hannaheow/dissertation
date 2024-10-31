@@ -13,6 +13,7 @@ To do:
 - need one mega citations list 
 - move page numbers to top right 
 - check other UW formatting specifics to match 
+- check the whole document for "CITE" 
 
 - Appendix A: 
     - titles/ links of tables are misaligned 
@@ -22,3 +23,16 @@ To do:
 - Aim 2: 
     - create aic table for appendix 
     - make table 1 readable/ formatted correctly for pdf 
+- Aim 3: 
+    - write up the approach that is running in tensor_nn.sub 
+    - write up the limitations of tensor decomp (from the readings) 
+    - get results of tensor_nn.sub from chtc 
+    - run the tensor_nn.sub on padj 
+    - run spatial model of result from tensor_nn.sub on chtc
+    - run spatial model of result from tensor_nn.sub on padj on chtc 
+    
+- Intro: 
+    - add venn diagram of context/composition/migration/urbanicity 
+
+- MPIDR 
+- CHRR 

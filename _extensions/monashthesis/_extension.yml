@@ -49,3 +49,5 @@ contributes:
         - fonts.html
       include-in-header:
         file: fonts.html
+    docx:
+      output-file: "Olson-Williams_dissertation.docx"
