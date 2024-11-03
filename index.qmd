@@ -4,7 +4,7 @@ A thesis submitted for the degree of {{< meta degreetype >}} at the {{< meta aff
 
 # Copyright notice {.unnumbered}
 
-```{r}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 #| output: asis
 cat("Produced on",format(Sys.Date(), "%e %B %Y.\n\n"))
 cat("© {{< meta author >}} (",format(Sys.Date(), "%Y"),").", sep="")
@@ -12,25 +12,23 @@ cat("© {{< meta author >}} (",format(Sys.Date(), "%Y"),").", sep="")
 
 # Abstract {.unnumbered}
 
-The abstract should outline the main approach and findings of the thesis and must not be more than 500 words.
+Throughout this dissertation, we explore the interconnected impacts of migration and urbanicity on place-based health determinants across the United States. Traditional place-based health measures often overlook the dynamic influence of migration, while conventional migration studies typically do not assess the broader place-level health impacts on origin and destination locations. By examining contextual (structural) and compositional (individual) factors, we assess how migration flows influence local health outcomes across varying urban and rural environments. Using publicly accessible county-level data and IRS migration flow records, we highlight how urbanicity and migration patterns together shape place-based health disparities, with special emphasis on mental health, premature mortality, and socioeconomic factors. Employing advanced spatial and tensor decomposition models, we aim to provide insight into the dynamics of population health, offering implications for localized health policy interventions and resource allocation across diverse communities.
+
+
 
 # Declaration {.unnumbered}
 
-> Use only one of the following declarations (Standard thesis or Thesis including published works declaration) and remove the other.
-
-### Standard thesis
-
-This thesis is an original work of my research and contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+This thesis is an original work of my research and contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution. To the best of my knowledge and belief, this thesis contains no material previously written by another person, except where due reference is made in the text of the thesis.
 
 #### Publications included in this dissertation  {.unnumbered}
 
-The material in @sec-aim1 has been published in the *Community Mental Health Journal* on January 12, 2023 [@olson-williams2023].
+The material in @aim1 has been published in the *Community Mental Health Journal* on January 12, 2023 [@olson-williams2023].
 
-The material in @sec-aim2 has been submitted to the journal *Spatial and Spatio-temporal Epidemiology* for possible publication.
+The material in @aim2 will be submitted to the journal *Spatial and Spatio-temporal Epidemiology* for possible publication.
 
 #### Reproducibility statement
 
-This thesis is written using Quarto with renv [@renv] to create a reproducible environment. All materials (including the data sets and source files) required to reproduce this document can be found at the Github repository [`github.com/hannaheow/diss`](https://github.com/hannaheow/diss).
+This thesis is written using Quarto to create a reproducible environment. All materials (including the data sets and source files) required to reproduce this document can be found at the Github repository [`github.com/hannaheow/diss`](https://github.com/hannaheow/diss).
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 

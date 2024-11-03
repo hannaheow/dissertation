@@ -62,9 +62,9 @@ County characteristics are summarized by urbanicity category in [Table 1](#tbl-a
 
 #### Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
 
-::: {.table #tbl-aim1_table1}
+::: {#tbl-aim1_table1 .table}
 | Characteristic                        | Large Central Metro | Large Fringe Metro | Medium Metro | Small Metro | Micropolitan | Noncore     | Overall     |
-|---------|---------|---------|---------|---------|---------|---------|---------|
+|---------------------------------------|---------------------|--------------------|--------------|-------------|--------------|-------------|-------------|
 | **n**                                 | 68                  | 368                | 372          | 357         | 641          | 1335        | 3141        |
 | **Some college (%)**                  | 70 (8)              | 64 (11)            | 61 (11)      | 61 (11)     | 57 (11)      | 55 (12)     | 58 (12)     |
 | **Median household income (\$K)**     | 70.7 (18.8)         | 74.6 (19.0)        | 59.6 (12.0)  | 56.6 (10.1) | 53.1 (11.1)  | 49.7 (9.8)  | 55.7 (14.5) |
@@ -74,16 +74,15 @@ County characteristics are summarized by urbanicity category in [Table 1](#tbl-a
 | **Poor mental health days per month** | 4.35 (0.49)         | 4.43 (0.57)        | 4.68 (0.54)  | 4.66 (0.65) | 4.74 (0.64)  | 4.72 (0.73) | 4.67 (0.67) |
 :::
 
-
 ### Average Relationship to Urbanicity
 
 Our first analysis included a random effect for within-state correlation and controls for county sociodemographic composition (i.e. income, education, race/ethnicity, and age; see [Table 2](#tbl-aim1_table2). When we only included the random effect for within-state correlation, we found that small metro counties differ significantly in average poor mental health days compared to every other urbanicity category. In this case, the more urban counties had progressively fewer average poor mental health days, whereas the less urban counties had progressively more poor average mental health days. When adjusting for state *and* sociodemographic composition, only counties at the extreme ends of urbanicity, i.e. either large central metro or noncore, differed significantly in average poor mental health from small metro counties. Adjusted estimates indicated that large central metro counties had an average of 0.24 *fewer* poor mental health days than small metro counties ($t = -5.78, df = 423, p < 0.001$), ($t = -5.78, df = 423, p < 0.001$), whereas noncore counties had an average of 0.07 *more* poor mental health days than small metro counties ($t = 3.06, df = 1690, p = 0.002$).
 
 #### Table 2: Average Effect of Urbanicity on Poor Mental Health Days
 
-::: {.table #tbl-aim1_table2}
+::: {#tbl-aim1_table2 .table}
 | Urbanicity Category     | State Variation Only (Estimate \[95% CI\]) | t    | df    | p        | State Variation and Demographic Effects (Estimate \[95% CI\]) | t     | df   | p        |
-|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+|-------------------------|--------------------------------------------|------|-------|----------|---------------------------------------------------------------|-------|------|----------|
 | **Large Central Metro** | − 0.31 (− 0.40, − 0.22)                    | −6.8 | 388.2 | \< 0.001 | − 0.24 (− 0.31, − 0.16)                                       | −5.78 | 423  | \< 0.001 |
 | **Large Fringe Metro**  | − 0.26 (− 0.32, − 0.21)                    | −9.2 | 689.5 | \< 0.001 | − 0.04 (− 0.10, 0.01)                                         | −1.49 | 723  | 0.14     |
 | **Medium Metro**        | − 0.06 (− 0.11, − 0.01)                    | −2.5 | 686.2 | 0.01     | − 0.003 (− 0.05, 0.04)                                        | −0.14 | 727  | 0.89     |
@@ -97,9 +96,9 @@ Our next analysis investigated whether the differences between large central met
 
 #### Table 3: Average Effect of Each Potential Mediator on Poor Mental Health Days
 
-::: {.table #tbl-aim1_table3}
+::: {#tbl-aim1_table3 .table}
 | Mediator                    | Large Central Metro (Effect \[95% CI\]) | t      | df  | p        | Noncore (Effect \[95% CI\]) | t      | df   | p        |
-|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+|-----------------------------|-----------------------------------------|--------|-----|----------|-----------------------------|--------|------|----------|
 | **Income Inequality**       | 0.043 (0.011, 0.075)                    | 2.61   | 389 | 0.009    | 0.053 (0.028, 0.078)        | 4.17   | 1376 | \< 0.001 |
 | **Social associations**     | − 0.006 (− 0.042, 0.030)                | −0.34  | 389 | 0.73     | 0.032 (0.005, 0.058)        | 2.37   | 1376 | 0.02     |
 | **Access to exercise**      | − 0.104 (− 0.145, − 0.063)              | −5.02  | 389 | \< 0.001 | − 0.061 (− 0.082, − 0.040)  | −5.64  | 1376 | \< 0.001 |
@@ -114,9 +113,9 @@ Our next analysis investigated whether the differences between large central met
 
 #### Table 4: Mediating Effects Between Urbanicity and Average Poor Mental Health Days
 
-::: {.table #tbl-aim1_table4}
+::: {#tbl-aim1_table4 .table}
 | Mediating Effect                | Large Central Metro (Effect \[95% CI\]) | Noncore (Effect \[95% CI\]) |
-|----------------------|----------------------------|----------------------|
+|---------------------------------|-----------------------------------------|-----------------------------|
 | **Total natural direct effect** | − 0.13 (− 0.14, − 0.13)                 | 0.09 (0.09, 0.09)           |
 | **Natural indirect effects**    |                                         |                             |
 | **Total**                       | − 0.11 (− 0.22, 0.02)                   | 0.005 (− 0.07, 0.11)        |

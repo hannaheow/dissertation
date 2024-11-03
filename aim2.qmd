@@ -50,13 +50,13 @@ We note these hypotheses mirror the three broad hypotheses introduced earlier. U
 
 ## Methods
 
-#### Data
+### Data
 
 All of the data used in these analyses is publicly accessible. Our primary unit of analysis is a county. We use county-level information available through the CDC WONDER Underlying Cause of Death 1999-2020 database[@underlyi] joined with IRS county-to-county migration flow data[@soitax]. Since we are particularly interested in spatial trends in premature mortality and migration, we exclude counties from Hawaii and Alaska and include only contiguous counties. Additionally, to avoid systematically excluding counties with small population size and to ensure that we have balanced panel data, we used the mice R package[@mice] to impute lagged premature age-adjusted mortality rates $y_{i,t-1}$ for counties with missing values. There are a total of `r length(unique(migterm_imp$destid))` US counties included in our analyses.
 
 We included data from years 2011 to 2019, resulting in 9 years of data. We excluded years prior to 2011 because the IRS changed their methods in 2011. Prior to 2011, migration estimates represented between 95 and 98 percent of total annual income tax filings and excluded income taxes filed after September of each calendar year, whereas, after 2011, estimates represented all annual income tax filings collected for each year [@pierce2015a]. <!--# include something here about percent of total us pop captured in IRS measurements -->We have chosen to use IRS rather than ACS estimates of migration because ACS does not publish single year estimates of migration (only five year estimates), and we want to emphasize temporal aspects of migration. We excluded years after 2019 because the onset of the pandemic involves factors unrelated to those included in our model.
 
-#### Variables
+### Variables
 
 [The outcome of interest is county-level age-adjusted rates of premature mortality]{.underline}, denoted by $y_{it}$ for county $i$ in year $t$. Premature mortality is defined as any death occurring before age 75. Age-adjusted rates of premature mortality account for county-level age distribution differences by applying age-specific rates to a standard age distribution. We use age-adjusted rates available through CDC WONDER which are calculated using the 2000 US Standard Population. Age-adjusted premature mortality rates are a popular gold standard for comparing health across counties since premature death has a clear and common definition and has important implications for health policy and health equity [@self-rat1997; @jylhä2009; @olson-williams2023].
 
@@ -88,7 +88,7 @@ $$  amig_{it} = \frac{ \sum_{j\ne i} out_{jit} ( y_{j,t-1} + d_{ij}) + y_{i,t-1}
 
 We set $l_i = 0$, since our models will include a random intercept for each county $i$, thereby capturing any county-level shift due to $l_i$. Thus, we use $d_{ij}$ to account for health-related selection of who migrates from one county to another. When $d_{ij}$​ is negative, it indicates that county $i$ tends to attract healthier individuals. Conversely, when $d_{ij}$ is positive, it indicates that county $i$ attracts less individuals.
 
-## Models
+### Models
 
 Using the data and variables outlined above, we first created a baseline model for county-level premature age-adjusted mortality that included spatial autoregressive errors. This model was given by:
 
@@ -104,7 +104,7 @@ Next, we progressively introduced additional elements to our baseline model. We 
 
 To determine which values of $d_{ij}$ best explain trends in county-level premature mortality rates (Hypothesis 3), we replaced $mig_{it}$ with $amig_{it}$ in our models for varying values of $d_{ij}$. We considered two approaches for $d_{ij}$: keeping it constant across all county pairs to explore the overall health difference between movers and non-movers, and allowing it to take one of four values based on the urbanicity of both origin and destination counties. These four values were defined as $d_{uu}$ (urban to urban), $d_{rr}$ (rural to rural), $d_{ru}$ (rural to urban), and $d_{ur}$ (urban to rural).
 
-## Model Fitting
+#### Model Fitting
 
 All models were fit using the *splm* and *splines* R packages [@splines-2; @splm-3]. Splines ranged from two to five degrees of freedom. Models were compared using the Bayesian Information Criterion (BIC), which is commonly used to identify models with the greatest explanatory power [@kuha2004]. Models were selected for subsequent analyses based on having the lowest BIC score or being within approximately 10 points of the minimum BIC score [@multimod], while also ensuring numerical stability.
 
@@ -112,11 +112,11 @@ The constant value used for $d_{ij}$ was varied by incrementing by 50 from -200 
 
 ## Results
 
-Sample Characteristics
+### Sample Characteristics
 
 The tables below present descriptive statistics for $y_{it}$​ (premature age-adjusted mortality rate) and migration rates for each year and categorized by county type (rural, urban). Migration rates tend to be higher for urban destination counties than rural destination counties, meanwhile, premature age-adjusted mortality rates tend to be lower for urban counties than rural counties.
 
-# TABLE1 HERE
+TABLE 1 HERE
 
 ```{r table1 calcs for rural and urban print rural only , results:hide}
 
