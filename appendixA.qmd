@@ -13,7 +13,7 @@ execute:
 
 
 ::: {#tbl-aim1_table5}
-## Table 5: Data sources and years
+## Data sources and years
 ```{r}
 #| out.width: "110%" 
 #| hold_position: true
@@ -26,7 +26,7 @@ knitr::include_graphics("aim1_images/table5.png")
 
 
 ::: {#tbl-aim6_table6}
-## Table 6: Mean (SD) of all mediators by urbanicity category
+## Mean (SD) of all mediators by urbanicity category
 ```{r}
 #| out.width: "110%" 
 #| hold_position: true
@@ -38,7 +38,7 @@ knitr::include_graphics("aim1_images/table6.png")
 
 
 ::: {#tbl-aim1_table7}
-## Table 7: Results from Model Selection
+## Results from Model Selection
 ```{r}
 #| hold_position: true
 library(kableExtra)
@@ -61,7 +61,7 @@ knitr::kable(data7) |> kable_styling(latex_options= "scale_down")
 
 
 ::: {#tbl-aim1_table8}
-## Table 8: Average Effect (95% Confidence Interval) of Each Potential Mediator on Poor Mental Health Days
+## Average Effect (95% Confidence Interval) of Each Potential Mediator on Poor Mental Health Days
 ```{r}
 #| out.width: "110%" 
 #| hold_position: true
@@ -71,9 +71,9 @@ knitr::include_graphics("aim1_images/table8.png")
 \clearpage
 
 ::: {#fig-aim1_fig1}
-## Figure 1: Average poor mental health days by urbanicity category" 
+## Violin plot of the average number of poor mental health days by urbanicity category
 ```{r}
-#| fig-cap: ": Violin plot of the average number of poor mental health days by urbanicity category" 
+##| fig-cap: "Violin plot of the average number of poor mental health days by urbanicity category" 
 #| out.width: "80%" 
 #| hold_position: true
 knitr::include_graphics("aim1_images/figure1.png")
@@ -82,9 +82,9 @@ knitr::include_graphics("aim1_images/figure1.png")
 \clearpage
 
 ::: {#fig-aim1_fig2}
-## Figure 2: Justification for nonlinear relationship between education and poor mental health days 
+## Relationship between percent adults over 25 years old with some college education and the average number of mentally unhealthy days per month
 ```{r}
-#| fig-cap: ": Relationship between percent adults over 25 years old with some college education and the average number of mentally unhealthy days per month"
+##| fig-cap: "Relationship between percent adults over 25 years old with some college education and the average number of mentally unhealthy days per month"
 #| out.width: "80%"
 #| hold_position: true
 knitr::include_graphics("aim1_images/figure2.png")
@@ -93,9 +93,9 @@ knitr::include_graphics("aim1_images/figure2.png")
 \clearpage
 
 ::: {#fig-aim1_fig3}
-## Figure 3: Justification for nonllnear relationship between income and poor mental health days 
+## Relationship between median household income and the average number of mentally unhealthy days per month
 ```{r}
-#| fig-cap: ": Relationship between median household income and the average number of mentally unhealthy days per month"
+##| fig-cap: "Relationship between median household income and the average number of mentally unhealthy days per month"
 #| out.width: "80%" 
 #| hold_position: true
 knitr::include_graphics("aim1_images/figure3.png")

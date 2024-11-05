@@ -16,28 +16,28 @@ pierce missing doi
 
 
 maybe: fix/ add to the future questions section 
-cite irs/acs in aim 3 
-make maps in aim3 vertical and time plot small beside 
+XXX cite irs/acs in aim 3 
+XXX make maps in aim3 vertical and time plot small beside 
 maps of other decomp in appendix????? 
 
 To do: 
 
 - Double space pdf output 
 - reformat / resize all tables to print nicely 
-- check all citations - make sure in-text citations look nice 
+-XXX check all citations - make sure in-text citations look nice 
 - check format of citations - what did ken and megan use? 
-- need one mega citations list 
+-XXX need one mega citations list 
 - move page numbers to top right 
 - check other UW formatting specifics to match 
-- check the whole document for "CITE" 
+-XXX check the whole document for "CITE" 
 
 - Appendix A: 
-    - titles/ links of tables are misaligned 
-    - make sure in-text tables are linked instead of appendix tables (tables 1:4) 
+    -XXX titles/ links of tables are misaligned 
+    -XXX make sure in-text tables are linked instead of appendix tables (tables 1:4) 
 
 
 - Aim 2: 
-    - create aic table for appendix 
+    -XXX create aic table for appendix 
     - make table 1 readable/ formatted correctly for pdf 
 - Aim 3: 
     - write up the approach that is running in tensor_nn.sub 

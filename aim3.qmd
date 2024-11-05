@@ -239,7 +239,7 @@ create_side_by_side_map <- function(component_num) {
   
  # Combine the two maps with a shared title and single legend
   combined_plot <- cowplot::plot_grid(
-    p_orig, p_dest, ncol = 2, align = "v", rel_widths = c(1,1)
+    p_orig, p_dest, ncol = 1, align = "v", rel_heights = c(1,1)
   )
   
   # Add a shared title above both maps
@@ -264,6 +264,10 @@ create_side_by_side_map <- function(component_num) {
 p1 <- create_side_by_side_map(1)
 p2 <- create_side_by_side_map(2)
 p3 <- create_side_by_side_map(3)
+
+#ggsave("aim2_images/comp1_maps.png", plot = p1, dpi = 300)
+#ggsave("aim2_images/comp2_maps.png", plot = p2, dpi = 300)
+#ggsave("aim2_images/comp3_maps.png", plot = p3, dpi = 300)
 
 ```
 
@@ -422,19 +426,15 @@ plot_top_loadings <- function(component_num) {
 
 #### Component 1: Urban-to-rural
 
-```{r maps for component 1 }
-print(p1) 
-print(plot_time_vs_loadings(1))
+![](aim2_images/comp1_maps.png)
+
+```{r time plot for component 1 }
+#print(p1) 
+#print(plot_time_vs_loadings(1))
 #print(plot_top_loadings_by_state_with_urbanicity(1))
 ```
 
-The maps of **Component 1** show that origin counties with relatively high loadings are few and scattered across the U.S., lacking any regional clustering. In contrast, destination counties with higher loadings are more widely distributed, with concentrations in the Southwest, Northeast, and Gulf South. This contrast suggests that internal migration originates from a limited number of scattered counties, while destinations are more broadly distributed across regions. In the time plots of Component 1, we see that years 2013 and 2018 are most important to explaining the migration trends in this migration system while years 2017 and 2019 are the least important.
-
-This pattern suggests a possible link between migration trends and policy-driven events, such as the Affordable Care Act (ACA) in 2013 and the Tax Cuts and Jobs Act (TCJA) in 2018, which may have influenced where people filed their taxes and, potentially, where they chose to live. While research using American Community Survey data found no significant impact of the ACA on interstate migration—indicating that it may not have spurred widespread physical relocations [@goodman2017]—evidence of the TCJA’s effect on migration is less clear, with some researchers finding that the TCJA had a significant negative impact on migration to high-tax states [@simonson2022]. IRS data, which tracks tax filing addresses rather than physical moves, could be particularly sensitive to policy changes since it reflects administrative adjustments rather than actual relocations. Such data might capture shifts in filing behavior, as taxpayers adjust addresses to optimize tax benefits, meet healthcare requirements, or take advantage of financial incentives.
-
-It is important to note that our analysis cannot fully capture the reasons behind these address changes or definitively explain why individuals might have relocated. Multiple factors, including personal, social, and economic reasons, can influence migration patterns, and these motivations remain beyond the reach of our current dataset. Consequently, while we observe notable trends for 2013 and 2018, attributing these patterns solely to policy shifts involves a degree of speculation, as the true drivers of migration decisions are inherently complex and multifaceted.
-
-##### Top Origins and Destinations in Component 1 
+The maps of **Component 1** show that origin counties with relatively high loadings are few and scattered across the U.S., lacking any regional clustering. In contrast, destination counties with higher loadings are more widely distributed, with concentrations in the Southwest, Northeast, and Gulf South. This contrast suggests that internal migration originates from a limited number of scattered counties, while destinations are more broadly distributed across regions.
 
 In examining the top origin and destination counties within Component 1, we observe that out-migration is heavily concentrated in Cook County, Illinois, home to the large metropolitan area of Chicago. In contrast, the destination counties are predominantly rural. This suggests that Component 1 primarily reflects a pattern of urban-to-rural migration.
 
@@ -446,14 +446,14 @@ print(plot_top_loadings(1))
 
 #### Component 2: Specific phenomena
 
-```{r maps }
-print(p2) 
-print(plot_time_vs_loadings(2))
+![](aim2_images/comp2_maps.png)
+
+```{r comp2 time}
+ 
+#print(plot_time_vs_loadings(2))
 ```
 
-Maps of **Component 2** are somewhat similar to those of Component 1, but the Origin map shows more counties with relatively high loadings compared to Component 1, where high-loading origin counties were sparse and scattered. In Component 2, counties with higher rankings are more evenly dispersed across the U.S., indicating a broader range of origin points within the migration system. The Destination map for Component 2 also shows a more uniform spread of counties with higher loadings across the country, though with prominent clusters in the western U.S., Northeast, and parts of the Midwest. Component 2 suggests a migration pattern where both origins and destinations are more widespread, indicating a broader network of counties engaged in both sending and receiving migrations. Again, years 2013 and 2018 are most important to explaining the migration trends in this migration system, with years 2019 and 2015 being the least important to explaining these trends.
-
-##### Top Origins and Destinations in Component 2 
+Maps of **Component 2** are somewhat similar to those of Component 1, but the Origin map shows more counties with relatively high loadings compared to Component 1, where high-loading origin counties were sparse and scattered. In Component 2, counties with higher rankings are more evenly dispersed across the U.S., indicating a broader range of origin points within the migration system. The Destination map for Component 2 also shows a more uniform spread of counties with higher loadings across the country, though with prominent clusters in the western U.S., Northeast, and parts of the Midwest. Component 2 suggests a migration pattern where both origins and destinations are more widespread, indicating a broader network of counties engaged in both sending and receiving migrations.
 
 ```{r comp2 top loadings }
 print(plot_top_loadings(2))
@@ -461,20 +461,19 @@ print(plot_top_loadings(2))
 
 ![](aim3_images/urb_legend.png){fig-align="right"}
 
-In examining the top origin and destination counties within Component 2, Genesee County, Michigan—the site of the 2014 Flint Water Crisis—stands out as the primary origin. While we do not analyze specific migration motivations in this study, we suspect that Component 2 might capture out-migration linked to the crisis. Although survey research has not conclusively demonstrated that the Flint Water Crisis led to substantial out-migration, many residents reported considering relocation in response to it [@morckel2018]. However, the time dimension of Component 2 does not fully support this hypothesis, as the years 2014 and 2015 were not particularly influential.
+In examining the top origin and destination counties within Component 2, Genesee County, Michigan—the site of the 2014 Flint Water Crisis—stands out as the primary origin. While we do not analyze specific migration motivations in this study, we suspect that Component 2 might capture out-migration linked to the crisis. Although survey research has not conclusively demonstrated that the Flint Water Crisis led to substantial out-migration, many residents reported considering relocation in response to the public health emergency [@morckel2018].
 
 Conversely, the top destination counties in Component 2 are primarily rural and suburban, with Lincoln County, Arkansas, showing the highest destination loading. Lincoln County, which hosts two state prisons [@faciliti], might exhibit elevated migration rates due to population fluctuations in the IRS migration data. However, this effect could also result from data noise. Based on these findings, we interpret Component 2 as representing niche migrations—movements shaped by specific, place-based circumstances.
 
 #### Component 3: State borders
 
+![](aim2_images/comp3_maps.png)
+
 ```{r maps and time plot for component 3}
-print (p3) 
-print(plot_time_vs_loadings(3))
+#print(plot_time_vs_loadings(3))
 ```
 
-In the maps for Component 3, we again observe a broader distribution of ranked loadings among destination counties than among origin counties. Highly ranked origin counties are scattered across the U.S., whereas highly ranked destination counties appear more evenly distributed and clustered. Once again, the years 2013 and 2018 play a prominent role in explaining the migration patterns captured by Component 3 while years 2019 and 2017 are the least influential.
-
-##### Top Origins and Destinations in Component 3
+In the maps for Component 3, we again observe a broader distribution of ranked loadings among destination counties than among origin counties. Highly ranked origin counties are scattered across the U.S., whereas highly ranked destination counties appear more evenly distributed and clustered.
 
 ```{r top comp 3}
 print(plot_top_loadings(3))
@@ -484,7 +483,49 @@ print(plot_top_loadings(3))
 
 Similar to Component 1, Cook County, Illinois, stands out as the largest origin county in Component 3. However, unlike Component 1, Lyon County, Iowa, also contributes to the origin dimension. The reason for Lyon County’s higher origin loading compared to other rural counties is unclear, but its location along the state border with Minnesota and South Dakota—and the fact that our data are based on tax filings—suggests that the result may be due to households filing taxes in different states, influenced by variations in state tax codes [@cohen2014]. Likewise, the top destination county in Component 3 is Sequoyah County, Oklahoma, which borders Arkansas and contains the Fort Smith metropolitan area that spans both Oklahoma and Arkansas. Notably, a total of four of the top ten destination loadings are in counties along state borders, including Le Flore County, Oklahoma; Escambia County, Alabama; and Santa Rosa County, Florida. Based on these patterns, we interpret Component 3 as potentially capturing migration anomalies influenced by state-level tax differences.<!--# i did go back and verify that my origins and destinations are not flipped due to this weirdness. they are indeed correct!  -->
 
-### Relationship to County-level Health 
+#### Temporal trends
+
+```{r}
+load("data_processed_aim3/tsub.RData")
+years = unique(tsub$year)
+
+# Combine all components' loadings into a single data frame
+df_time_all <- data.frame(
+  year = rep(as.numeric(years), times = 3),  # Repeat each year for 3 components
+  component = rep(1:3, each = length(years)),  # Component numbers
+  loadings = c(Time3[1, ], Time3[2, ], Time3[3, ])  # Loadings for each component
+)
+
+# Rank the loadings within each component
+df_time_all <- df_time_all %>%
+  group_by(component) %>%
+  mutate(ranked_loadings = rank(loadings))
+
+p <- ggplot(df_time_all, aes(x = year, y = ranked_loadings, color = factor(component), linetype = factor(component))) +
+  geom_line(size = 1.5, alpha = 0.5) +    # Thicker lines with different line types
+  geom_point(size = 2) +     # Larger points without transparency
+  theme_minimal() +
+  labs(
+    x = "Year",
+    y = "Relative Importance",
+    color = "Component",
+    linetype = "Component"
+  ) +
+  scale_color_manual(values = c("lightblue", "orange", "darkgreen")) +  # Custom colors for clarity
+  scale_linetype_manual(values = c("solid", "dashed", "dotted"))  # Different line types for each component
+
+print(p)
+
+
+```
+
+In the plot of the ranked loadings for time, we see that years 2013 and 2018 are most important to explaining the migration trends across all three components of the decomposition. Meanwhile, years 2019, 2017, and 2015 are the least important.
+
+This pattern suggests a possible link between migration trends and policy-driven events, such as the Affordable Care Act (ACA) in 2013 and the Tax Cuts and Jobs Act (TCJA) in 2018, which may have influenced where people filed their taxes and, potentially, where they chose to live. While research using American Community Survey data found no significant impact of the ACA on interstate migration—indicating that it may not have spurred widespread physical relocations [@goodman2017]—evidence of the TCJA’s effect on migration is less clear, with some researchers finding that the TCJA had a significant negative impact on migration to high-tax states [@simonson2022]. IRS data, which tracks tax filing addresses rather than physical moves, could be particularly sensitive to policy changes since it reflects administrative adjustments rather than actual relocations. Such data might capture shifts in filing behavior, as taxpayers adjust addresses to optimize tax benefits, meet healthcare requirements, or take advantage of financial incentives.
+
+It is important to note that our analysis cannot fully capture the reasons behind these address changes or definitively explain why individuals might have relocated. Multiple factors, including personal, social, and economic reasons, can influence migration patterns, and these motivations remain beyond the reach of our current dataset. Consequently, while we observe notable trends for 2013 and 2018, attributing these patterns solely to policy shifts involves a degree of speculation, as the true drivers of migration decisions are inherently complex and multifaceted.
+
+### Relationship to County-level Health
 
 ```{r model selection}
 # Load models
@@ -542,14 +583,15 @@ $$
 y_{it} = \beta_0 + \sum_{n=1}^{3} \beta_{o_{n}} o_{in} + \sum_{n=1}^{3} \beta_{d_n} d_{in} + \sum_{n=1}^{3} \beta_{t_n} t_{tn} + \sum_{k=2}^{6} \gamma_k \text{Urbanicity}_k + \mu_{it}
 $$
 
-The spatial panel model revealed several significant findings, as shown in the table below. The origin and destination loadings capture variability in health outcomes based on the origin and destination characteristics of migration flows. Notably, the coefficients for the second origin loading $\beta_{o_2}$ and the first and third destination loadings $\beta_{d_1}$ and $\beta_{d_3}$ are statistically significant. Increased $o_2$ (ie increased loadings in Component 2 - *Specific Phenomena*) are associated with higher premature mortality rates increased $d_1$ and $d_3$ (ie loadings in Component 1 - *Urban-to-Rural* and Component 3 - *State borders*) are associated with lower premature mortality rates. This may suggest that counties contributing greatly as an origin of migration is negative for county-level health while contributing greatly as a destination of migration is positive for county-level health.
+The spatial panel model revealed several significant findings, as shown in [Table 3.1](#table-aim3_table1) below. The origin and destination loadings capture variability in health outcomes based on the origin and destination characteristics of migration flows. Notably, the coefficients for the second origin loading $\beta_{o_2}$ and the first and third destination loadings $\beta_{d_1}$ and $\beta_{d_3}$ are statistically significant. Increased $o_2$ (ie increased loadings in Component 2 - *Specific Phenomena*) are associated with higher premature mortality rates increased $d_1$ and $d_3$ (ie loadings in Component 1 - *Urban-to-Rural* and Component 3 - *State borders*) are associated with lower premature mortality rates. This may suggest that counties contributing greatly as an origin of migration is negative for county-level health while contributing greatly as a destination of migration is positive for county-level health.
 
 Among the time components, only the coefficient $\beta_{t_1}$ is statistically significant. This makes sense given that in tensor decomposition, the first component represents the "most typical" or the most common pattern of migration. Since similar patterns in time loadings were seen across all three components, there is little reason to believe we would need to include the second and third components in addition to the first.
 
 The urbanicity codes demonstrate a clear gradient in health outcomes across urban and rural settings. Each rural category has a significant positive coefficient, with the effect size increasing as the areas become more rural. For instance, the most rural category shows the highest estimate (102.75, p \< 0.001), indicating a substantial rural health disadvantage relative to the most urban areas. This gradient highlights persistent health disparities that favor urban areas and suggests that rural-urban differences in health outcomes are crucial to understanding the overall effect of migration on health. This suggests that the effect of urbanicity on county-level health is distinct and separate from the effect of migration on county-level health. Therefore, even after accounting for county position within a migration system, the effect of urbanicity remains significant.
 
-#### Table 1
+\clearpage
 
+::: {#table-aim3_table1}
 <!--# i had chatgpt make this table by pasting in the output from summary(sp_model) -->
 
 ```{r}
@@ -576,6 +618,7 @@ load("data_processed_aim3/sp_model_3_nopadj_urb.Rdata")
 | $\beta_{Noncore}$          | ***102.8*** | ***5.0***  | ***20.7*** | ***\< 2.2e-16*** |
 
 : ***Italicized rows are significant at the 0.05 level***
+:::
 
 Taken together, these results suggest that the relationship between migration and health is multifaceted, with different migration patterns exerting varying effects on county-level mortality. The findings underscore the importance of considering both the origin and destination of migration flows, as well as the temporal dimension, when examining the public health implications of migration. Additionally, the spatial panel model highlights that some migration patterns may exacerbate health disparities, while others may contribute to improved health outcomes across certain regions.
 
@@ -591,9 +634,9 @@ An important challenge we encountered in this analysis lies in the instability a
 
 Another layer of complexity arises from the limited interpretability of certain tensor components, which can shift depending on the data preprocessing steps and tensor rank selection. While methods such as non-negative tensor factorization (NTF) help improve interpretability by applying constraints to ensure positive values that align with real-world quantities, component selection remains subjective, relying heavily on domain expertise and anticipated outcomes. This subjectivity reduces reproducibility and weakens the potential of tensor decomposition as a consistent analytical tool in migration and health research. These challenges with instabililty underscore the need for future research to establish standardized protocols for validating tensor decomposition results [@adali2022]. Methods such as ensemble decomposition or consensus clustering may provide an avenue for reconciling diverse outputs generated by tensor decomposition to identify stable patterns.
 
-The use of IRS migration data, which only includes individuals from household that file taxes, introduces a potential bias, as it excludes non-filers, such as low-income populations, undocumented migrants, and others who may not be captured by tax records. This could lead to an under-representation of certain demographic groups in the migration analysis, potentially skewing the results. That said, if we observe a relationship between migration and health using the IRS data, this relationship is likely even stronger in reality as the excluded populations may experience even greater health disparities linked to migration. <!--# cite? -->
+The use of IRS migration data, which only includes individuals from household that file taxes, introduces a potential bias, as it excludes non-filers, such as low-income populations, undocumented migrants, and others who may not be captured by tax records. This could lead to an under-representation of certain demographic groups in the migration analysis, potentially skewing the results. That said, some researchers suggest that IRS data is actually more inclusive than ACS survey data since tax filings tend to have less non-response bias than survey data [@foster]. Additionally, if we observe a relationship between migration and health using the IRS data, this relationship is likely even stronger in reality as the excluded populations may experience even greater health disparities linked to migration. <!--# cite? -->
 
-Additionally, the IRS data itself has been subject to criticism for inconsistencies and volatility, particularly after 2011 when the IRS took over data preparation from the US Census Bureau. As DeWaard et al has noted, there are systemic issues with the IRS data that can lead to fluctuations in migration estimates, which are not fully explained by changes in IRS data collection methods [@dewaard2022]. This raises concerns about the reliability of the migration patterns observed in the post-2011 IRS data, which could affect the robustness of our findings.
+The IRS data itself has been subject to criticism for inconsistencies and volatility, particularly after 2011 when the IRS took over data preparation from the US Census Bureau. As DeWaard et al has noted, there are systemic issues with the IRS data that can lead to fluctuations in migration estimates, which are not fully explained by changes in IRS data collection methods [@dewaard2022]. This raises concerns about the reliability of the migration patterns observed in the post-2011 IRS data, which could affect the robustness of our findings.
 
 To accurately capture the multifaceted relationship between migration and health, future studies must also prioritize the development and integration of demographic-specific data sources. Current datasets overlook critical populations—such as undocumented migrants, low-income households, and young adults—whose migration patterns and health needs may significantly differ from the general population. These populations frequently experience unique health vulnerabilities and stressors related to migration, which are not reflected in generalized data. Tailored data sources that account for race, age, socioeconomic status, and immigration status are essential for understanding the nuanced ways migration impacts health disparities across different demographic groups. Access to these demographic-specific data sources would allow researchers to capture a fuller, more accurate picture of how migration affects health outcomes, leading to more effective, equitable public health interventions.
 

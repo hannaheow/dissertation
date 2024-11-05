@@ -52,7 +52,7 @@ take full responsibility for the content of this dissertation.
 
 #### Publications included in this dissertation {.unnumbered}
 
-The material in [Manuscript 1](aim1.qmd#aim1) has been published in the
+The material in [Manuscript 1](aim1.qmd#aim1) was published in the
 [*Community Mental Health Journal* on January 12,
 2023](https://doi.org/10.1007/s10597-022-01082-x).
 
