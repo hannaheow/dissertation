@@ -27,7 +27,13 @@ affiliation: Department of Population Health
 #degrees: 'B.S. Mathematics, Case Western Reserve University'
 
 format:
-  monashthesis-html: default
-  monashthesis-pdf: default
-  monashthesis-docx: default
+  pdf:
+    documentclass: report
+    pdf-engine: xelatex
+    header-includes:
+      - \usepackage{setspace}
+      - \doublespacing
+  #monashthesis-html: default
+  #monashthesis-pdf: default
+  #monashthesis-docx: default
 prefer-html: true

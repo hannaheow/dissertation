@@ -4,6 +4,22 @@ output: pdf_document
 date: "2024-09-18"
 ---
 
+rothwell - need doi and date 
+marmot - all caps 
+greenland all caps 
+kolda missing doi 
+kearns missing doi 
+chilton missing doi 
+angelo missing doi 
+anderson missing doi 
+pierce missing doi 
+
+
+maybe: fix/ add to the future questions section 
+cite irs/acs in aim 3 
+make maps in aim3 vertical and time plot small beside 
+maps of other decomp in appendix????? 
+
 To do: 
 
 - Double space pdf output 

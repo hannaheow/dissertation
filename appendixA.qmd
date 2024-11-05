@@ -4,158 +4,88 @@ execute:
   echo: false  # Hides all code
   warning: false  # Suppresses warnings
   message: false  # Suppresses messages
-  fig-cap: false 
-  fig-nofloat: true 
+  #fig-cap: false 
+  fig-nofloat: false
 ---
 
-## Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
 ::: {#tbl-aim1_table1}
-```{r table1 with kableextra }
-# Load necessary library
-#library(flextable)
-
-# Create the data frame
-data <- data.frame(
-  Characteristic = c("n", "Some college (%)", "Median household income ($K)", "Over 65 (%)", "Black (%)", "Hispanic (%)", "Poor mental health days per month"),
-  `Large Central Metro` = c("68", "70 (8)", "70.7 (18.8)", "14 (2)", "21 (14)", "20 (15)", "4.35 (0.49)"),
-  `Large Fringe Metro` = c("368", "64 (11)", "74.6 (19.0)", "17 (3)", "11 (14)", "10 (10)", "4.43 (0.57)"),
-  `Medium Metro` = c("372", "61 (11)", "59.6 (12.0)", "18 (4)", "11 (14)", "11 (15)", "4.68 (0.54)"),
-  `Small Metro` = c("357", "61 (11)", "56.6 (10.1)", "19 (5)", "9 (12)", "9 (12)", "4.66 (0.65)"),
-  Micropolitan = c("641", "57 (11)", "53.1 (11.1)", "19 (4)", "8 (14)", "11 (16)", "4.74 (0.64)"),
-  Noncore = c("1335", "55 (12)", "49.7 (9.8)", "22 (5)", "8 (15)", "9 (14)", "4.72 (0.73)"),
-  Overall = c("3141", "58 (12)", "55.7 (14.5)", "20 (5)", "9 (14)", "10 (14)", "4.67 (0.67)")
-)
-
-knitr::kable(data)
-
+## Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
+```{r}
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table1.png")
 ```
-
 :::
+\clearpage
 
-------------------------------------------------------------------------
 
-## Table 2: Average Effect of Urbanicity on Poor Mental Health Days
 
 ::: {#tbl-aim1_table2}
+## Table 2: Average Effect of Urbanicity on Poor Mental Health Days
 ```{r}
-data2 <- data.frame(
-  `Urbanicity Category` = c("Large Central Metro", "Large Fringe Metro", "Medium Metro", "Micropolitan", "Noncore"),
-  `State Variation Only (Estimate [95% CI])` = c("− 0.31 (− 0.40, − 0.22)", "− 0.26 (− 0.32, − 0.21)", "− 0.06 (− 0.11, − 0.01)", "0.11 (0.07, 0.15)", "0.21 (0.17, 0.25)"),
-  `t` = c("−6.8", "−9.2", "−2.5", "5.2", "10.7"),
-  `df` = c("388.2", "689.5", "686.2", "952.9", "1652"),
-  `p` = c("< 0.001", "< 0.001", "0.01", "< 0.001", "< 0.001"),
-  `State Variation and Demographic Effects (Estimate [95% CI])` = c("− 0.24 (− 0.31, − 0.16)", "− 0.04 (− 0.10, 0.01)", "− 0.003 (− 0.05, 0.04)", "− 0.004 (− 0.05, 0.04)", "0.072 (0.026, 0.12)"),
-  `t_2` = c("−5.78", "−1.49", "−0.14", "−0.17", "3.06"),
-  `df_2` = c("423", "723", "727", "996", "1690"),
-  `p_2` = c("< 0.001", "0.14", "0.89", "0.86", "0.002")
-)
-
-knitr::kable(data2)
-
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table2.png")
 ```
+:::
+\clearpage
 
 
-------------------------------------------------------------------------
-
-## Table 3: Average Effect of Each Potential Mediator on Poor Mental Health Days
 
 ::: {#tbl-aim1_table3}
+## Table 3: Average Effect of Each Potential Mediator on Poor Mental Health Days
 ```{r}
-data3 <- data.frame(
-  Mediator = c("Income Inequality", "Social associations", "Access to exercise", "Food environment", "Mental health providers", "Air pollution", "Violent crime", "Severe housing cost"),
-  `Large Central Metro (Effect [95% CI])` = c("0.043 (0.011, 0.075)", "− 0.006 (− 0.042, 0.030)", "− 0.104 (− 0.145, − 0.063)", "− 0.187 (− 0.233, − 0.160)", "− 0.035 (− 0.071, − 0.0003)", "0.018 (− 0.013, 0.049)", "0.062 (0.026, 0.097)", "− 0.030 (− 0.073, 0.014)"),
-  t = c("2.61", "−0.34", "−5.02", "−10.49", "−1.98", "1.12", "3.44", "−1.34"),
-  df = c("389", "389", "389", "389", "389", "389", "389", "389"),
-  p = c("0.009", "0.73", "< 0.001", "< 0.001", "0.05", "0.26", "< 0.001", "0.18"),
-  `Noncore (Effect [95% CI])` = c("0.053 (0.028, 0.078)", "0.032 (0.005, 0.058)", "− 0.061 (− 0.082, − 0.040)", "− 0.271 (− 0.297, − 0.246)", "0.050 (0.023, 0.077)", "− 0.043 (− 0.070, − 0.016)", "0.048 (0.030, 0.067)", "− 0.012 (− 0.037, 0.014)"),
-  t_2 = c("4.17", "2.37", "−5.64", "−21.00", "3.65", "−3.16", "5.16", "−0.91"),
-  df_2 = c("1376", "1376", "1376", "1376", "1376", "1376", "1376", "1376"),
-  p_2 = c("< 0.001", "0.02", "< 0.001", "< 0.001", "< 0.001", "0.002", "< 0.001", "0.36")
-)
-
-knitr::kable(data3)
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table3.png")
 ```
-
 :::
+\clearpage
 
-------------------------------------------------------------------------
 
+::: {#tbl-aim1_table4}
 ## Table 4: Mediating Effects Between Urbanicity and Average Poor Mental Health Days
-
-::: {#tlb-aim1_table4}
 ```{r}
-data4 <- data.frame(
-  `Mediating Effect` = c("Total natural direct effect", "Total", "Food environment", "Violent crime", "Housing", "Access to exercise"),
-  `Large Central Metro (Effect [95% CI])` = c("− 0.13 (− 0.14, − 0.13)", "− 0.11 (− 0.22, 0.02)", "− 0.07 (− 0.14, 0.00)", "0.10 (0.01, 0.19)", "− 0.04 (− 0.12, 0.05)", "−"),
-  `Noncore (Effect [95% CI])` = c("0.09 (0.09, 0.09)", "0.005 (− 0.07, 0.11)", "0.01 (− 0.06, 0.07)", "− 0.02 (− 0.04, 0.00)", "0.00 (− 0.03, 0.03)", "-")
-)
-
-knitr::kable(data4)
-
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table4.png")
 ```
-
-
 :::
+\clearpage
 
+
+::: {#tbl-aim1_table5}
 ## Table 5: Data sources and years
-
-::: {#tbl-aim5_table5}
-
 ```{r}
-data5 <- data.frame(
-  Variable = c("Poor mental health days", "Percent Non-Hispanic Black", "Percent Hispanic", "Percent over 65", "Median household income", "Some college", "Social associations", "Access to exercise opportunities", "Food environment index", "Mental health providers", "Air pollution—particulate matter", "Violent crime", "Severe housing cost burden", "Income inequality"),
-  Description = c(
-    "Average number of mentally unhealthy days reported in past 30 days (age-adjusted)",
-    "Percentage of the population that is non-Hispanic Black or African American",
-    "Percentage of the population that is Hispanic",
-    "Percentage of the population ages 65 and older",
-    "The income where half of households in a county earn more and half of households earn less",
-    "Percentage of adults ages 25–44 with some post-secondary education",
-    "Number of membership associations per 10,000 population",
-    "Percentage of population with adequate access to locations for physical activity",
-    "Index of factors that contribute to a healthy food environment, from 0 (worst) to 10 (best)",
-    "Ratio of population to mental health providers",
-    "Average daily density of fine particulate matter in micrograms per cubic meter (PM2.5)",
-    "Number of reported violent crime offenses per 100,000 population",
-    "Percentage of households that spend 50% or more of their household income on housing",
-    "Ratio of household income at the 80th percentile to income at the 20th percentile"
-  ),
-  Source = c("Behavioral Risk Factor Surveillance System (BRFSS)", "US Census Bureau", "US Census Bureau", "US Census Bureau", "Small Area Income and Poverty Estimates (SAIPE)", "American Community Survey (ACS)", "US Census, County business patterns", "Business Analyst, Delorme map data, ESRI, & US Census Tigerline Files", "USDA Food Environment Atlas, Map the Meal Gap from Feeding America", "National Provider Identification file", "Environmental Public Health Tracking Network", "Uniform crime reporting—FBI", "American Community Survey, 5-year estimates", "American Community Survey, 5-year estimates"),
-  Year = c("2018", "2019", "2019", "2019", "2019", "2015–2019", "2018", "2010 and 2019", "2015 and 2018", "2020", "2016", "2014 and 2016", "2015–2019", "2015–2019")
-)
-
-knitr::kable(data5)
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table5.png")
 ```
-
-*Note*: When more than one year is reported, years were combined to create better estimates for small populations. Data and descriptions come from the 2021 CHRR publicly available dataset.
 :::
+\clearpage
 
-## Table 6: Mean (SD) of all mediators by urbanicity category
+
+
 
 ::: {#tbl-aim6_table6}
+## Table 6: Mean (SD) of all mediators by urbanicity category
 ```{r}
-data6 <- data.frame(
-  Mediator = c("Income inequality", "Social associations", "Access to exercise", "Food environment index", "Mental health providers", "Air pollution", "Violent crime", "Severe housing cost burden"),
-  `Large Central Metro (n=68)` = c("5.20 (1.03)", "9.11 (4.02)", "0.96 (0.04)", "8.00 (0.69)", "0.0034 (0.0019)", "8.92 (1.52)", "595 (335)", "0.17 (0.04)"),
-  `Large Fringe Metro (n=368)` = c("4.26 (0.57)", "9.02 (3.06)", "0.74 (0.21)", "8.26 (0.78)", "0.0017 (0.0015)", "8.36 (1.41)", "227 (157)", "0.12 (0.03)"),
-  `Medium Metro (n=372)` = c("4.51 (0.63)", "10.0 (3.78)", "0.70 (0.21)", "7.63 (0.90)", "0.0020 (0.0017)", "8.34 (1.56)", "319 (198)", "0.12 (0.03)"),
-  `Small Metro (n=357)` = c("4.55 (0.72)", "11.0 (4.31)", "0.67 (0.22)", "7.62 (0.89)", "0.0019 (0.0017)", "7.87 (1.54)", "387 (195)", "0.12 (0.03)"),
-  `Micropolitan (n=641)` = c("4.54 (0.76)", "11.9 (4.45)", "0.65 (0.19)", "7.36 (1.04)", "0.0019 (0.0017)", "7.65 (1.61)", "270 (177)", "0.11 (0.03)"),
-  `Noncore (n=1335)` = c("4.51 (0.82)", "12.8 (7.52)", "0.54 (0.24)", "7.14 (1.29)", "0.0013 (0.0020)", "7.10 (1.68)", "201 (165)", "0.098 (0.03)"),
-  `Overall (n=3141)` = c("4.51 (0.77)", "11.6 (5.93)", "0.63 (0.23)", "7.45 (1.15)", "0.0017 (0.0018)", "7.64 (1.69)", "252 (193)", "0.11 (0.04)")
-)
-
-knitr::kable(data6)
-
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table6.png")
 ```
-
 :::
+\clearpage
 
-## Table 7: Results from Model Selection
+
 
 ::: {#tbl-aim1_table7}
-
+## Table 7: Results from Model Selection
 ```{r}
+#| hold_position: true
+library(kableExtra)
+
+# DONT TOUCH THIS ONE 
 data7 <- data.frame(
   `Knots for Income` = c(3, 4, 4, 3, 2, 3, 2, 2, 1, 1),
   `Knots for Education` = c(2, 3, 4, 3, 1, 4, 2, 3, 2, 1),
@@ -163,57 +93,53 @@ data7 <- data.frame(
   AIC = c(1225.3, 1226.2, 1226.7, 1227.2, 1227.3, 1227.5, 1229.1, 1231.2, 1260.2, 1260.6)
 )
 
-knitr::kable(data7)
+knitr::kable(data7) |> kable_styling(latex_options= "scale_down")
 
 ```
-
-
-\*Note\*: In addition to splines for income and education, all models include a coefficient for the interaction between education and income and coefficients for percent over age 65, percent Black, and percent Hispanic. Note that these AIC values are for logistic regression predicting the probability of Micropolitan counties being the same as Small Metro counties. The model selected in this process was used to predict the probability of each urbanicity category with Small Metro treated as the reference category. Because AIC values for all models with greater than 2 splines for both income and education were approximately equivalent and because these models need to be applicable for all urbanicity comparisons in addition to Micropolitan versus Small Metro, we chose a final model with three knots for both income and education, believing this to be more applicable across urbanicity comparisons.
 :::
+**Note:** In addition to splines for income and education, all models include a coefficient for the interaction between education and income and coefficients for percent over age 65, percent Black, and percent Hispanic. Note that these AIC values are for logistic regression predicting the probability of Micropolitan counties being the same as Small Metro counties. The model selected in this process was used to predict the probability of each urbanicity category with Small Metro treated as the reference category. Because AIC values for all models with greater than 2 splines for both income and education were approximately equivalent and because these models need to be applicable for all urbanicity comparisons in addition to Micropolitan versus Small Metro, we chose a final model with three knots for both income and education, believing this to be more applicable across urbanicity comparisons.
+\clearpage
 
-## Table 8: Average Effect (95% Confidence Interval) of Each Potential Mediator on Poor Mental Health Days
+
 
 ::: {#tbl-aim1_table8}
+## Table 8: Average Effect (95% Confidence Interval) of Each Potential Mediator on Poor Mental Health Days
 ```{r}
-data8 <- data.frame(
-  Mediator = c("Income inequality", "Social associations", "Access to exercise", "Food environment", "Mental health providers", "Air pollution", "Violent crime", "Severe housing cost"),
-  `Large Central Metro (95% CI)` = c("0.043 (0.011, 0.075)", "− 0.006 (− 0.042, 0.030)", "− 0.104 (− 0.145, − 0.063)", "− 0.187 (− 0.233, − 0.160)", "− 0.035 (− 0.071, − 0.0003)", "0.018 (− 0.013, 0.049)", "0.062 (0.026, 0.097)", "− 0.030 (− 0.073, 0.014)"),
-  `Large Fringe Metro (95% CI)` = c("0.039 (0.013, 0.065)", "− 0.001 (− 0.025, 0.023)", "− 0.140 (− 0.165, − 0.115)", "− 0.278 (− 0.308, − 0.248)", "− 0.061 (− 0.089, − 0.032)", "0.027 (0.000, 0.054)", "0.067 (0.042, 0.092)", "− 0.030 (− 0.060, 0.001)"),
-  `Medium Metro (95% CI)` = c("0.031 (0.003, 0.060)", "− 0.006 (− 0.030, 0.018)", "− 0.097 (− 0.124, − 0.070)", "− 0.222 (− 0.251, − 0.192)", "− 0.012 (− 0.040, 0.015)", "0.020 (− 0.005, 0.045)", "0.017 (− 0.008, 0.042)", "− 0.034 (− 0.068, 0.000)"),
-  `Micropolitan (95% CI)` = c("0.072 (0.045, 0.098)", "− 0.035 (− 0.057, − 0.013)", "− 0.067 (− 0.089, − 0.045)", "− 0.216 (− 0.243, 0.190)", "0.012 (− 0.012, 0.036)", "0.038 (0.014, 0.063)", "0.032 (0.011, 0.053)", "− 0.072 (− 0.099, − 0.045)"),
-  `Noncore (95% CI)` = c("0.053 (0.028, 0.078)", "0.032 (0.005, 0.058)", "− 0.061 (− 0.082, − 0.040)", "− 0.271 (− 0.297, − 0.246)", "0.050 (0.023, 0.077)", "− 0.043 (− 0.070, − 0.016)", "0.048 (0.030, 0.067)", "− 0.012 (− 0.037, 0.014)")
-)
-
-knitr::kable(data8)
-
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table8.png")
 ```
-
 :::
+\clearpage
 
-*Note*: Bolded entries highlight estimates that were not reported in the main text. Small metro is the reference category for each urbanicity comparison, and each mediator is standardized to compare effects. This table includes potential mediation effects for all urbanicity categories, even those which do not have statistically significant total effects on self-reported poor mental health days.
-
-## Figure 1: Average number of poor mental health days reported in past month per county by urbanicity category {#fig-aim1_fig1}
-
+::: {#fig-aim1_fig1}
+## Figure 1: Average poor mental health days by urbanicity category" 
 ```{r}
-#| label: fig-aim1_fig1
-#| fig-cap: "Violin plot of the average number of poor mental health days by urbanicity category" 
+#| fig-cap: ": Violin plot of the average number of poor mental health days by urbanicity category" 
+#| out.width: "80%" 
+#| hold_position: true
 knitr::include_graphics("aim1_files/aim1_fig1.jpg")
 ```
+::: 
+\clearpage
 
-
-## Figure 2: Plot to justify nonlinear relationship between education and poor mental health days {#fig-aim1_fig2}
-
+::: {#fig-aim1_fig2}
+## Figure 2: Justification for nonlinear relationship between education and poor mental health days 
 ```{r}
-#| label: fig-aim1_fig2
-#| fig-cap: "Relationship between percent adults over 25 years old with some college education and the average number of mentally unhealthy days per month"
+#| fig-cap: ": Relationship between percent adults over 25 years old with some college education and the average number of mentally unhealthy days per month"
+#| out.width: "80%"
+#| hold_position: true
 knitr::include_graphics("aim1_files/aim1_fig2.jpg")
 ```
+::: 
+\clearpage
 
-
-## Figure 3: Plot to justify nonlinear relationship between income and poor mental health days {#fig-aim1_fig3}
-
+::: {#fig-aim1_fig3}
+## Figure 3: Justification for nonllnear relationship between income and poor mental health days 
 ```{r}
-#| label: fig-aim1_fig3
-#| fig-cap: "Relationship between median household income and the average number of mentally unhealthy days per month"
+#| fig-cap: ": Relationship between median household income and the average number of mentally unhealthy days per month"
+#| out.width: "80%" 
+#| hold_position: true
 knitr::include_graphics("aim1_files/aim1_fig3.jpg")
 ```
+::: 

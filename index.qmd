@@ -1,5 +1,12 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 ::: {.content-visible when-format="html"}
-A thesis submitted for the degree of {{< meta degreetype >}} at the {{< meta affiliation >}}.
+A thesis submitted for the degree of {{< meta degreetype >}} at the
+{{< meta affiliation >}}.
 :::
 
 # Copyright notice {.unnumbered}
@@ -12,46 +19,91 @@ cat("© {{< meta author >}} (",format(Sys.Date(), "%Y"),").", sep="")
 
 # Abstract {.unnumbered}
 
-Throughout this dissertation, we explore the interconnected impacts of migration and urbanicity on place-based health determinants across the United States. Traditional place-based health measures often overlook the dynamic influence of migration, while conventional migration studies typically do not assess the broader place-level health impacts on origin and destination locations. By examining contextual (structural) and compositional (individual) factors, we assess how migration flows influence local health outcomes across varying urban and rural environments. Using publicly accessible county-level data and IRS migration flow records, we highlight how urbanicity and migration patterns together shape place-based health disparities, with special emphasis on mental health, premature mortality, and socioeconomic factors. Employing advanced spatial and tensor decomposition models, we aim to provide insight into the dynamics of population health, offering implications for localized health policy interventions and resource allocation across diverse communities.
-
-
+Throughout this dissertation, we explore the interconnected impacts of
+migration and urbanicity on place-based health determinants across the
+United States. Traditional place-based health measures often overlook
+the dynamic influence of migration, while conventional migration studies
+typically do not assess the broader place-level health impacts on origin
+and destination locations. By examining contextual (structural) and
+compositional (individual) factors, we assess how migration flows
+influence local health outcomes across varying urban and rural
+environments. Using publicly accessible county-level data and IRS
+migration flow records, we highlight how urbanicity and migration
+patterns together shape place-based health disparities, with special
+emphasis on mental health, premature mortality, and socioeconomic
+factors. Employing advanced spatial and tensor decomposition models, we
+aim to provide insight into the dynamics of population health, offering
+implications for localized health policy interventions and resource
+allocation across diverse communities.
 
 # Declaration {.unnumbered}
 
-This thesis is an original work of my research and contains no material which has been accepted for the award of any other degree or diploma at any university or equivalent institution. To the best of my knowledge and belief, this thesis contains no material previously written by another person, except where due reference is made in the text of the thesis.
+This thesis is an original work of my research and contains no material
+which has been accepted for the award of any other degree or diploma at
+any university or equivalent institution. To the best of my knowledge
+and belief, this thesis contains no material previously written by
+another person, except where due reference is made in the text of the
+thesis.
 
-#### Publications included in this dissertation  {.unnumbered}
+I acknowledge the use of [`ChatGPT 4o`](https://chatgpt.com/) to assist
+with editorial writing, R code generation, and error correction. I
+reviewed and edited the material produced by ChatGPT as needed, and I
+take full responsibility for the content of this dissertation.
 
-The material in @aim1 has been published in the *Community Mental Health Journal* on January 12, 2023 [@olson-williams2023].
+#### Publications included in this dissertation {.unnumbered}
 
-The material in @aim2 will be submitted to the journal *Spatial and Spatio-temporal Epidemiology* for possible publication.
+The material in [Manuscript 1](aim1.qmd#aim1) has been published in the
+[*Community Mental Health Journal* on January 12,
+2023](https://doi.org/10.1007/s10597-022-01082-x).
+
+The material in [Manuscript 2](aim2.qmd#aim2) will be submitted to the
+journal *Spatial and Spatio-temporal Epidemiology* for possible
+publication.
 
 #### Reproducibility statement
 
-This thesis is written using Quarto to create a reproducible environment. All materials (including the data sets and source files) required to reproduce this document can be found at the Github repository [`github.com/hannaheow/diss`](https://github.com/hannaheow/diss).
+This thesis is written referencing the [Monash Thesis
+Template](https://github.com/quarto-monash/thesis) for Quarto to create
+a reproducible environment. All materials (including the data sets and
+source files) required to reproduce this document can be found at the
+Github repository
+[`github.com/hannaheow/diss`](https://github.com/hannaheow/diss).
 
-This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+This work is licensed under a [Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International
+License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 # Acknowledgements {.unnumbered}
 
-I would like to thank my pet goldfish for ...
-need to thank chrr; molly eunice matt; christine, ganhua, kate, jess, jennifer   
-n4bw
-chtc 
-writing center 
-friends n fam 
-palesa n themba 
-haley megan susan erica juliet april ken? 
+First, I want to thank County Health Rankings & Roadmaps, especially the
+data team—Christine, Matt, Jennifer, Eunice, Molly, Ganhua, Jess, Kate,
+and Heri. You all believe in me and give me purpose, direction, and a
+true sense of community. My identity as a scientist and as a human has
+been greatly shaped by the work we do together. I feel so lucky to have
+the opportunity to learn from you all.
 
-> In accordance with Chapter 7.1.4 of the research degrees handbook, if you have engaged the services of a professional editor, you must provide their name and a brief description of the service rendered. If the professional editor's current or former area of academic specialisation is similar your own, this too should be stated as it may suggest to examiners that the editor's advice to the student has extended beyond guidance on English expression to affect the substance and structure of the thesis.
+The Center for High Throughput Computing (CHTC) deserves a huge
+shout-out as well. This research would not have been possible without
+the resources available through CHTC and the guidance I received during
+CHTC office hours.
 
-I acknowledge the use of [`ChatGPT 4o`](https://chatgpt.com/) to assist with editorial writing, R code generation, and error correction. I reviewed and edited the material produced by ChatGPT as needed, and I take full responsibility for the content of this dissertation.
+I also want to recognize the University of Wisconsin Writing Center.
+Having access to such incredible resources helped me shape this work,
+and I’m very grateful for the support that made it possible.
 
-> Free text section for you to record your acknowledgment and gratitude for the more general academic input and support such as financial support from grants and scholarships and the non-academic support you have received during the course of your enrolment. If you are a recipient of the “Australian Government Research Training Program Scholarship”, you are required to include the following statement:
+Many thanks to my advisor, Amy, for her patience and encouragement. I
+couldn’t have asked for a better guide through this process, and I’m so
+grateful for her support.
 
-> > “This research was supported by an Australian Government Research Training Program (RTP) Scholarship.”
+To my badass PhD friends across departments—Megan, Susan, Erica, Juliet,
+Haley, and April —thanks for cheerleading and commiserating!
 
-> You may also wish to acknowledge significant and substantial contribution made by others to the research, work and writing represented and/or reported in the thesis. These could include significant contributions to: the conception and design of the project; non-routine technical work; analysis and interpretation of research data; drafting significant parts of the work or critically revising it so as to contribute to the interpretation.
+Thank you to my parents, whose love gives me confidence to chase big
+goals.
+
+And finally, to Andrew, for keeping me caffeinated and laughing always.
+
+<!--# n4bw, faustina, data carpentries, palesa and themba -->
 
 ```{=html}
 <!--

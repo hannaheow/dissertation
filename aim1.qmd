@@ -4,15 +4,17 @@ editor: visual
 bibliography: references.bib
 ---
 
+<a id="aim1"></a>
+
 <!--# the published version of this aim has 3 figures and 8 tables  -->
 
 ## Introduction
 
 External forces are rapidly shifting where people live, both by changing the physical environment and by accelerating how often people move [@dun2011; @hugo2011]. For example, fires on the US West Coast and hurricanes on the East Coast may lead to increased migration to midwestern cities [@maxim2020]. Further, while some may leave rural areas to escape natural disasters, others have escaped urban centers to avoid the spread of the COVID19 pandemic [@ramani2021]. Mental health is strongly linked to social and physical environment and access to health and social services [@vlahov2002]. In turn, each of these factors are shaped by where a person lives. To better prepare for potential adverse consequences to mental health from changes to where people live, we sought to quantify the relationship between urbanicity and mental health across US counties.
 
-Urbanicity refers to the degree to which a location is urban. In the US each county is assigned to an urbanicity category based on population density and proximity to the largest city [@rothwell]. The categories range from large central metro (e.g., Bronx County, New York or Los Angeles County, California) to noncore (e.g., Addison County, Vermont). Numerous studies suggest that living in an urban setting raises the risk of mental health problems [@castillejos2018; @krabbend; @march2008; @peen2010; @vassos2016]. For example, a review of studies found that living in a European city is a risk factor for mental health and substance abuse disorders [@urbanici2014]. However, most of these studies have focused on Western Europe, psychosis and schizophrenia, and time periods prior to early 2010. This limits their generalizability to contemporary mental health issues in the US. These issues include ‘deaths of despair’ from suicides or drug overdose devasting rural US counties [@stein2017] and trauma associated with reported violent crime endemic to urban US counties [@bell2020]. There is a critical gap in the literature that relates urbanicity to contemporary mental health in the US.
+Urbanicity refers to the degree to which a location is urban. In the US each county is assigned to an urbanicity category based on population density and proximity to the largest city [@rothwell]. The categories range from large central metro (e.g., Bronx County, New York or Los Angeles County, California) to noncore (e.g., Addison County, Vermont). Numerous studies suggest that living in an urban setting raises the risk of mental health problems [@castillejos2018; @krabbendam2005; @march2008; @peen2010; @vassos2016]. For example, a review of studies found that living in a European city is a risk factor for mental health and substance abuse disorders [@penkalla2014]. However, most of these studies have focused on Western Europe, psychosis and schizophrenia, and time periods prior to early 2010. This limits their generalizability to contemporary mental health issues in the US. These issues include ‘deaths of despair’ from suicides or drug overdose devasting rural US counties [@stein2017] and trauma associated with reported violent crime endemic to urban US counties [@bell2020]. There is a critical gap in the literature that relates urbanicity to contemporary mental health in the US.
 
-There are many potential mechanisms by which urbanicity could impact mental health. One might expect worse mental health in urban counties considering that limited access to green space [@tsai2018], concentration of populations marginalized from resources, crowded living conditions, and air pollution [@ha2017a] are associated with negative mental health outcomes. On the other hand, urban populations are also more likely to have access to mental health care, more likely to participate in social organizations which offer psycho-social support [@yang2019], and more likely to have educational and financial opportunities [@ha2019a], all of which are associated with positive mental health outcomes. A recently published paper assessing quality of life in Finland found higher rates of high quality of life in rural areas but not after controlling for perceived loneliness [@weckroth2022]. Another study found that people in urban areas have higher prevalence of both depression and anxiety despite having lower prevalence of other risk factors [@zijlema2015]. While the effects of urbanicity on general mental health may not be large, both urbanicity and mental health are complex phenomena which cannot be concisely distilled and lend themselves well to many various research hypotheses. Disentangling the contribution of each of these potential mechanisms has important public health implications by pointing to possible solutions (e.g., increase access) for improving mental health.
+There are many potential mechanisms by which urbanicity could impact mental health. One might expect worse mental health in urban counties considering that limited access to green space [@tsai2018], concentration of populations marginalized from resources, crowded living conditions, and air pollution [@ha2017] are associated with negative mental health outcomes. On the other hand, urban populations are also more likely to have access to mental health care, more likely to participate in social organizations which offer psycho-social support [@yang2019], and more likely to have educational and financial opportunities [@ha2019], all of which are associated with positive mental health outcomes. A recently published paper assessing quality of life in Finland found higher rates of high quality of life in rural areas but not after controlling for perceived loneliness [@weckroth2022]. Another study found that people in urban areas have higher prevalence of both depression and anxiety despite having lower prevalence of other risk factors [@zijlema2015]. While the effects of urbanicity on general mental health may not be large, both urbanicity and mental health are complex phenomena which cannot be concisely distilled and lend themselves well to many various research hypotheses. Disentangling the contribution of each of these potential mechanisms has important public health implications by pointing to possible solutions (e.g., increase access) for improving mental health.
 
 Relating urbanicity to mental health in the US, however, requires confronting several challenges. Urbanicity is a complex phenomenon, and its effects are impossible to isolate completely. There are many potential variables that confound the relationship between urbanicity and mental health. Most notably, counties that differ in urbanicity will also differ in the sociodemographic makeup of their population in terms of distributions of racial identity, age, income, and education. Even controlling for observed sociodemographic differences, there may still be unobserved confounding variables. For example, some people may choose to live in urban places and others in rural environments. These choices could be influenced by the past and present sociocultural context of each community which affects who feels welcomed into which communities. Factors such as personality and familial ties play large roles in both mental health and choice of living location [@chan1977a]. Thus, analyses and conclusions must be carefully crafted to account for the complexity of where people live and why.
 
@@ -36,7 +38,7 @@ The primary outcome of interest is *poor mental health days*, an age-adjusted av
 
 #### Controls
 
-We controlled for several variables that might confound the relationship between urbanicity and mental health. Broadly, the sociodemographic makeup of a county varies with urbanicity and is expected to also influence mental health of persons living in the county. The first variable we controlled for is median household income: the income level at which half of households in the county earn more, to measure the typical income in a county. We controlled for median household income, since higher income allows county residents to enjoy greater access to mental health care, which may be positively related to mental health [@grembowski2002]. For similar reasons, we also controlled for education [@chevalier2006]. Thus, the second control variable was some college: the percentage of adults ages 25–44 with some post-secondary education. The third control variable was percent over 65: the percentage of the population that are over age 65, since age is associated with decreased rates of self-reported poor mental health [@nimh»m]. Another control variable was US state. We added a control variable for state to account for potential state-level effects since our outcome variable comes from BRFSS which uses state-level sampling methods.
+We controlled for several variables that might confound the relationship between urbanicity and mental health. Broadly, the sociodemographic makeup of a county varies with urbanicity and is expected to also influence mental health of persons living in the county. The first variable we controlled for is median household income: the income level at which half of households in the county earn more, to measure the typical income in a county. We controlled for median household income, since higher income allows county residents to enjoy greater access to mental health care, which may be positively related to mental health [@grembowski2002]. For similar reasons, we also controlled for education [@chevalier2006]. Thus, the second control variable was some college: the percentage of adults ages 25–44 with some post-secondary education. The third control variable was percent over 65: the percentage of the population that are over age 65, since age is associated with decreased rates of self-reported poor mental health [@NIMH]. Another control variable was US state. We added a control variable for state to account for potential state-level effects since our outcome variable comes from BRFSS which uses state-level sampling methods.
 
 We also controlled for race/ethnicity since self-reported mental health differs by race/ethnicity. For example, during the pre-vaccine COVID-19 pandemic, adults identifying as Hispanic had 20% to 400% greater odds of experiencing poor mental health than adults identifying as non-Hispanic [@lee2021]. Additionally, people who identify as Black are historically more likely to report lower levels of life satisfaction than people identifying as white [@hughes1998]. Therefore, we controlled for the variables *Percent Black*: the percentage of the population that is non-Hispanic Black or African American, and *Percent Hispanic*: the percentage of the population that is Hispanic. We point out that the CHRR dataset also has a variable for percentage of the population that identify as Asian and a similar variable for percent Native Hawaiian/Other Pacific Islander. However, we did not include these variables because of their limited variation across the 3142 US counties.
 
@@ -62,17 +64,7 @@ County characteristics are summarized by urbanicity category in [Table 1](#tbl-a
 
 #### Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
 
-::: {#tbl-aim1_table1 .table}
-| Characteristic                        | Large Central Metro | Large Fringe Metro | Medium Metro | Small Metro | Micropolitan | Noncore     | Overall     |
-|---------------------------------------|---------------------|--------------------|--------------|-------------|--------------|-------------|-------------|
-| **n**                                 | 68                  | 368                | 372          | 357         | 641          | 1335        | 3141        |
-| **Some college (%)**                  | 70 (8)              | 64 (11)            | 61 (11)      | 61 (11)     | 57 (11)      | 55 (12)     | 58 (12)     |
-| **Median household income (\$K)**     | 70.7 (18.8)         | 74.6 (19.0)        | 59.6 (12.0)  | 56.6 (10.1) | 53.1 (11.1)  | 49.7 (9.8)  | 55.7 (14.5) |
-| **Over 65 (%)**                       | 14 (2)              | 17 (3)             | 18 (4)       | 19 (5)      | 19 (4)       | 22 (5)      | 20 (5)      |
-| **Black (%)**                         | 21 (14)             | 11 (14)            | 11 (14)      | 9 (12)      | 8 (14)       | 8 (15)      | 9 (14)      |
-| **Hispanic (%)**                      | 20 (15)             | 10 (10)            | 11 (15)      | 9 (12)      | 11 (16)      | 9 (14)      | 10 (14)     |
-| **Poor mental health days per month** | 4.35 (0.49)         | 4.43 (0.57)        | 4.68 (0.54)  | 4.66 (0.65) | 4.74 (0.64)  | 4.72 (0.73) | 4.67 (0.67) |
-:::
+![](aim1_images/table1.png){fig-align="center"}
 
 ### Average Relationship to Urbanicity
 
@@ -80,15 +72,7 @@ Our first analysis included a random effect for within-state correlation and con
 
 #### Table 2: Average Effect of Urbanicity on Poor Mental Health Days
 
-::: {#tbl-aim1_table2 .table}
-| Urbanicity Category     | State Variation Only (Estimate \[95% CI\]) | t    | df    | p        | State Variation and Demographic Effects (Estimate \[95% CI\]) | t     | df   | p        |
-|-------------------------|--------------------------------------------|------|-------|----------|---------------------------------------------------------------|-------|------|----------|
-| **Large Central Metro** | − 0.31 (− 0.40, − 0.22)                    | −6.8 | 388.2 | \< 0.001 | − 0.24 (− 0.31, − 0.16)                                       | −5.78 | 423  | \< 0.001 |
-| **Large Fringe Metro**  | − 0.26 (− 0.32, − 0.21)                    | −9.2 | 689.5 | \< 0.001 | − 0.04 (− 0.10, 0.01)                                         | −1.49 | 723  | 0.14     |
-| **Medium Metro**        | − 0.06 (− 0.11, − 0.01)                    | −2.5 | 686.2 | 0.01     | − 0.003 (− 0.05, 0.04)                                        | −0.14 | 727  | 0.89     |
-| **Micropolitan**        | 0.11 (0.07, 0.15)                          | 5.2  | 952.9 | \< 0.001 | − 0.004 (− 0.05, 0.04)                                        | −0.17 | 996  | 0.86     |
-| **Noncore**             | 0.21 (0.17, 0.25)                          | 10.7 | 1652  | \< 0.001 | 0.072 (0.026, 0.12)                                           | 3.06  | 1690 | 0.002    |
-:::
+![](aim1_images/table2.png)
 
 ### Mediation
 
@@ -96,34 +80,13 @@ Our next analysis investigated whether the differences between large central met
 
 #### Table 3: Average Effect of Each Potential Mediator on Poor Mental Health Days
 
-::: {#tbl-aim1_table3 .table}
-| Mediator                    | Large Central Metro (Effect \[95% CI\]) | t      | df  | p        | Noncore (Effect \[95% CI\]) | t      | df   | p        |
-|-----------------------------|-----------------------------------------|--------|-----|----------|-----------------------------|--------|------|----------|
-| **Income Inequality**       | 0.043 (0.011, 0.075)                    | 2.61   | 389 | 0.009    | 0.053 (0.028, 0.078)        | 4.17   | 1376 | \< 0.001 |
-| **Social associations**     | − 0.006 (− 0.042, 0.030)                | −0.34  | 389 | 0.73     | 0.032 (0.005, 0.058)        | 2.37   | 1376 | 0.02     |
-| **Access to exercise**      | − 0.104 (− 0.145, − 0.063)              | −5.02  | 389 | \< 0.001 | − 0.061 (− 0.082, − 0.040)  | −5.64  | 1376 | \< 0.001 |
-| **Food environment**        | − 0.187 (− 0.233, − 0.160)              | −10.49 | 389 | \< 0.001 | − 0.271 (− 0.297, − 0.246)  | −21.00 | 1376 | \< 0.001 |
-| **Mental health providers** | − 0.035 (− 0.071, − 0.0003)             | −1.98  | 389 | 0.05     | 0.050 (0.023, 0.077)        | 3.65   | 1376 | \< 0.001 |
-| **Air pollution**           | 0.018 (− 0.013, 0.049)                  | 1.12   | 389 | 0.26     | − 0.043 (− 0.070, − 0.016)  | −3.16  | 1376 | 0.002    |
-| **Violent crime**           | 0.062 (0.026, 0.097)                    | 3.44   | 389 | \< 0.001 | 0.048 (0.030, 0.067)        | 5.16   | 1376 | \< 0.001 |
-| **Severe housing cost**     | − 0.030 (− 0.073, 0.014)                | −1.34  | 389 | 0.18     | − 0.012 (− 0.037, 0.014)    | −0.91  | 1376 | 0.36     |
-:::
+![](images/clipboard-4128651097.png)
 
 ------------------------------------------------------------------------
 
 #### Table 4: Mediating Effects Between Urbanicity and Average Poor Mental Health Days
 
-::: {#tbl-aim1_table4 .table}
-| Mediating Effect                | Large Central Metro (Effect \[95% CI\]) | Noncore (Effect \[95% CI\]) |
-|---------------------------------|-----------------------------------------|-----------------------------|
-| **Total natural direct effect** | − 0.13 (− 0.14, − 0.13)                 | 0.09 (0.09, 0.09)           |
-| **Natural indirect effects**    |                                         |                             |
-| **Total**                       | − 0.11 (− 0.22, 0.02)                   | 0.005 (− 0.07, 0.11)        |
-| **Food environment**            | − 0.07 (− 0.14, 0.00)                   | 0.01 (− 0.06, 0.07)         |
-| **Violent crime**               | 0.10 (0.01, 0.19)                       | − 0.02 (− 0.04, 0.00)       |
-| **Housing**                     | − 0.04 (− 0.12, 0.05)                   | 0.00 (− 0.03, 0.03)         |
-| **Access to exercise**          | −                                       |                             |
-:::
+![](aim1_images/table4.png)
 
 Most of the potential mediators had a strong direct effect on poor mental health days, but they still might not mediate the relationship between urbanicity and poor mental health. Thus, our final analysis estimated natural indirect effects, i.e. the effects of changes in mediators that are related to urbanicity. Natural direct and indirect effects are summarized in [Table 4](#tbl-aim1_table4). For the large central metro vs. small metro comparison, the natural indirect effect was marginally significant: 0.11 fewer poor mental health days (95% CI: 0.22 to 0.02) were attributed to changes in the potential mediators related to being a large central metro county. In other words, about 46% (0.11/0.24) of the relationship between large central metro and poor mental health was mediated by factors such as food environment, access to exercise, violent crime, and income inequality. By contrast, the relationship between noncore and poor mental health was not mediated by these factors, as the natural indirect effect for the noncore vs. small metro comparison was nearly zero: 0.005 (95% CI: 0.07 to 0.11). This could be because the average number of self-reported poor mental health days in noncore counties was only 0.07 higher than the average number of self-reported poor mental health days in small metro counties, or perhaps there were additional unmeasured mediating factors at play.
 

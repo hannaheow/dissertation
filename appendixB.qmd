@@ -8,31 +8,52 @@ execute:
   fig-nofloat: true 
 editor: visual
 ---
+\clearpage
+::: {#table-aim2_table1}
+## Table 1: BIC Scores relative to reference for models with and without urbanicity and migration
 
-## Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
-
-::: {#tbl-aim1_table1}
-| Characteristic                        | Large Central Metro | Large Fringe Metro | Medium Metro | Small Metro | Micropolitan | Noncore     | Overall     |
-|---------|---------|---------|---------|---------|---------|---------|---------|
-| **n**                                 | 68                  | 368                | 372          | 357         | 641          | 1335        | 3141        |
-| **Some college (%)**                  | 70 (8)              | 64 (11)            | 61 (11)      | 61 (11)     | 57 (11)      | 55 (12)     | 58 (12)     |
-| **Median household income (\$K)**     | 70.7 (18.8)         | 74.6 (19.0)        | 59.6 (12.0)  | 56.6 (10.1) | 53.1 (11.1)  | 49.7 (9.8)  | 55.7 (14.5) |
-| **Over 65 (%)**                       | 14 (2)              | 17 (3)             | 18 (4)       | 19 (5)      | 19 (4)       | 22 (5)      | 20 (5)      |
-| **Black (%)**                         | 21 (14)             | 11 (14)            | 11 (14)      | 9 (12)      | 8 (14)       | 8 (15)      | 9 (14)      |
-| **Hispanic (%)**                      | 20 (15)             | 10 (10)            | 11 (15)      | 9 (12)      | 11 (16)      | 9 (14)      | 10 (14)     |
-| **Poor mental health days per month** | 4.35 (0.49)         | 4.43 (0.57)        | 4.68 (0.54)  | 4.66 (0.65) | 4.74 (0.64)  | 4.72 (0.73) | 4.67 (0.67) |
-:::
-
-------------------------------------------------------------------------
-
-
-
-## Figure 1: Average number of poor mental health days reported in past month per county by urbanicity category {#fig-aim1_fig1}
 ```{r}
-#| label: fig-aim1_fig1
-#| fig-cap: "Violin plot of the average number of poor mental health days by urbanicity category" 
-knitr::include_graphics("aim1_files/aim1_fig1.jpg")
+# Load required libraries
+library(dplyr)
+library(stringr)
+library(kableExtra)
+
+# Read in the data
+spatonly <- read.delim("data_processed_aim2/modselection_nat.txt", sep = ",")
+
+# Calculate the reference BIC score
+ref <- spatonly$BIC[spatonly$Model == "fnom"]
+
+# Calculate BIC score relative to reference
+spatonly <- spatonly %>%
+  mutate(
+    refbic = round(BIC - ref, 2),
+    `Migration Included` = !grepl("_nomig|nom", Model),
+    `Urbanicity interaction` = grepl("r", Model),
+    `Degrees of Freedom` = str_extract_all(Model, "\\d+")
+  )
+
+# Convert Degrees of Freedom list to a single string or set to "1" if no number is found
+spatonly$`Degrees of Freedom` <- sapply(spatonly$`Degrees of Freedom`, function(x) {
+  if (length(x) == 0) {
+    return("1")
+  } else {
+    return(paste(x, collapse = " "))
+  }
+})
+
+# Select relevant columns and replace 0 in BIC score with "REF"
+tf <- spatonly %>%
+  select(`Degrees of Freedom`, `Migration Included`, `Urbanicity interaction`, refbic) %>%
+  rename(`BIC score relative to reference` = refbic) %>%
+  mutate(`BIC score relative to reference` = ifelse(`BIC score relative to reference` == 0, "REF", `BIC score relative to reference`)) %>%
+  arrange(`Degrees of Freedom`, `Migration Included`, `Urbanicity interaction`)
+
+# Display the table
+# Display the table with kableExtra, auto-scaling to fit PDF page
+tf %>%
+  kable("latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("scale_down", "striped"), full_width = FALSE)
+
 ```
-
-
-
+:::
