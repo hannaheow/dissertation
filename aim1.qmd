@@ -1,5 +1,11 @@
 ---
 title: "Manuscript 1: Ecological Study of Urbanicity and Self-reported Poor Mental Health Days Across US Counties"
+format: 
+  pdf:
+    message: false
+    warning: false
+    echo: false
+    error: false
 editor: visual
 bibliography: references.bib
 ---
@@ -62,31 +68,53 @@ Mediation analysis was conducted in two steps [@imai2010; @vanderweele2014]. Fir
 
 County characteristics are summarized by urbanicity category in [Table 1](#tbl-aim1_table1). Briefly, the more urban counties tended to be more educated and younger, and to have a higher median income and a larger proportion of Black and Hispanic residents. The proportions of Black and Hispanic residents tended to be similar across urbanicity categories, with slightly higher proportions of Hispanic residents than Black residents in micropolitan and noncore counties. Without controlling for any variables, we also found that the more urban categories tended to have better mental health in terms of average poor mental health days (see [Figure 1](#fig-aim1_fig1) in the Appendix). Residents in large central metro counties reported the lowest average poor mental health days: 4.35 days. Residents in micropolitan counties reported the highest: 4.74 days. As expected, income and education are strongly protective of mental health, with counties with higher education and income levels having lower average poor mental health days (see [Figure 2](#fig-aim1_fig2) and [Figure 3](#fig-aim1_fig3) in the Appendix for plots of these relationships).
 
+::: {#tbl-aim1_table1}
 #### Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
 
-![](aim1_images/table1.png){fig-align="center"}
+```{r}
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table1.png")
+```
+:::
 
 ### Average Relationship to Urbanicity
 
 Our first analysis included a random effect for within-state correlation and controls for county sociodemographic composition (i.e. income, education, race/ethnicity, and age; see [Table 2](#tbl-aim1_table2). When we only included the random effect for within-state correlation, we found that small metro counties differ significantly in average poor mental health days compared to every other urbanicity category. In this case, the more urban counties had progressively fewer average poor mental health days, whereas the less urban counties had progressively more poor average mental health days. When adjusting for state *and* sociodemographic composition, only counties at the extreme ends of urbanicity, i.e. either large central metro or noncore, differed significantly in average poor mental health from small metro counties. Adjusted estimates indicated that large central metro counties had an average of 0.24 *fewer* poor mental health days than small metro counties ($t = -5.78, df = 423, p < 0.001$), ($t = -5.78, df = 423, p < 0.001$), whereas noncore counties had an average of 0.07 *more* poor mental health days than small metro counties ($t = 3.06, df = 1690, p = 0.002$).
 
+::: {#tbl-aim1_table2}
 #### Table 2: Average Effect of Urbanicity on Poor Mental Health Days
 
-![](aim1_images/table2.png)
+```{r}
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table2.png")
+```
+:::
 
 ### Mediation
 
 Our next analysis investigated whether the differences between large central metro or noncore counties and small metro counties could be explained by specific features of an urban or rural environment. [Table 3](#tbl-aim1_table3) shows the average effect of each potential mediator on poor mental health days when all mediators are included in the model for poor mental health days. We will summarize the top 4 significant effects. The food environment index had the largest coefficient for both comparisons (i.e. large central metro vs. small metro and noncore vs. small metro), whereby a better food environment was related to better average mental health. Access to exercise had the next largest coefficient for both comparisons and was also positively related to better average mental health. Violent crime had the third largest coefficient for both comparisons and was negatively related to a county’s mental health. Finally, income inequality had the fourth largest coefficient for both comparisons and was also negatively related to a county’s mental health.
 
+::: {#tbl-aim1_table3}
 #### Table 3: Average Effect of Each Potential Mediator on Poor Mental Health Days
 
-![](images/clipboard-4128651097.png)
+```{r}
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table3.png")
+```
+:::
 
-------------------------------------------------------------------------
-
+::: {#tbl-aim1_table4}
 #### Table 4: Mediating Effects Between Urbanicity and Average Poor Mental Health Days
 
-![](aim1_images/table4.png)
+```{r}
+#| out.width: "110%" 
+#| hold_position: true
+knitr::include_graphics("aim1_images/table4.png")
+```
+:::
 
 Most of the potential mediators had a strong direct effect on poor mental health days, but they still might not mediate the relationship between urbanicity and poor mental health. Thus, our final analysis estimated natural indirect effects, i.e. the effects of changes in mediators that are related to urbanicity. Natural direct and indirect effects are summarized in [Table 4](#tbl-aim1_table4). For the large central metro vs. small metro comparison, the natural indirect effect was marginally significant: 0.11 fewer poor mental health days (95% CI: 0.22 to 0.02) were attributed to changes in the potential mediators related to being a large central metro county. In other words, about 46% (0.11/0.24) of the relationship between large central metro and poor mental health was mediated by factors such as food environment, access to exercise, violent crime, and income inequality. By contrast, the relationship between noncore and poor mental health was not mediated by these factors, as the natural indirect effect for the noncore vs. small metro comparison was nearly zero: 0.005 (95% CI: 0.07 to 0.11). This could be because the average number of self-reported poor mental health days in noncore counties was only 0.07 higher than the average number of self-reported poor mental health days in small metro counties, or perhaps there were additional unmeasured mediating factors at play.
 

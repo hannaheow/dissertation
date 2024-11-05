@@ -5,14 +5,18 @@ execute:
   warning: false  # Suppresses warnings
   message: false  # Suppresses messages
   fig-cap: false 
-  fig-nofloat: true 
+  fig-nofloat: false
 editor: visual
 ---
 \clearpage
-::: {#table-aim2_table1}
-## Table 1: BIC Scores relative to reference for models with and without urbanicity and migration
+::: {#table-aim2_table3}
+## Table 3: BIC Scores relative to reference for models with and without urbanicity and migration
+
+\vspace{0.2cm}  <!-- Adds a small space after the heading to keep layout clean -->
+
 
 ```{r}
+#| hold_position: true
 # Load required libraries
 library(dplyr)
 library(stringr)

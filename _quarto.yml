@@ -28,7 +28,7 @@ affiliation: Department of Population Health
 
 format:
   pdf:
-    documentclass: report
+    #documentclass: report
     pdf-engine: xelatex
     header-includes:
       - \usepackage{setspace}

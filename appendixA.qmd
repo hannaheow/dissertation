@@ -8,49 +8,7 @@ execute:
   fig-nofloat: false
 ---
 
-::: {#tbl-aim1_table1}
-## Table 1: Mean (SD) Characteristics of US Counties by Urbanicity Category
-```{r}
-#| out.width: "110%" 
-#| hold_position: true
-knitr::include_graphics("aim1_images/table1.png")
-```
-:::
-\clearpage
 
-
-
-::: {#tbl-aim1_table2}
-## Table 2: Average Effect of Urbanicity on Poor Mental Health Days
-```{r}
-#| out.width: "110%" 
-#| hold_position: true
-knitr::include_graphics("aim1_images/table2.png")
-```
-:::
-\clearpage
-
-
-
-::: {#tbl-aim1_table3}
-## Table 3: Average Effect of Each Potential Mediator on Poor Mental Health Days
-```{r}
-#| out.width: "110%" 
-#| hold_position: true
-knitr::include_graphics("aim1_images/table3.png")
-```
-:::
-\clearpage
-
-
-::: {#tbl-aim1_table4}
-## Table 4: Mediating Effects Between Urbanicity and Average Poor Mental Health Days
-```{r}
-#| out.width: "110%" 
-#| hold_position: true
-knitr::include_graphics("aim1_images/table4.png")
-```
-:::
 \clearpage
 
 
@@ -118,7 +76,7 @@ knitr::include_graphics("aim1_images/table8.png")
 #| fig-cap: ": Violin plot of the average number of poor mental health days by urbanicity category" 
 #| out.width: "80%" 
 #| hold_position: true
-knitr::include_graphics("aim1_files/aim1_fig1.jpg")
+knitr::include_graphics("aim1_images/figure1.png")
 ```
 ::: 
 \clearpage
@@ -129,7 +87,7 @@ knitr::include_graphics("aim1_files/aim1_fig1.jpg")
 #| fig-cap: ": Relationship between percent adults over 25 years old with some college education and the average number of mentally unhealthy days per month"
 #| out.width: "80%"
 #| hold_position: true
-knitr::include_graphics("aim1_files/aim1_fig2.jpg")
+knitr::include_graphics("aim1_images/figure2.png")
 ```
 ::: 
 \clearpage
@@ -140,6 +98,6 @@ knitr::include_graphics("aim1_files/aim1_fig2.jpg")
 #| fig-cap: ": Relationship between median household income and the average number of mentally unhealthy days per month"
 #| out.width: "80%" 
 #| hold_position: true
-knitr::include_graphics("aim1_files/aim1_fig3.jpg")
+knitr::include_graphics("aim1_images/figure3.png")
 ```
 ::: 
