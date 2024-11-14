@@ -9,6 +9,8 @@ format:
     error: false
 editor: visual
 bibliography: references.bib
+editor_options: 
+  chunk_output_type: console
 ---
 
 <a id="aim2"></a>
@@ -76,9 +78,9 @@ Here $y_{i,t-1}$ is the lagged premature age-adjusted mortality rate of county $
 
 $$  amig_{it}(k_{ij}, l_i) = \frac{ \sum_{j\ne i} out_{jit} ( y_{j,t-1} + k_{ij}) + (y_{i,t-1} + l_i) (pop_{i, t-1} - \sum_{j\ne i} out_{ijt})}{ \sum_{j\ne i} out_{jit} + (pop_{i,t-1} - \sum_{j\ne i} out_{ijt})} $$
 
-When the parameter $k_{ij}$ is negative, it reduces the lagged premature age-adjusted mortality rate of the origin county $j$ in the equation, capturing the scenario where individuals moving from county $i$ to county $j$ are healthier, on average, than the typical person in their origin county $j$. When the parameter $k_{ij}$ is positive, it reduces the lagged premature age-adjusted mortality rate of the oigin county $j$ in the equation, capturing the scenario where individuals moving from county $i$ to county $j$ are less healthy, on average, than the typical person in their origin county $j$.
+When the parameter $k_{ij}$ is negative, it reduces the lagged premature age-adjusted mortality rate of the origin county $j$ in the equation, capturing the scenario where individuals moving from county $j$ to county $i$ are healthier, on average, than the typical person in their origin county $j$. When the parameter $k_{ij}$ is positive, it reduces the lagged premature age-adjusted mortality rate of the oigin county $j$ in the equation, capturing the scenario where individuals moving from county $j$ to county $i$ are less healthy, on average, than the typical person in their origin county $j$.
 
-Similarly, when the parameter $l_i$ is negative (positive), it decreases (increases) premature age-adjusted mortality rate of the destination county $i$ in the equation, capturing the scenario where individuals staying in county $j$ are healthier (less healthy), on average, than the typical person in the county. who are unhealthier than the average of their origin $i$.
+Similarly, when the parameter $l_i$ is negative (positive), it decreases (increases) premature age-adjusted mortality rate of the destination county $i$ in the equation, capturing the scenario where individuals staying in county $i$ are healthier (less healthy), on average, than the typical person in the county. 
 
 Letting $d_{ij}$ be the difference between $k_{ij}$ and $l_i$, then our equation for $amig(k_{ij})$ becomes:
 
