@@ -80,7 +80,7 @@ $$  amig_{it}(k_{ij}, l_i) = \frac{ \sum_{j\ne i} out_{jit} ( y_{j,t-1} + k_{ij}
 
 When the parameter $k_{ij}$ is negative, it reduces the lagged premature age-adjusted mortality rate of the origin county $j$ in the equation, capturing the scenario where individuals moving from county $j$ to county $i$ are healthier, on average, than the typical person in their origin county $j$. When the parameter $k_{ij}$ is positive, it reduces the lagged premature age-adjusted mortality rate of the oigin county $j$ in the equation, capturing the scenario where individuals moving from county $j$ to county $i$ are less healthy, on average, than the typical person in their origin county $j$.
 
-Similarly, when the parameter $l_i$ is negative (positive), it decreases (increases) premature age-adjusted mortality rate of the destination county $i$ in the equation, capturing the scenario where individuals staying in county $i$ are healthier (less healthy), on average, than the typical person in the county. 
+Similarly, when the parameter $l_i$ is negative (positive), it decreases (increases) premature age-adjusted mortality rate of the destination county $i$ in the equation, capturing the scenario where individuals staying in county $i$ are healthier (less healthy), on average, than the typical person in the county.
 
 Letting $d_{ij}$ be the difference between $k_{ij}$ and $l_i$, then our equation for $amig(k_{ij})$ becomes:
 
@@ -190,7 +190,6 @@ Our first goal was to establish that our migration term, which accounts for coun
 Next, we sought to determine whether the role that county-to-county migration flows plays in county-level health outcomes differs between rural and urban counties (Hypothesis 2). [Figure 3.1](#figure-aim2_figure1) demonstrates lower BIC scores for models that include both the migration term and interaction terms with urbanicity. These BIC scores are also available in [Table B.1](#tbl-aim2_table3) in Appendix B. The difference in BIC scores between models that include the migration term and those that do not is more pronounced when the interaction terms added. This suggests that the migration term significantly enhances model explainability when accounting for urbanicity, indicating that the relationship between average county-level health and migration may differ substantially across urbanicity levels.
 
 ::: {#figure-aim2_figure1}
-
 ```{r spatial models only, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "BIC scores relative to reference for models with and without urbanicity and migration"}
 #| label: fig-modelselection
 
@@ -258,7 +257,6 @@ ggplot(data = tf, aes(x = `Degrees of Freedom`,
     ) +
     coord_cartesian(ylim = c(min(as.numeric(tf$`BIC score relative to reference`), na.rm = TRUE) * 1.1, 0)) 
 ```
-
 :::
 
 In [Figure 3.1](#figure-aim2_figure1), we see that the difference in the BIC scores of models with splines with two degrees of freedom and models with splines with four degrees of freedom for $y_{i,t-1}$ and $mig_{it}$ is only `r abs(round(spatonly$BIC[spatonly$Model == "fff4r"] - spatonly$BIC[spatonly$Model == "fff2r"], 1))`. Due to concerns about potential overfitting, and since there appears to be little explainability added by additional degrees of freedom, we chose to use a model with splines with two degrees of freedom for lagged premature mortality rate and migration term, thus, we settled on using only two degrees of freedom moving forward.
@@ -268,7 +266,6 @@ In [Figure 3.1](#figure-aim2_figure1), we see that the difference in the BIC sco
 Our final set of analyses replace our migration term $mig_{it}$ with the adjusted migration term $amig_{it}$ in our effort to take into account unmeasured factors in county-to-county migration flows (Hypothesis 3). When using the same value for $d_{ij}$ across all county pairs, we found that the model with the most explanatory power had $d_{ij}=0$. As the magnitude of the difference between the health of origin and destination increased, our models had less explanatory power as measured by higher BIC scores (see [Figure 3.2](#figure-aim2_fig2)). This suggests that, contrary to Hypothesis 3, health-related selection for migration may not be important to modeling county-level health.
 
 ::: {#figure-aim2_fig2}
-
 ```{r ksim without urb, just k, echo = FALSE, fig.cap = "BIC scores for models that do not account for urbanicity"}
 #| label: fig-ksim_nourb
 #this might have to be removed or updated since it uses 4df 
@@ -287,8 +284,7 @@ However, we reach a different conclusion when varying $d_{ij}$ based on the urba
 
 [Figure 3.3](#figure-aim2_figure3) shows the relationship between BIC scores and values of $d_{ij}$ for each migration type, while holding other values constant at 0. For migration to rural counties ($d_{rr}$ and $d_{ru}$), the minimum BIC score occurs when the model assumes these counties attract individuals with average county health (i.e. when $d_{rr} = 0$ and $d_{ru} = 0$). However, for urban-to-urban migration ($d_{uu}$), lower BIC scores occur when the model assumes the urban counties attract individuals with lower age-adjusted premature mortality rates, suggesting that movers tend to migrate from healthier urban counties to less healthy urban counties. For rural-to-urban migration ($d_{ru}$), there is some indication that rural origins have higher age-adjusted premature mortality rates compared to their urban destinations, as indicated by the minimum BIC score occurring at $d_{ur} = 20$. However, the relationship between $d_{ur}$ and BIC score appears to be relatively flat, with all BIC scores remaining close to the minimum, regardless of the value of $d_{ur}$. Therefore, there is limited evidence of health-related selection from rural origins to urban destinations.
 
-:::{#figure-aim2_figure3}
-
+::: {#figure-aim2_figure3}
 ```{r plot with special kuu outputs, fig.cap="Dotted line indicates minimum BIC score at duu = -100" }
 
 load("data_processed_aim2/bick_restrict_kuuspecial.Rdata")
@@ -403,7 +399,7 @@ Additionally, because urban counties have larger populations than rural counties
 
 Our use of county-level premature age-adjusted mortality as the outcome of interest offers both strengths and limitations. While this measure allows for comparability across different times and locations and has a robust definition, it does not perfectly align with the demographics of migrating populations. The median age of movers in the US is under 30 years [@s0701:g], suggesting a potential mismatch since mortality primarily results from chronic diseases with long latency periods. Although previous research indicates that health differences among immigrants can be detected within a relatively short period, applying this to our study assumes similar dynamics for non-infectious diseases [@vanaart2017a]. Nonetheless, county-level measures of premature mortality are widely used as a proxy for overall county health. For example, a 1983 WHO report recommended mortality and morbidity measures to understand health and migration [@gushulak2006], and length of life measures hold 50% weight in the County Health Rankings Model of place-based health outcomes [@explore].
 
-Another significant limitation is the reliance on IRS data, which includes only approximately 45% of the total US population [@williams2015; @desilver2023]. Excluded groups, such as university students, low-income individuals, and informal workers [@dewaard2022], are systematically missing from our analysis, possibly biasing the results. Despite these limitations, IRS migration data has been used many times in the past to complete complex and accurate analyses of US migration patterns. For instance, IRS migration flow data has been used to estimate the effects of sea-level rise on geographic distribution of the US population [@hauer2017], measure recovery after Hurricanes Katrina and Rita [@curtis2015], and assess the economic impacts of migration resulting from environmental hazards [@shumway2014].
+Another significant limitation is the reliance on IRS data, which includes only approximately 45% of the total US population [@williams2015; @desilver2023]. <!--# this stat prob needs to be removed!!! -->Excluded groups, such as university students, low-income individuals, and informal workers [@dewaard2022], are systematically missing from our analysis, possibly biasing the results. Despite these limitations, IRS migration data has been used many times in the past to complete complex and accurate analyses of US migration patterns. For instance, IRS migration flow data has been used to estimate the effects of sea-level rise on geographic distribution of the US population [@hauer2017], measure recovery after Hurricanes Katrina and Rita [@curtis2015], and assess the economic impacts of migration resulting from environmental hazards [@shumway2014].
 
 We attempt to leverage the limitations of the IRS data as a strength in our analyses: because IRS county-to-county migration data includes only individuals who file taxes with the US government both before and after they migrate, we assume that individuals represented in the IRS migration flows data are more homogeneous than migrants excluded from IRS estimates since they may be less likely to have been pushed to migrate by potentially health-related factors such as violence, famine, and corruption than individuals who migrate but are excluded from the IRS data. Therefore, any differences in changes in health between counties may be the result of self-selection by IRS-represented migrants or health-related selection by non-IRS-represented migrants.
 

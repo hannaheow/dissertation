@@ -1,0 +1,78 @@
+// Include theme-specific fonts
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital@0;1&display=swap');
+
+/*-- scss:defaults --*/
+// Override theme settings (see ../template/settings.scss)
+// Base settings for all themes that can optionally be
+// overridden by the super-theme
+
+// Background of the presentation
+$backgroundColor: #fcfbf9;
+
+// Primary/body text
+$mainFont: 'Jost', sans-serif;
+$mainFontSize: 30px;
+$mainColor: #333;
+
+// Vertical spacing between blocks of text
+$blockMargin: 20px;
+
+// Headings
+$headingMargin: 0 0 $blockMargin 0;
+$headingFont: 'Abhaya Libre', Impact, sans-serif;
+$headingColor: #9c1212;
+$headingLineHeight: 1.2;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingTextShadow: none;
+$headingFontWeight: normal;
+$heading1TextShadow: $headingTextShadow;
+
+$heading1Size: 3.00em;
+$heading2Size: 2.11em;
+$heading3Size: 1.55em;
+$heading4Size: 1.00em;
+
+$codeFont: monospace;
+
+// Links and actions
+$linkColor: #9c1212;
+$linkColorHover: darken( $linkColor, 20% );
+
+// Text selection
+$selectionBackgroundColor: #fd2626;
+$selectionColor: #fff;
+
+// start using css here
+
+#title-slide {
+  top: 0 !important;
+}
+
+#title-slide > .author:first-of-type {
+  margin-top: 320px;
+}
+
+// Add watermark image to all slides
+.reveal {
+  position: relative;
+}
+
+.reveal .slides {
+  position: relative;
+}
+
+.reveal .slides::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-image: url('uw-crest.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  opacity: 0.3; /* Adjust transparency as needed */
+  pointer-events: none; /* Prevent watermark from interfering with slide interactions */
+}

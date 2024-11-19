@@ -2,7 +2,25 @@
 title: "Migration, Urbanicity, and Health: Mutually reinforcing contextual and compositional place-based determinants of health"
 author: "Hannah Olson-Williams"
 subtitle: "Department of Population Health Sciences"
-format: revealjs
+date: November 19, 2024
+bibliography: references.bib
+format: 
+  revealjs: 
+    multiplex: false 
+    footer: "[github.com/hannaheow/dissertation](https://github.com/hannaheow/dissertation)"
+    output_file: "Olson-WilliamsDefense"
+    width: 1245
+    height: 900
+    embed-resources: true
+    preview-links: false
+    toc: false
+    menu: true
+    controls: true
+    slide-number: true
+    transition: fade
+    theme: ["pp.scss"]
+    auto-stretch: false
+    center: true 
 ---
 
 ## Aims:
@@ -15,17 +33,45 @@ format: revealjs
 
 ## Mutually reinforcing processes that define the health of a place
 
-![](images/mutuallyreinforcing.PNG){fig-align="center"}
+![](images/framework/Slide2.PNG){fig-align="center"}
 
 ## Mutually reinforcing processes that define the health of a place
 
-![](images/mutuallyreinforcing_desc.PNG){fig-align="center"}
+![](images/framework/Slide3.PNG){fig-align="center"}
+
+## Mutually reinforcing processes that define the health of a place
+
+![](images/framework/Slide4.PNG){fig-align="center"}
+
+## Mutually reinforcing processes that define the health of a place
+
+![](images/framework/Slide5.PNG){fig-align="center"}
+
+::: notes
+2023 American fitness index: madison is ranked number 6 in terms of personal health and number 24 in terms of community environment
+
+2024 CHRR: 16% of dane county residents reported no physical activity in their leisure time. this is below the state and national values of 19% and 23% respectively
+
+2024 CHRR: 85% of dane county residents voted in the 2020 election (WI: 75%; national: 68%)
+:::
+
+## Mutually reinforcing processes that define the health of a place
+
+![](images/framework/Slide6.PNG){fig-align="center"}
+
+## Mutually reinforcing processes that define the health of a place
+
+![](images/framework/Slide7.PNG){fig-align="center"}
+
+::: notes
+2024 CHRR: 94% of dane county residents live close to a park or recreation facility
+:::
 
 ## Motivation:
 
-### Migration influenced by context 
+### Ha Makoae, Lesotho
 
-![](images/hamakoae.JPG){fig-align="center"}
+![January 28, 2018](images/hamakoae.JPG){fig-align="center"}
 
 ::: notes
 In Lesotho, 43 percent of households report that at least one family member lives away - according to the DHS 2014 survey [@botea]
@@ -41,20 +87,21 @@ Anecdotally:
 
 ## Motivation:
 
-### Contextual and Compositional Measures of Health
+### Structural Determinants of Health
 
 ![](images/CHRR%20Logo.jpg){fig-align="center"}
 
 ## Motivation:
 
-### Urbanicity influencing future context 
+### Urban-rural divide
 
 ![](images/ap_ruralurb_voting.png){fig-align="center"}
 
-## Motivation: 
+## Motivation:
 
-### Looking forward 
+### Looking forward
 
+::: incremental
 -   **Inequality**
 
     -   Rural-urban divides account for approximately 40% of within country inequality [@young2013]
@@ -66,6 +113,7 @@ Anecdotally:
     -   Climate-induced migration could result in up to 300% increase in population density [@hsiang2016]
 
     -   Urbanicity-related inequalities are related to climate susceptibility [@fong2020]
+:::
 
 ## Goals:
 
@@ -80,9 +128,9 @@ Anecdotally:
 *Quantify the associations between place and self-reported mental health at the county level*
 
 ::: incremental
--   Hypothesis 1A: County-level averages in poor mental health days are related to urbanicity after accounting for county-level demographic differences
+-   **Hypothesis 1A:** County-level averages in poor mental health days are related to urbanicity after accounting for county-level demographic differences
 
--   Hypothesis 1B: This relationship can be explained by differences in factors linked to the built environment (e.g. access to exercise, mental health providers, air pollution, violent crime, and severe housing problems)
+-   **Hypothesis 1B:** This relationship can be explained by differences in factors linked to the built environment (e.g. access to exercise, mental health providers, air pollution, violent crime, and severe housing problems)
 :::
 
 ## *Note:*
@@ -93,11 +141,13 @@ Aim 1 findings have been [published in the Community Mental Health Journal](http
 
 All data come from the County Health Rankings and Roadmaps 2021 dataset
 
-**Outcome:** self-reported poor mental health days from the Behavioral Risk Factor Surveillance System (BRFSS)
+::: incremental
+-   **Outcome:** self-reported poor mental health days from the Behavioral Risk Factor Surveillance System (BRFSS)
 
-**Exposure:** urbanicity, as defined by the National Center for Health Statistics (NCHS)
+-   **Exposure:** urbanicity, as defined by the National Center for Health Statistics (NCHS)
 
-**Controls:** sociodemographic makeup of each county
+-   **Controls:** sociodemographic makeup of each county
+:::
 
 ## Aim 1: Data
 
@@ -135,7 +185,7 @@ We investigated 8 potential mediating factors:
 
 *The relationship between urbanicity and mental health can be explained by differences in factors linked to the built environment*
 
-Mediation analysis in two steps (CITE)
+Mediation analysis in two steps [@imai2010; @vanderweele2014]
 
 ::: incremental
 -   Mentally unhealthy days \~ mediator + urbanicity
@@ -189,8 +239,26 @@ Explore how county-level migration can enhance our capacity to understand and ex
 
 County-level age-adjusted premature mortality rate per 100,000 population of county $i$ at time $t$
 
+::: incremental
+-   Premature mortality: any death occurring before age 75
+
+-   Each $t$ is a single year from 2012-2019
+
+-   Source: CDC WONDER Underlying Cause of Death
+:::
+
 ::: notes
-Premature mortality is death before age 75.
+IMPUTATION using MICE modeling each var as a function of the others iteratively to improve imputations
+
+MICE = multiple imputation by chained equations
+
+used a custom binary predictor matrix including all vars: agerate, deaths, population
+
+we imputed because we needed balanced panel data and because we did not want to systematically exclude rural counties
+
+removed alaska and hawaii since our queen contiguity did not account for non contiguous
+
+total of 3107 counties included in our data
 :::
 
 ## Aim 2: Variables
@@ -208,11 +276,23 @@ Weighted average accounting for compositional change in a destination county $i$
 $$ mig_{it} = \frac{ \sum_{j\ne i} out_{jit} y_{j,t-1} + y_{i,t-1} (pop_{i, t-1} - \sum_{j\ne i} out_{ijt})}{ \sum_{j\ne i} out_{jit} + (pop_{i,t-1} - \sum_{j\ne i} out_{ijt})} $$
 
 ::: incremental
--   $out_{jit}$ represents the number of individuals from county $j$ who moved to a destination county $i$ between year $t-1$ and year $t$
+-   $out_{jit}$ represents the number of movers from county $j$ to a destination county $i$ between year $t-1$ and year $t$
+
+    -   Source: IRS migration data: number of personal exemptions claimed
 
 -   $y_{j, t-1}$ is the lagged premature age-adjusted mortality rate of origin county $j$
 
 -   $pop_{i,t-1}$ is the population under age 75 of county $i$ in the prior year $t-1$
+
+    -   Source: CDC WONDER Underlying Cause of Death
+:::
+
+::: notes
+Remember to note here that IRS data only captures internal migration; when I say "migrant" what I really mean is "mover"
+
+CDC WONDER population counts come from the US Census Bureau "postcensal estimates" of the july 1 resident population;
+
+census estimates capture 94-95% of the total US residents while irs data captures only \~45%
 :::
 
 ## Aim 2: Variables
@@ -231,22 +311,24 @@ Urbanicity as defined by the NCHS (same as Aim 1), grouped into urban and rural 
 
 Adjusted weighted average migration term for county $i$ in year $t$
 
-$d_{ij}$ accounts for health-related selection of migrants to county $i$ from county $j$
+$d_{ij}$ accounts for health-related selection of movers to county $i$ from county $j$
 
 $$  amig_{it} = \frac{ \sum_{j\ne i} out_{jit} ( y_{j,t-1} + d_{ij}) + y_{i,t-1} (pop_{i, t-1} - \sum_{j\ne i} out_{ijt})}{ \sum_{j\ne i} out_{jit} + (pop_{i,t-1} - \sum_{j\ne i} out_{ijt})}$$
 
 ::: incremental
--   When $d_{ij} > 0$, county $i$ tends to attract less healthy individuals
+-   When $d_{ij} > 0$ county $i$ tends to attract less healthy movers
 
--   When $d_{ij} < 0$ county $i$ tends to attract healthier individuals
+-   When $d_{ij} < 0$ county $i$ tends to attract healthier movers
 :::
 
 ::: notes
 dij = kij - li
 
-where kij is specific to origin and li is specific to destination ASK AMY ABOUT THIS!!!
+where kij is specific to origin linked to destination and li is specific to destination only (since we have the flows only one way rn)
 
-therefore dij represents the difference between the "push" of the origin and the "pull" of the destination
+therefore dij represents the difference between the "push" of the origin and the "pull" of the destination ; dij is positive if the destination is "healthier" ie the destination is subtracted a greater value than the origin
+
+and dij is negative when the destination is "less healthy" than the origin (ie the destination is subtracted a smaller value than the origin)
 :::
 
 ## Aim 2: Models
@@ -256,11 +338,11 @@ Baseline Model:
 $$  y_{it} = \beta_0 + \beta_{1t} + \beta_{2}y_{t-1,i} + \mu_{i} + \epsilon_{it}    $$
 
 ::: incremental
--   where $\beta_0$ is the intercept,
+-   where $\beta_0$ is the intercept
 
 -   $\beta_{1t}$ is a coefficient for the effect of each year $t$
 
--   $\beta_2$ is a coefficient to capture the effect of lagged premature age-adjusted mortality,
+-   $\beta_2$ is a coefficient to capture the effect of lagged premature age-adjusted mortality
 
 -   $\mu_i$ is a random intercept for each county $i$
 
@@ -274,11 +356,11 @@ Baseline Model: **Spatial error**
 $$ \epsilon_{it} = \lambda W \epsilon_{it} + u_{it}   $$
 
 ::: incremental
--   Where $\lambda$ is a scalar to represent the magnitude of spatial dependency
+-   $\lambda$ is a scalar to represent the magnitude of spatial error
 
--   $W_{ij}$ is an entry in a spatial weights matrix with row-standardized weights. It was created using the "queen" criterion which considers counties that share any point as neighbors.
+-   $W$ is a spatial weights matrix created using the "queen" criterion which considers counties that share any point as neighbors
 
--   $\mu_{it}$ represents the independent random error term for each county and each year.
+-   $\mu_{it}$ is a random error term for each county and each year
 :::
 
 ## Aim 2: Models
@@ -287,15 +369,31 @@ Iterative process:
 
 ::: incremental
 1.  Test splines for $y_{i,t-1}$
-2.  Test $mig_{it}$ with and without splines (*Hypothesis 2A*)
-3.  Test interaction between $mig_{it}$ and urbanicity (*Hypothesis 2B*)
-4.  Replace $mig_{it}$ with $amig_{it}$ and test values of $d_{ij}$ incrementing by 50 from -200 to 200 in units of premature deaths per 100,000 population (*Hypothesis 2C*)
-5.  Test values of $d_{ij}$ dependent upon the urbanicity category of origin county $j$ and destination county $i$ such that $d_{ij}$ could be one of four values: $d_{uu}$ (urban to urban), $d_{rr}$ (rural to rural), $d_{ru}$ (rural to urban), and $d_{ur}$ (urban to rural) where each of $(d_{uu}, d_{rr}, d_{ru}, d_{ur})$ were varied, factorially, incrementing first by 50 from -200 to 200 and then by 20 from -80 to 80 such that 13,122 $(= 9^4 * 2)$ total combinations were tested.
+2.  Test $mig_{it}$ with and without splines (***Hypothesis 2A***)
+3.  Test interaction between $mig_{it}$ and urbanicity (***Hypothesis 2B***)
+4.  Replace $mig_{it}$ with $amig_{it}$ and test values of $d_{ij}$ incrementing by 50 from -200 to 200 in units of premature deaths per 100,000 population (***Hypothesis 2C***)
 :::
 
 ::: notes
 dij = d(destination, origin)
 :::
+
+## Aim 2: Models
+
+Iterative process:
+
+5.  Test values of $d_{ij}$ dependent upon the urbanicity category of origin county $j$ and destination county $i$ such that $d_{ij}$ could be one of four values:
+
+    ::: incremental
+    -   $d_{uu}$ urban to urban
+    -   $d_{rr}$ rural to rural
+    -   $d_{ru}$ rural to urban
+    -   $d_{ur}$ urban to rural
+    -   Where each of $(d_{uu}, d_{rr}, d_{ru}, d_{ur})$ were varied factorially
+        -   Coarse search: incrementing by 50 from -200 to 200
+        -   Then incrementing by 20 around a minimum found in the coarse search
+        -   We tested a total of 13,122 $(= 9^4 * 2)$ combinations of $(d_{uu}, d_{rr}, d_{ru}, d_{ur})$
+    :::
 
 ## Aim 2: Results
 
@@ -330,13 +428,29 @@ Health-related selection may be important to modeling county-level health when w
 ![](images/aim2_bic_withurb.png)
 
 ::: notes
-For migration to rural counties (orange and red lines), min BIC score occurs when the model assumes these counties attract individual with average county health (ie when d = 0)
+For migration to rural counties (orange and red lines), min BIC score occurs when the model assumes these counties attract movers with average county health (ie when d = 0)
 
-For urban-to-urban migration, lower BIC occurs when the model assumes the urban counties attract inds w lower mortality rates, suggesting that movers tend to migrate from healthier urban counties to less healthy urban counties. OR that movers are healthier on average than their destination counties.
+For urban-to-urban migration, lower BIC occurs when the model assumes the urban counties attract movers from counties with lower (BETTER) mortality rates, suggesting that movers tend to migrate from healthier urban counties to less healthy urban counties. OR that movers are healthier on average than their destination counties.
 
-For rural to urban migration, rural origins have higher mortality rates compared to their urban destinations since min occurs at dur = 20 ; however the relationship between due and BIC is relatively flat, with all BIC scores close to the min -\> limited evidence of health-related selection from rural origins to urban destinations
+For rural to urban migration, urban destinations have slightly better LOWER premature mortality rates than their rural origins since min occurs at dur = 20 ; this possibly suggests that people move from rural areas to urban areas seeking better health. this matches the "pull" idea of urban counties. However the relationship between due and BIC is relatively flat, with all BIC scores close to the min -\> limited evidence of health-related selection from rural origins to urban destinations
 
 REMEMBER: dur = d urban dest, rural origin
+
+REMEMBER dij \> 0 -\> destination attracts less healthy movers; dij \<0-\> destination attracts healthier movers
+:::
+
+## Aim 2: Conclusion
+
+::: incremental
+-   Migration does matter!
+
+-   Urbanicity matters even after accounting for migration
+
+-   Some evidence that healthier urban destinations are connected to less healthy urban origins
+:::
+
+::: notes
+migration patterns could lead to place-based health disparities in the long term
 :::
 
 ## Aim 2: Pitfalls and Alternatives
@@ -344,18 +458,30 @@ REMEMBER: dur = d urban dest, rural origin
 ::: incremental
 -   Regression to the mean
 
+-   Premature age-adjusted mortality rates serve as a proxy for overall county-level health
+
+-   IRS data
+
 -   Internal migration only
 
--   IRS data issues; only approximately 45% of the total US population, not including individuals who are undocumented
-
 -   Pre-covid
+:::
+
+::: notes
+-   IRS data includes only approximately 45% of the total US population
+
+-   Known issues with the post 2011 data ; IRS took over data curation from census bureau in 2011 which meant that more tax returns could be included
+
+-   sharp decline until 2014; sharp increase until 2016; volatility after 2016
+
+-   sig statistical differences in county-to-county migration prob after 2011 compared to earlier periods
 :::
 
 ## Aim 3: Hypothesis
 
 Is a county's position within a migration system predictive of county-level health?
 
-## Aim 3: Approach 
+## Aim 3: Approach
 
 **Tensor decomposition**
 
@@ -364,28 +490,38 @@ Is a county's position within a migration system predictive of county-level heal
 ::: notes
 lots of ways to visualize this
 
-cake metaphor????
+commonly used for image processing
+
+still quite new!!!!
+
+recipe metaphor !!!!
 :::
-
-## Aim 3: Approach
-
-**Tensor Decomposition**
-
-Non-Negative Tensor Factorization (NTF) represented as: $$𝑋≈ \sum_{r=1}^R{o_{ir}\bullet d_{jr}\bullet t_{kr}}$$
-
-Where each $rth$ component corresponds to a unique "migration system", and the loadings $(o_{ir}, d_{jr}, t_{kr})$ represent the significance of each origin county $i$, destination county $j$, and year $k$ to each migration system $r$.
 
 ## Aim 3: Approach
 
 **Constructing the tensor** $X$
 
-A CUBE! Origin, destination, time
+A CUBE!
 
-Each entry in the tensor represents the $log(1+n)$ transformed number of migrating individuals from origin $i$ to destination $j$ in time period $k$.
+Origin by destination by time: $3109$ x $3109$ x $8$
+
+Each entry in the tensor represents the $log(1+n)$ transformed number of movers from origin $i$ to destination $j$ in time period $k$.
+
+## Aim 3: Approach
+
+**Tensor Decomposition**
+
+Non-Negative Tensor Factorization (NTF) represented as:
+
+$$ X \approx \sum_{r=1}^R o_{ir} \cdot d_{jr} \cdot t_{kr}, \quad \text{such that } o_{ir} \geq 0, \, d_{jr} \geq 0, \, t_{kr} \geq 0 \, \forall \, i, j, k, r. $$
+
+Where each $rth$ component corresponds to a unique "migration system", and the loadings $(o_{ir}, d_{jr}, t_{kr})$ represent the significance of each origin county $i$, destination county $j$, and year $k$ to each migration system $r$.
 
 ## Aim 3: Approach
 
 **Spatial modeling**
+
+$$ y_{it} = \beta_0 + \sum_{r=1}^{R} \beta_{o_r} o_{ir} + \sum_{r=1}^{R} \beta_{d_r} d_{jr} + \sum_{r=1}^{R} \beta_{t_r} t_{kr} + \sum_{n=2}^{6} \gamma_n \text{Urbanicity}_n + \mu_{it} $$
 
 ::: incremental
 -   Predictor variables: $o_{ir}, d_{jr}, t_{kr}$
@@ -396,7 +532,7 @@ Each entry in the tensor represents the $log(1+n)$ transformed number of migrati
 
     -   Premature age-adjusted mortality rate per 100,000 population
 
--   Modifier: $Urbanicity_n$
+-   Covariate: $Urbanicity_n$
 
     -   Six categories (same as Aim 1): large central metro, large fringe metro, medium metro, small metro, micropolitan, noncore
 
@@ -405,7 +541,9 @@ Each entry in the tensor represents the $log(1+n)$ transformed number of migrati
     -   Accounts for spatial correlation using Queen's contiguity
 :::
 
-$$ y_{it} = \beta_0 + \sum_{r=1}^{R} \beta_{o_r} o_{ir} + \sum_{r=1}^{R} \beta_{d_r} d_{jr} + \sum_{r=1}^{R} \beta_{t_r} t_{kr} + \sum_{n=2}^{6} \gamma_n \text{Urbanicity}_n + \mu_{it} $$
+::: notes
+the only piece of model "selection" we are doing is to choose the value of R! which we do using the elbow plot. otherwise this is an exploratory model
+:::
 
 ## Aim 3: Results
 
@@ -414,67 +552,79 @@ $$ y_{it} = \beta_0 + \sum_{r=1}^{R} \beta_{o_r} o_{ir} + \sum_{r=1}^{R} \beta_{
 ![](images/aim3_elbow.png)
 
 ::: notes
-We tested many different random seeds for each component, and we tested iteration counts of 100, 500, and 1000
+We tested 100 random seeds for each component, and we tested iteration counts of 100, 500, and 1000
 :::
 
 ## Aim 3: Three migration systems
 
-**System 1: Urban to rural**
-
-![](aim2_images/comp1_maps.png)
-
-## Aim 3: Three migration systems
-
-**System 1: Urban to rural**
-
-![](images/aim3_top_comp1.png)
+::: {style="display: flex; justify-content: space-evenly;"}
+![Image 1](aim2_images/comp1_maps.png){width="30%"} ![Image 2](aim2_images/comp2_maps.png){width="30%"} ![Image 3](aim2_images/comp3_maps.png){width="30%"}
+:::
 
 ::: notes
-few origins, well distributed destinations
+-   Loadings are kind of like probabilities
 
-Cook county really lights up - this could be for a variety of reasons
+-   to make maps interpretable, first i ranked the probabilities and then assigned color
 
-Majority of destination counties are noncore (most rural)
+-   there were many ties
 :::
 
 ## Aim 3: Three migration systems
 
-**System 2: Specific phenomena**
+**Component 1: Urban to Rural**
 
-![](aim2_images/comp2_maps.png)
+::: {style="display: flex;"}
+![](images/aim3_top_comp1.png){height="120%"}
 
-## Aim 3: Three migration systems
-
-**System 2: Specific phenomena**
-
-![](images/aim3_top_comp2.png)
+![](aim3_images/urb_legend.png){height="40%"}
+:::
 
 ::: notes
-Better distribution of origins than comp 1, but still not as well dist as the destinations
+Component 1: few origins, well distributed destinations
 
-Genesse MI is the site of the 2014 flint water crisis ; survey data has not decisively shown that people moved as a result of the water crisis, but many residents reported considering moving.... [@morckel2018]
+-   Cook county really lights up - this could be for a variety of reasons
 
-Top destination is Lincoln arkansas which is home to two prisons????
+-   Majority of destination counties are noncore (most rural)
 :::
 
 ## Aim 3: Three migration systems
 
-**System 3: State borders**
+**Component 2: Specific Phenomena**
 
-![](aim2_images/comp3_maps.png)
+::: {style="display: flex;"}
+![](images/aim3_top_comp2.png){height="120%"}
+
+![](aim3_images/urb_legend.png){height="40%"}
+:::
+
+::: notes
+Component 2:
+
+-   Better distribution of origins than comp 1, but still not as well dist as the destinations
+
+-   Genesse MI is the site of the 2014 flint water crisis ; survey data has not decisively shown that people moved as a result of the water crisis, but many residents reported considering moving.... [@morckel2018]
+
+-   Top destination is Lincoln arkansas which is home to two prisons????
+:::
 
 ## Aim 3: Three migration systems
 
-**System 3: State borders**
+**Component 3: State borders**
 
-![](images/aim3_top_comp3.png)
+::: {style="display: flex;"}
+![](images/aim3_top_comp3.png){height="120%"}
+
+![](aim3_images/urb_legend.png){height="40%"}
+:::
 
 ::: notes
-Lyon county iowa: on the border of Minnesota and South Dakota
+-   Component 3:
 
-4/10 of the top origins are on state borders: Le Flore Oklahoma, Escambia Alabama, Santa Rosa Florida
+    -   Lyon county iowa: on the border of Minnesota and South Dakota
 
-Tax data  - cohen et al suggests that people do file in different states as a result of variations in tax code
+        4/10 of the top origins are on state borders: Le Flore Oklahoma, Escambia Alabama, Santa Rosa Florida
+
+        Tax data - cohen et al suggests that people do file in different states as a result of variations in tax code
 :::
 
 ## Aim 3: Three migration systems
@@ -493,6 +643,8 @@ diff in diff study using ACS migration data found that the ACA was not assoc w s
 diff in diff thesis found sig negative impacts on migration to high tax states [@simonson2022] this study also used ACS data
 
 PURELY SPECULATIVE ; cannot form any conclusions based on this
+
+ALSO LIKELY DUE TO ESTABLISHED IRS DATA ISSUE: including steep decline 2011-2014 then sharp increases until 2016, volatility after [@dewaard2022]
 :::
 
 ## Aim 3: Results
@@ -502,9 +654,9 @@ PURELY SPECULATIVE ; cannot form any conclusions based on this
 $$ y_{it} = \beta_0 + \sum_{r=1}^{3} \beta_{o_r} o_{ir} + \sum_{r=1}^{3} \beta_{d_r} d_{jr} + \sum_{r=1}^{3} \beta_{t_r} t_{kr} + \sum_{n=2}^{6} \gamma_n \text{Urbanicity}_n + \mu_{it} $$
 
 ::: incremental
--   Increased origin loadings in *Component 2: Specific phenomena* $(o_{i2})$ are associated with higher premature mortality rates
+-   Increased origin loadings in ***Component 2: Specific phenomena*** $(o_{i2})$ are associated with higher premature mortality rates
 
--   Increased destination loadings in *Component 1: Urban-to-rural* $(d_{i1})$ and *Component 3: State borders* $(d_{i3})$ are associated with lower premature mortality rates
+-   Increased destination loadings in ***Component 1: Urban-to-rural*** $(d_{i1})$ and ***Component 3: State borders*** $(d_{i3})$ are associated with lower premature mortality rates
 
 -   Even after accounting for a county's position within a migration system, the effect of urbanicity remains significant
 
@@ -514,17 +666,27 @@ $$ y_{it} = \beta_0 + \sum_{r=1}^{3} \beta_{o_r} o_{ir} + \sum_{r=1}^{3} \beta_{
 ## Aim 3: Pitfalls and Alternatives
 
 ::: incremental
--   Instability of estimates
+-   Ambiguous - somewhat dependent upon individual perception
+
+-   Non-convex
+
+    -   Ensemble decomposition and/or consensus clustering
 
 -   IRS data
 
--   County-level internal migration
+    -   Highly sparse
 
--   Other, less complicated and more stable methods
+    -   Temporality issues
+
+    -   Non-representative
+
+-   NARROWED GEOGRAPHICAL SCOPE
 :::
 
 ::: notes
 Tensor decomposition is a nonconvex problem meaning that there are many possible solutions - the best way I've heard this described is like a forest
+
+Its still very new!!! almquist paper finally peer reviewed less than 2 weeks ago!
 
 Other methods:
 
@@ -534,19 +696,41 @@ ensemble decomposition: aggregates results from multiple runs to provide a more 
 
 consensus clustering: consensus matrix is a square matrix where each entry represents the freq or proportion of times two data points are clustered together (ie part of the decomp??) across all runs ; ie if 2pts are in the same decomp 80% of the runs, the consensus matrix entry for those pts is 0.8
 
-gini coeff as originally proposed in 2022 would allow us to compare across components ; but ranking allows us to ID counties that are the largest migration contributors but no insight into balance or spread of contributors
+ONLY IF ASKED: gini coeff as originally proposed in 2022 would allow us to compare across components ; but ranking allows us to ID counties that are the largest migration contributors but no insight into balance or spread of contributors
+:::
+
+## Conclusions
+
+::: incremental
+-   **Aim 1:**
+
+    -   Contextual factors persist even after we adjust for compositional factors.
+
+    -   Contextual factors matter more in urban counties than in rural counties.
+
+-   **Aim 2:**
+
+    -   There is some evidence of health-related selection occurring for migration from urban origins to urban destinations.
+
+    -   No evidence of health-related selection occurring for migration to rural destinations.
+
+-   **Aim 3:**
+
+    -   The effect of urbanicity persists even after we adjust for a county's position within a migration system.
+
+    -   Tensor decomposition is an exciting new method for distilling the complexities of migration.
 :::
 
 ## Future Questions
 
 ::: incremental
--   Can we replicate these findings using the ACS five year data?
+-   Can we replicate the findings of Aims 2 and 3 using the ACS five year data?
 
--   Need for smaller unit of analysis (census tract? mobile device?) and more inclusive data
+-   Need for smaller unit of analysis (census tract? mobile device?) and more inclusive data OR state and regions specific analyses
 
--   What will happen to places that experience forced or voluntary exodus of undocumented immigrants?
+-   What will happen to places that experience forced or voluntary exodus of unauthorized immigrants?
 
--   Increased need for place-based assessments of health to quantify potential impacts of Project 25
+-   Increased need for place-based assessments of health to quantify potential impacts of the next administration
 :::
 
 ::: notes
@@ -555,23 +739,49 @@ Unauthorized immigrants represented 3.3% of the total US population as of 2022 [
 we could see increases in differences across states in terms of health policy - we will need to have clear understandings of who and what is being measured in order to advocate for evidence based policy
 :::
 
-## Acknowledgements
+## Technical acknowledgements
+
+::: incremental
+-   I acknowledge the use of ChatGPT for code generation, editorial writing, and error correction
+
+-   Many thanks to the UW-Madison Writing Center
+
+-   This research would not have been possible without resources available through the Center for High Throughput Computing
+
+-   This work is dependent upon amazing open source tools and templates
+:::
+
+## Personal acknowledgements
 
 ::: incremental
 -   CHRR folks
 
 -   Mom, Dad, Erik, Andrew
 
--   Friends
+-   My committee members: Amy, Marjory, Shaneda, Paul, and Jenna
 
--   Lesotho folks: Palesa and Naledi, Grant and Emily, Themba, Mathabo
+-   Everyone here today - THANK YOU!
+:::
+
+::: notes
+CHRR folks - i've learned tons - not just science but also many soft skills like how to strive for excellence, what truly empathetic leadership looks like, how to admit when i've made a mistake, what a really highly functioning work place looks like, etc etc etc it's been a privilege to grow at CHRR
+
+Matt, dave, christine, marjory, molly and eunice, so so so many ppl
 :::
 
 ## Extras
 
-## Aims visual:
+## Aim 1: Results 
 
-![](images/framework.png){fig-align="center"}
+![](images/clipboard-3001421058.png)
+
+## Aim 1: Results 
+
+![](images/clipboard-3743999009.png)
+
+## Aim 1: Results 
+
+![](images/clipboard-3252667007.png)
 
 ## Aim 2: Data
 
@@ -594,13 +804,13 @@ All analyses are from the perspective of a destination county of migration. Coun
 $$  amig_{it}(k_{ij}, l_i) = \frac{ \sum_{j\ne i} out_{jit} ( y_{j,t-1} + k_{ij}) + (y_{i,t-1} + l_i) (pop_{i, t-1} - \sum_{j\ne i} out_{ijt})}{ \sum_{j\ne i} out_{jit} + (pop_{i,t-1} - \sum_{j\ne i} out_{ijt})} $$
 
 ::: incremental
--   When $k_{ij} <0$ : individuals moving from county $j$ to county $i$ are healthier, on average, than the typical person in their origin county $j$
+-   When $k_{ij} <0$ : movers from county $j$ to county $i$ are healthier, on average, than the typical person in their origin county $j$
 
--   When $k_{ij} >0$ : individuals moving from county $j$ to county $i$ are less healthy, on average, than the typical person in their origin county $j$
+-   When $k_{ij} >0$ : movers from county $j$ to county $i$ are less healthy, on average, than the typical person in their origin county $j$
 
--   When $l_i < 0$ : individuals staying in county $i$ are healthier, on average, than the typical person in county $i$.
+-   When $l_i < 0$ : stayers in county $i$ are healthier, on average, than the typical person in county $i$.
 
--   When $l_i > 0$ : individuals staying in county $i$ are less healthy, on average, than the typical person in county $i$.
+-   When $l_i > 0$ : stayers in county $i$ are less healthy, on average, than the typical person in county $i$.
 :::
 
 ## Aim 2: Variables
@@ -617,8 +827,16 @@ $$  amig_{it} = \frac{ \sum_{j\ne i} out_{jit} ( y_{j,t-1} + l_i + d_{ij}) + (y_
 
 $$  amig_{it} = \frac{ \sum_{j\ne i} out_{jit} ( y_{j,t-1} + d_{ij}) + y_{i,t-1} (pop_{i, t-1} - \sum_{j\ne i} out_{ijt})}{ \sum_{j\ne i} out_{jit} + (pop_{i,t-1} - \sum_{j\ne i} out_{ijt})} +l_i$$
 
+## Aim 2: Results 
+
+**Descriptive Statistics**
+
+![](images/clipboard-3606082553.png)
+
 ## Aim 3: Results
 
 **Connection to county-level health**
 
 ##### ![](images/aim3_spatialtable.png)
+
+## 
