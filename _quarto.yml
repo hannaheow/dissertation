@@ -3,9 +3,10 @@ project:
 
 book:
   title: "Migration, Urbanicity, and Health: Mutually Reinforcing Contextual and Compositional Place-Based Determinants of Health"
-  author: "Hannah Olson-Williams"
+  subtitle: "A dissertation submitted in partial fulfillment of \n the requirements for the degree of \n Doctor of Philosophy \n (Epidemiology) \n at the \n UNIVERSITY OF WISCONSIN-MADISON \n 2024"
+  author: "by Hannah Olson-Williams"
   chapters:
-    - text: "Front matter"
+    - text: "Title Page"
       file: index.qmd
     - "intro.qmd"
     - "aim1.qmd"
@@ -16,8 +17,8 @@ book:
   appendices:
     - "appendixA.qmd"
     - "appendixB.qmd"
-  sidebar:
-    style: "docked"
+    - "appendixC.qmd"
+
 
 bibliography: references.bib
 csl: american-statistical-association.csl
@@ -36,4 +37,3 @@ format:
   #monashthesis-html: default
   #monashthesis-pdf: default
   #monashthesis-docx: default
-prefer-html: true

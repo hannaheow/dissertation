@@ -4,10 +4,45 @@ editor:
     wrap: 72
 ---
 
-::: {.content-visible when-format="html"}
-A thesis submitted for the degree of {{< meta degreetype >}} at the
-{{< meta affiliation >}}.
-:::
+---
+title: "Migration, Urbanicity, and Health: Mutually Reinforcing Contextual and Compositional Place-Based Determinants of Health"
+format: pdf
+pdf-engine: xelatex
+fontsize: 12pt
+output: pdf_document
+---
+
+# Migration, Urbanicity, and Health:  
+## Mutually Reinforcing Contextual and Compositional  
+## Place-Based Determinants of Health  
+
+### By  
+
+### Hannah Olson-Williams  
+
+---
+
+A dissertation submitted in partial fulfillment of  
+the requirements for the degree of  
+Doctor of Philosophy  
+(Epidemiology)  
+
+at the  
+
+**UNIVERSITY OF WISCONSIN-MADISON**  
+
+2024  
+
+---
+
+Date of final oral examination: [Insert Date]  
+
+The dissertation is approved by the following members of the Final Oral Committee:  
+- [Committee Member 1], Professor, [Field]  
+- [Committee Member 2], Professor, [Field]  
+- [Committee Member 3], Associate Professor, [Field]  
+- [Committee Member 4], Assistant Professor, [Field]  
+
 
 # Copyright notice {.unnumbered}
 

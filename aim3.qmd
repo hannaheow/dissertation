@@ -30,19 +30,43 @@ In this paper, we aim to explore the utility of tensor factorization in uncoveri
 
 #### Building the Tensor
 
-We started by building a three-dimensional tensor from IRS county-to-county migration data, where the dimensions correspond to the **origin county**, **destination county**, and the **time period**. We use data representing 3109 origin and destination counties for years 2011 through 2019, with the IRS migration data capturing the number of individuals (based on exemptions claimed on tax returns) moving from each origin county to each destination county over a 12-month period (July 1 of the year prior to June 30 of the given year) [@soitax]. We replaced all "missing" migrations (ie no migration between a given county and destination) with zero such that our tensor contained all possible county-to-county migration patterns within the contiguous United States. Additionally, within-county migration (where origin and destination are the same) was set to zero to ensure that only inter-county migration was captured in the tensor. To normalize the data in the tensor, we applied a transformation using $log(1 + n)$, where $n$ represents the number of migrating individuals. This normalization approach preserves zero values in the data and helps mitigate the influence of large migration counts, which is consistent with the approach used in other tensor decompositions of migration data [@gong2024]. Therefore, each entry in the tensor, $X(a_i,b_j,c_k)$, represents the $log(1+n)$ transformed number of migrating individuals from origin $i$ to destination $j$ in time period $k$.
+We started by building a three-dimensional tensor from IRS county-to-county migration data, where the dimensions correspond to the **origin county**, **destination county**, and the **time period**. We use data representing 3109 origin and destination counties for years 2011 through 2019, with the IRS migration data capturing the number of individuals (based on exemptions claimed on tax returns) moving from each origin county to each destination county over a 12-month period (July 1 of the year prior to June 30 of the given year) [@soitax]. We replaced all "missing" migrations (ie no migration between a given county and destination) with zero such that our tensor contained all possible county-to-county migration patterns within the contiguous United States. Additionally, within-county migration (where origin and destination are the same) was set to zero to ensure that only inter-county migration was captured in the tensor. To normalize the data in the tensor, we applied a transformation using $log(1 + n)$, where $n$ represents the number of migrating individuals. This normalization approach preserves zero values in the data and helps mitigate the influence of large migration counts, which is consistent with the approach used in other tensor decompositions of migration data [@gong2024]. Therefore, each entry in the tensor, $X(o_i,d_j,t_k)$, represents the $log(1+n)$ transformed number of migrating individuals from origin $i$ to destination $j$ in time period $k$.
 
 #### Tensor Decomposition
 
 Since our tensor consists only of zero and positive values, we employed **Non-Negative Tensor Factorization (NTF)** from the `nnTensor` package in R [@nnTensor] which ensures that all components remain non-negative for interpretability. Additionally, the NTF function utilizes the Canonical Polyadic (CP) factorization method, which is ideal for creating interpretable results from sparse data because it produces a sum of independent components, each aligned directly with a mode, allowing for straightforward interpretation of patterns along each dimension [@haliassos2022].
 
-Mathematically, the decomposition of the tensor using NTF is represented as: $$𝑋≈ \sum_{r=1}^R{a_{ir}•b_{ir}•c_{ir}}$$
+Mathematically, the decomposition of the tensor using NTF is represented as: $$𝑋≈ \sum_{r=1}^R{o_{ir}•d_{jr}•t_{kr}}$$
 
-where $R$ is the number of components (rank) for the decomposition and $a_{ir}$, $b_{ir}$, and $c_{ir}$ represent the factor vectors corresponding to each dimension: origin $i$, destination $j$, and year $k$ of the tensor. Each $rth$ component corresponds to a different "migration system," and the loadings (e.g., $a_{ir}$) represent the contribution of a county or time period to that component. A high loading on a particular variable signifies its importance in the migration system. Therefore, it follows that if $a_{ir}=0$ we know that origin $i$ is not in the $rth$ migration system. On the other hand, if $a_{ir}$ is large, we can infer that the $rth$ migration system has lots of migration activity from origin 𝑖. This is a direct extension of the decomposition of a three-way tensor described in Almquist et al, 2021 [@almquist2021].
+where $R$ is the number of components (rank) for the decomposition and $o_{ir}$, $d_{jr}$, and $t_{kr}$ represent the factor vectors corresponding to each dimension: origin $i$, destination $j$, and year $k$ of the tensor. Each $rth$ component corresponds to a different "migration system," and the loadings (e.g., $o_{ir}$) represent the contribution of a county or time period to that component. A high loading on a particular variable signifies its importance in the migration system. Therefore, it follows that if $o_{ir}=0$ we know that origin $i$ is not in the $rth$ migration system. On the other hand, if $o_{ir}$ is large, we can infer that the $rth$ migration system has lots of migration activity from origin 𝑖. This is a direct extension of the decomposition of a three-way tensor described in Almquist et al, 2021 [@almquist2021].
 
-To evaluate the quality of each decomposition, we prioritized minimizing the reconstruction error, measured by the Frobenius norm of the residual tensor—the difference between the original tensor and its reconstructed form. Lower Frobenius norm values indicate better approximations of the original tensor. Since tensor decomposition is a non-convex optimization problem, it can lead to multiple local minima rather than a single global minimum. This non-convexity means that the optimization landscape contains multiple peaks and valleys, making it challenging to find the best overall solution [@adali2022]. For each number of components, we tested specific iteration counts (100, 500, and 1000) across multiple random seeds, as varying seeds help avoid local minima and reveal the most stable solutions. We then plotted the Frobenius norm against the number of components to examine the relationship between model complexity and reconstruction accuracy, aiming to identify an "elbow" where additional components yield diminishing error reduction.
+To evaluate the quality of each decomposition, we prioritized minimizing the reconstruction error, measured by the Frobenius norm of the residual tensor—the difference between the original tensor and its reconstructed form. Lower Frobenius norm values indicate better approximations of the original tensor. Since tensor decomposition is a non-convex optimization problem, it can lead to multiple local minima rather than a single global minimum. This non-convexity means that the optimization landscape contains multiple peaks and valleys, making it challenging to find the best overall solution [@adali2022]. For each number of components $r$, we tested specific iteration counts (100, 200, and 500) across multiple random seeds, as varying seeds help avoid local minima and reveal the most stable solutions.
 
-After reviewing the elbow plot to select an optimal number of components and iterations that effectively captured the migration system while balancing error minimization and simplicity, we generated maps of the tensor’s origin and destination dimensions for each component, along with a plot for the temporal dimension. To address skewness in the raw loadings, we ranked each origin, destination, and time period’s relative contribution from 1 to the number of unique loadings per dimension, assigning equal ranks to ties. We then used these maps to identify which decomposition best represented internal US migration patterns, comparing maps of decompositions with various numbers of components for interpretability, using Almquist's finding that a decomposition with six components is optimal as a guide [@almquist2021].
+To assess the reproducibility of the decompositions, we calculated the Factor Match Score (FMS), which quantifies the similarity between the factor matrices derived from split-half sampling. The original tensor was randomly divided into two halves, ensuring no overlap between the subsets. Each half was subjected to non-negative tensor factorization (NTF) using the same rank, initialization method, and number of iterations. The FMS quantifies the alignment of the factor matrices $o_{ir}, d_{jr}, t_{kr}$ across the two decompositions.
+
+For each component $r$, the cosine similarity was computed for the corresponding columns of the factor matrices from the two splits. Cosine similarity is defined as:
+
+$$
+ \text{cosine similarity}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\| \|\mathbf{y}\|}
+$$
+
+where $x$ and $y$ are the respective columns of the factor matrices. The $FMS$ for each component was calculated as the product of the cosine similarities of the $r$-th columns of the three factor matrices:
+
+$$
+\text{FMS}_r = \text{sim}_o \cdot \text{sim}_d \cdot \text{sim}_t
+$$
+
+The overall $FMS$ was obtained by averaging the component-wise $FMS$ values across all components:
+
+$$
+ \text{FMS} = \frac{1}{R} \sum_{r=1}^{R} \text{FMS}_r
+$$
+
+where $R$ is the number of components. The $FMS$ ranges from 0 to 1, with higher values indicating greater reproducibility of the factorization across splits. This metric was used to evaluate the stability and reliability of the tensor decomposition.
+
+Before generating the elbow plot, we filtered the decompositions by selecting only those with the maximum FMS score for each unique number of components, ensuring that only the most reproducible solutions were considered. We then plotted the Frobenius norm against the number of components to examine the relationship between model complexity and reconstruction accuracy, aiming to identify an "elbow" where additional components yield diminishing error reduction.
+
+After reviewing the elbow plot to select an optimal number of components and iterations that effectively captured the migration system while balancing error minimization and simplicity, we generated maps of the tensor’s origin and destination dimensions for each component, along with a plot for the temporal dimension. To address skewness in the raw loadings, we ranked each origin, destination, and time period’s relative contribution from 1 to the number of unique loadings per dimension, assigning equal ranks to ties. We then used these maps to identify which decomposition best represented internal US migration patterns, comparing maps of decompositions with various numbers of components for interpretability, using Almquist's finding that a decomposition with six components is optimal as a guide.
 
 ### Spatial Modeling and Connection to County-Level Health
 
@@ -75,571 +99,137 @@ where:
 
 ### Decomposition Selection
 
-Using the elbow plot below, we see that, as expected, the Frobenius norm of the residual generally decreased as the number of components increased, reflecting improved model fit with more complex models. A clear "elbow point" was observed at 3 components, suggesting 3 as an approximately optimal number of components where the model balances complexity and fit. By systematically evaluating the decomposition across a range of complexities and visualizing the results, we can confidently interpret the underlying structure of the tensor data.
+Using the elbow plot below, we see that, as expected, the Frobenius norm of the residual generally decreased as the number of components increased, reflecting improved model fit with more complex models. However, we observed no clear relationship between the number of iterations and error, indicating that increasing iterations did not consistently improve the quality of the decomposition. This plot includes all iterations for each decomposition, with each dot representing a unique run with a different random seed, highlighting the variability introduced by initialization. Bolded points on the plot represent the decompositions that achieved the maximum (best) FMS score and the minimum error for each unique number of components, ensuring that the most stable and optimal solutions were emphasized. We observe some leveling-off of error (i.e., an elbow point) at around 3 components; however, we selected a decomposition with 6 components, as it had the lowest error and the highest FMS score. By systematically evaluating the decomposition across a range of complexities and visualizing the results, we aimed to confidently select the most interpretable decomposition.
 
-```{r elbow plot with multiple seeds for each ncomp }
-# needs to be updated w latest z100 data from chtc 
-# settling on the 100 iterations with frobenius algo and log(1+x) transformed data
-# more iterations did not necessarily yield lower error.... so the default 100 is sufficient - risk of overfitting / inconclusive results 
-library(tidyverse)
+```{r load the decomp and make the elbow plot}
 
-# Define the function
-plot_error <- function(data_name) {
-  
-  # Select the dataset based on input
-  data <- get(data_name)
-  
-  # Calculate the average error for each rank
-  min_error_df <- data %>%
-    group_by(ncomp) %>%
-    summarize(min = min(error))
-  
-  # Create the ggplot
-  plot <- ggplot(data, aes(x = ncomp, y = error)) +
-    geom_point() +  # Plot points for all data
-    geom_line(data = min_error_df, aes(x = ncomp, y = min), 
-              color = "black", size = 1.2) +  # Line for average errors
-    labs(title = paste("Error vs. Number of Components"), 
-         x = "Number of Components", 
-         y = "Reconstruction Error") +
-    theme_minimal() +  # Use a minimal theme
-    theme(
-      legend.position = "none",  # Remove legend
-      panel.grid.major.x = element_line(color = "grey80"),  # Grid lines for x-axis
-      axis.text.x = element_text(size = 12),  # Adjust x-axis text size
-      axis.ticks.x = element_line(color = "black"),  # Add x-axis ticks
-      panel.grid.minor.x = element_blank()  # Remove minor grid lines
-    ) +
-    scale_x_continuous(breaks = seq(min(data$ncomp), max(data$ncomp), by = 1)) +  # Align x-grid with integers
-    theme_minimal()
-  
-  return(plot)
-  
-} 
+load("data_processed_aim3/bestrun.RData") #this is called bestrun 
 
-#load("data_processed_aim3/error_padj.RData")
-load("data_processed_aim3/error_zeros500.RData")
-load("data_processed_aim3/error_zeros1000.RData")
-load("data_processed_aim3/error_zeros.RData")
+# for interpreting the "bestrun" output 
 
-error_zeros500$niter = 500
-error_zeros1000$niter = 1000
-error_zeros$niter = 100
+library(ggplot2)
+library(dplyr)
 
-error_tot = rbind(error_zeros, error_zeros500, error_zeros1000)
-
-error_tot = error_tot %>% filter(ncomp <7)
-
-#plot_error("error_padj")
-#plot_error("error_zeros500")
-#plot_error("error_zeros1000")
-#plot_error("error_zeros")
-plot_error("error_tot")
-
-```
-
-### Descriptions of 3 Migration Systems
-
-Below, we present maps for the ranked loadings from a 3-component decomposition. In each map, a county's color intensity reflects its rank in the factor matrix for a specific tensor dimension (either as a destination or an origin), with ranks ranging from 1 to 3109 (the total number of counties in our tensor). Higher-ranked counties are more influential in the migration system. We resolved ties by assigning the lowest rank available to each tied value. Lighter colors represent counties with higher-ranked loadings, indicating greater importance to the migration system relative to other counties.
-
-```{r do the decomp! }
-# this section needs to be updated w the latest min seed of the 100 iteration decomp 
-
-# function to perform NN decomp and calculate the fit 
-library(nnTensor)
-
-# Perform Non-Negative Tensor Factorization (NTF) and calculate the fit
-
-load("data_processed_aim3/error_zeros.RData") #this is to get the min seed 
-#load("data_processed_aim3/all_migtypes_tensor_logo.RData") # this is the tensor all_migtypes 
-
-minseed = error_zeros %>% filter(ncomp == 3) %>% 
+# Filter the dataset to keep only rows where fms_score = 1 (highest reproducibility)
+filtered_data <- bestrun %>%
+  group_by(rank) %>%
+  filter(fms_score == max(fms_score)) %>% 
   filter(error == min(error)) %>% 
-  select(seed)
-
-minseed = as.numeric(minseed)
-set.seed(seed = minseed)
-#ntf_decomp <- nnTensor::NTF(all_migtypes, rank = 3, verbose = TRUE)  # Perform NTF with the specified number of components
-  
-
-#save(ntf_decomp, file = "data_processed_aim3/decomp3_100_log_defaults.RData")
-# proceeding with this data and lots of waxing/waning about subjectivity: 
-load("data_processed_aim3/decomp3_100_log_defaults.RData")
-
-# will include pop adj decomp as an aside - look the results change completely if we pop adj 
+  ungroup()  # Ungroup to avoid issues with further operations
 
 
-
-Orig3 <- ntf_decomp$A[[1]]  # Factor matrix for origin
-Dest3 <- ntf_decomp$A[[2]]  # Factor matrix for destination
-Time3 <- ntf_decomp$A[[3]]  # Factor matrix for year
-
-
-
-```
-
-```{r side by side maps }
-
-# Load necessary libraries
-library(ggplot2)
-library(sf)
-library(tigris)
-library(dplyr)
-library(patchwork)
-
-# Load US counties shapefile
-counties <- sf::st_read("https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json", quiet = TRUE)
-
-#counties = tigris::counties(cb = TRUE) - this is 2022 which is not what we wnat! 
-
-# get the origid_unique, destid_unique needed below 
-fips_codes <- as.character(counties$id)
-
-# Remove FIPS codes for Puerto Rico (72...), Hawaii (15...), and Alaska (02...)
-fips_codes <- fips_codes[!grepl("^72|^15|^02", fips_codes)]
-origid_unique = unique(fips_codes)
-destid_unique = unique(fips_codes)
-
-      
-# Function to create side-by-side maps for each component
-create_side_by_side_map <- function(component_num) {
-  # Dataframes for origin and destination loadings
-  df_orig <- data.frame(county_id = origid_unique, loadings = Orig3[component_num,])
-  df_dest <- data.frame(county_id = destid_unique, loadings = Dest3[component_num,])
-  # Normalize loadings between 0 and 1 for origin and destination
-  df_orig$normalized_loading <- df_orig$loadings / max(df_orig$loadings, na.rm = TRUE)
-  df_dest$normalized_loading <- df_dest$loadings / max(df_dest$loadings, na.rm = TRUE)
-  
-  
-  
-  # Merge with counties spatial data for origin
-  map_data_orig <- merge(counties, df_orig, by.x = "id", by.y = "county_id")
-  map_data_orig$rank_loading <- rank(map_data_orig$loadings, na.last = "keep",
-                                     ties.method = "min")  # Rank the loadings
-  
-  # Merge with counties spatial data for destination
-  map_data_dest <- merge(counties, df_dest, by.x = "id", by.y = "county_id")
-  map_data_dest$rank_loading <- rank(map_data_dest$loadings, na.last = "keep", ties.method = "min")  # Rank the loadings
-  
-  # Create ggplot for origin loadings
-  p_orig <- ggplot(map_data_orig) +
-    geom_sf(aes(fill = rank_loading)) +
-  #  scale_fill_viridis_c(option = "plasma", name = paste("Orig Rank - Comp", component_num)) +
-    theme_void() +
-    ggtitle("Origin") +
-    theme(legend.position = "none")
-  
-  # Create ggplot for destination loadings
-  p_dest <- ggplot(map_data_dest) +
-    geom_sf(aes(fill = rank_loading)) +
-   # scale_fill_viridis_c(option = "plasma", name = paste("Dest Rank - Comp", component_num)) +
-    theme_void() +
-    ggtitle("Destination") +
-    theme(legend.position = "bottom", legend.title = element_blank())
-  
- # Combine the two maps with a shared title and single legend
-  combined_plot <- cowplot::plot_grid(
-    p_orig, p_dest, ncol = 1, align = "v", rel_heights = c(1,1)
+# Create a scatter plot of error vs iterations, colored by rank and faceted by seed
+ggplot(bestrun, aes(x = rank, y = error, color = as.factor(iterations))) +
+  geom_point(size = 3) +
+ # geom_line(aes(group = rank), linetype = "dashed") +
+ # facet_wrap(~seed, scales = "free") +
+  geom_point(data = filtered_data, aes(x = rank, y = error), 
+             size = 5, shape = 21, fill = "black", color = "red") + # Add bolded points
+  labs(
+    title = "Selection of Best Rank, Iteration, and Seed",
+    x = "Number of Components",
+    y = "Reconstruction Error",
+    color = "Iterations"
+  ) +
+  theme_minimal() +
+  theme(
+    strip.text = element_text(size = 10, face = "bold"),
+    legend.position = "bottom"
   )
-  
-  # Add a shared title above both maps
-#  final_plot <- cowplot::plot_grid(
-#    cowplot::ggdraw() + 
-#    cowplot::draw_label(paste("Component", component_num), fontface = 'bold', y =1, x = 0) +
-#    combined_plot, 
-#    legend,
-#    ncol = 1) 
-    #rel_heights = c(1, 1, 0.1))
-  
-  # Return the final plot with the legend from the origin map
-  
-  # return(final_plot + scale_fill_viridis_c(option = "plasma", name = "Rank"))
-  return(combined_plot)
 
-}
+# now pull the decomp with ncomp = 6 with fms=score = 1 
+bestseed = bestrun %>% filter(rank == 6) %>% filter(fms_score == max(fms_score)) %>% select(seed)
+bestiter = bestrun %>% filter(rank == 6) %>% filter(fms_score == max(fms_score)) %>% select(iterations)
+bestpath = paste0("data_processed_aim3/ntf_model_rank6_seed", bestseed, "_iter", bestiter, ".RData")
+load(bestpath)
+#this is now called ntf_result
 
-
-
-# Create side-by-side maps for each component [1], [2], [3]
-p1 <- create_side_by_side_map(1)
-p2 <- create_side_by_side_map(2)
-p3 <- create_side_by_side_map(3)
-
-#ggsave("aim2_images/comp1_maps.png", plot = p1, dpi = 300)
-#ggsave("aim2_images/comp2_maps.png", plot = p2, dpi = 300)
-#ggsave("aim2_images/comp3_maps.png", plot = p3, dpi = 300)
-
+Orig6 <- ntf_result$A[[1]]  # Factor matrix for origin
+Dest6 <- ntf_result$A[[2]]  # Factor matrix for destination
+Time6 <- ntf_result$A[[3]]  # Factor matrix for year
 ```
 
-```{r TIME PLOTS}
-load("data_processed_aim3/tsub.RData")
-years = unique(tsub$year)
+### Interpretability of Migration Systems
 
-# Function to create a time vs loading plot for a specific component
-plot_time_vs_loadings <- function(component_num, title_suffix = "") {
-  # Create a dataframe for time loadings (third mode of the tensor)
-  df_time <- data.frame(time = 1:length(Time3[component_num,]),  # Assuming time goes from 1 to number of time points
-                        loadings = Time3[component_num,])        # Loadings for the given component
-  # Rank the loadings
-  df_time$ranked_loadings <- rank(df_time$loadings)
-  df_time$year = as.numeric(years)
-
-  
-  # Generate the plot using ggplot2
-  p <- ggplot(df_time, aes(x = year, y = ranked_loadings)) +
-    geom_line() +
-    geom_point() +
-    theme_minimal() +
-    labs(
-     # title = paste("Component", component_num, "- Time Loadings", title_suffix),
-      x = "Year",
-      y = "Relative Importance"
-    )
-  
-  return(p)
-}
-
-#plot_time_vs_loadings(1)
-#plot_time_vs_loadings(2)
-#plot_time_vs_loadings(3)
-```
-
-```{r top n (current working)}
-
-urbcodes <- haven::read_sas("data_processed_aim3/nchs_urbanicity_wlabels.sas7bdat")
-
-# Load necessary libraries
-library(ggplot2)
-library(dplyr)
-library(tigris)
-library(gridExtra)
-library(cowplot)
-
-# Function to plot top 10 loadings for both origin and destination components with state abbreviations and urbanicity
-plot_top_loadings <- function(component_num) {
-  # Assuming Orig3 and Dest3 are your matrices of loadings for origin and destination
-  origin_loadings <- Orig3[component_num, ]
-  destination_loadings <- Dest3[component_num, ]
-  
-  # Get county names and state abbreviations using tigris package
-  #counties <- tigris::counties(cb = TRUE) %>%
-  #  select(GEOID, NAME, STUSPS)
-  #save(counties, file = "data_processed_aim3/counties.Rdata")
-  # saving and loading to avoid the verbose tigris package 
-  
-  
-  load("data_processed_aim3/counties.Rdata")
-  
-  # Create data frames for origin and destination loadings
-  origin_data <- data.frame(county = origid_unique, loading = origin_loadings)
-  destination_data <- data.frame(county = destid_unique, loading = destination_loadings)
-  
-  # Inflate near-zero values slightly to make sure they appear on the plot
-  origin_data$loading <- ifelse(abs(origin_data$loading) < 0.001, 0.009, origin_data$loading)
-  destination_data$loading <- ifelse(abs(destination_data$loading) < 0.001, 0.009, destination_data$loading)
-  
-  # Select top 10 loadings for origin and destination
-  top_origin <- origin_data %>%
-    distinct(loading, .keep_all = TRUE) %>%
-    arrange(desc(loading)) %>%
-    slice_head(n = min(10, nrow(.)))
-  
-  top_origin_named <- merge(top_origin, counties, by.x = "county", by.y = "GEOID")
-  top_origin_named <- merge(top_origin_named, urbcodes, by.x = "county", by.y = "fipscode")
-  
-  top_destination <- destination_data %>%
-    distinct(loading, .keep_all = TRUE) %>%
-    arrange(desc(loading)) %>%
-    slice_head(n = min(10, nrow(.)))
-  
-  top_destination_named <- merge(top_destination, counties, by.x = "county", by.y = "GEOID")
-  top_destination_named <- merge(top_destination_named, urbcodes, by.x = "county", by.y = "fipscode")
-  
-  # Define urbanicity labels and colors
-  urbanicity_labels <- c("Large Central Metro", "Large Fringe Metro", "Medium Metro", "Small Metro", "Micropolitan", "Rural")
-  urbanicity_colors <- c("Large Central Metro" = "#F4C2C2",
-                         "Large Fringe Metro" = "#F7E3A9",
-                         "Medium Metro" = "#AEE9C0", 
-                         "Small Metro" = "#C5E7E6", 
-                         "Micropolitan" = "#D1E3FA",
-                         "Rural" = "#F2C9E6")
-  
-  # Convert `code2013` in both data frames to a factor with all levels, using urbanicity labels
-  top_origin_named$code2013 <- factor(top_origin_named$code2013, levels = 1:6, labels = urbanicity_labels)
-  top_destination_named$code2013 <- factor(top_destination_named$code2013, levels = 1:6, labels = urbanicity_labels)
-  
-   # Create a new column that combines county name and state abbreviation for better labeling
-  top_origin_named$county_label <- paste(top_origin_named$NAME, top_origin_named$STUSPS, sep = ", ")
-  top_destination_named$county_label <- paste(top_destination_named$NAME, top_destination_named$STUSPS, sep = ", ")
-  
-  # Create the origin plot
-  origin_plot <- ggplot(top_origin_named, aes(x = reorder(county_label, loading), y = loading, fill = code2013)) +
-    geom_bar(stat = "identity") +
-    scale_fill_manual(values = urbanicity_colors, drop = FALSE) +
-    labs(x = "", y = "", fill = "Urbanicity", title = "ORIGIN") +
-    theme_minimal() +
-    coord_flip() +
-    theme(legend.position = "none")  # Remove individual legend
-  
-  # Create the destination plot
-  destination_plot <- ggplot(top_destination_named, aes(x = reorder(county_label, loading), y = loading, fill = code2013)) +
-    geom_bar(stat = "identity") +
-    scale_fill_manual(values = urbanicity_colors, drop = FALSE) +
-      labs(x = "", y = "", fill = "Urbanicity", title = "DESTINATION") +
-    theme_minimal() +
-    coord_flip() +
-    theme(legend.position = "none")  # Remove individual legend
-  
-  
-  # Combine the two plots with a shared title
-  combined_plot <- plot_grid(
-    origin_plot,
-    destination_plot,
-    align = "hv",
-    ncol = 2)
-    #labels = c("Origin", "Destination")
-  
-  
-  # Combine plots with the manually created legend
-  #final_plot <- plot_grid(combined_plot, ncol = 1, rel_heights = c(1, 0.1))
-  
-  # Display the final combined plot with legend
-  return(combined_plot)
-}
-
-# Example call to the function:
-# plot_top_loadings(1)
-# plot_top_loadings(2)
-# plot_top_loadings(3)
-
-
-
-```
-
-```{r urb legend}
-#plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
-#legend("topleft", title="Urbanicity Categories", legend = urbanicity_labels, lty=1, lwd=9, cex=1.5,
-#       bty='n', col = urbanicity_colors, ncol = 2)
-
-# screenshotted - is now loaded via the aim3_images/urb_legend.png
-```
-
-#### Component 1: Urban-to-rural
-
-![](aim2_images/comp1_maps.png)
-
-```{r time plot for component 1 }
-#print(p1) 
-#print(plot_time_vs_loadings(1))
-#print(plot_top_loadings_by_state_with_urbanicity(1))
-```
-
-The maps of **Component 1** show that origin counties with relatively high loadings are few and scattered across the U.S., lacking any regional clustering. In contrast, destination counties with higher loadings are more widely distributed, with concentrations in the Southwest, Northeast, and Gulf South. This contrast suggests that internal migration originates from a limited number of scattered counties, while destinations are more broadly distributed across regions.
-
-In examining the top origin and destination counties within Component 1, we observe that out-migration is heavily concentrated in Cook County, Illinois, home to the large metropolitan area of Chicago. In contrast, the destination counties are predominantly rural. This suggests that Component 1 primarily reflects a pattern of urban-to-rural migration.
-
-```{r comp 1 top loadings, echo = FALSE, warning = FALSE, message = FALSE, print = FALSE}
-print(plot_top_loadings(1))
-```
-
-![](aim3_images/urb_legend.png){fig-align="right"}
-
-#### Component 2: Specific phenomena
-
-![](aim2_images/comp2_maps.png)
-
-```{r comp2 time}
- 
-#print(plot_time_vs_loadings(2))
-```
-
-Maps of **Component 2** are somewhat similar to those of Component 1, but the Origin map shows more counties with relatively high loadings compared to Component 1, where high-loading origin counties were sparse and scattered. In Component 2, counties with higher rankings are more evenly dispersed across the U.S., indicating a broader range of origin points within the migration system. The Destination map for Component 2 also shows a more uniform spread of counties with higher loadings across the country, though with prominent clusters in the western U.S., Northeast, and parts of the Midwest. Component 2 suggests a migration pattern where both origins and destinations are more widespread, indicating a broader network of counties engaged in both sending and receiving migrations.
-
-```{r comp2 top loadings }
-print(plot_top_loadings(2))
-```
-
-![](aim3_images/urb_legend.png){fig-align="right"}
-
-In examining the top origin and destination counties within Component 2, Genesee County, Michigan—the site of the 2014 Flint Water Crisis—stands out as the primary origin. While we do not analyze specific migration motivations in this study, we suspect that Component 2 might capture out-migration linked to the crisis. Although survey research has not conclusively demonstrated that the Flint Water Crisis led to substantial out-migration, many residents reported considering relocation in response to the public health emergency [@morckel2018].
-
-Conversely, the top destination counties in Component 2 are primarily rural and suburban, with Lincoln County, Arkansas, showing the highest destination loading. Lincoln County, which hosts two state prisons [@faciliti], might exhibit elevated migration rates due to population fluctuations in the IRS migration data. However, this effect could also result from data noise. Based on these findings, we interpret Component 2 as representing niche migrations—movements shaped by specific, place-based circumstances.
-
-#### Component 3: State borders
-
-![](aim2_images/comp3_maps.png)
-
-```{r maps and time plot for component 3}
-#print(plot_time_vs_loadings(3))
-```
-
-In the maps for Component 3, we again observe a broader distribution of ranked loadings among destination counties than among origin counties. Highly ranked origin counties are scattered across the U.S., whereas highly ranked destination counties appear more evenly distributed and clustered.
-
-```{r top comp 3}
-print(plot_top_loadings(3))
-```
-
-![](aim3_images/urb_legend.png){fig-align="right"}
-
-Similar to Component 1, Cook County, Illinois, stands out as the largest origin county in Component 3. However, unlike Component 1, Lyon County, Iowa, also contributes to the origin dimension. The reason for Lyon County’s higher origin loading compared to other rural counties is unclear, but its location along the state border with Minnesota and South Dakota—and the fact that our data are based on tax filings—suggests that the result may be due to households filing taxes in different states, influenced by variations in state tax codes [@cohen2014]. Likewise, the top destination county in Component 3 is Sequoyah County, Oklahoma, which borders Arkansas and contains the Fort Smith metropolitan area that spans both Oklahoma and Arkansas. Notably, a total of four of the top ten destination loadings are in counties along state borders, including Le Flore County, Oklahoma; Escambia County, Alabama; and Santa Rosa County, Florida. Based on these patterns, we interpret Component 3 as potentially capturing migration anomalies influenced by state-level tax differences.<!--# i did go back and verify that my origins and destinations are not flipped due to this weirdness. they are indeed correct!  -->
-
-#### Temporal trends
+After using the elbow plot to select a suitable number of components, we assessed the interpretability of the resulting decomposition. Unfortunately, we found that the decomposition was not interpretable due to several issues. The distribution of loadings was heavily skewed, with most counties having near-zero loadings and only a few counties dominating each component. This lack of meaningful variation made it difficult to identify distinct migration systems or draw meaningful conclusions about a county's role as an origin or destination within these systems. Additionally, the combinations of counties grouped together within components did not align with known migration patterns or plausible demographic or geographic relationships, further limiting interpretability. Density plots of the loadings, shown below, highlight this lack of distribution, with the majority of loadings clustered near zero. Maps showing the ranked loadings from the 6-component decomposition are provided in the appendix, but we note that these maps also reflect the limited interpretability due to the skewed and sparse distribution of loadings.
 
 ```{r}
-load("data_processed_aim3/tsub.RData")
-years = unique(tsub$year)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
 
-# Combine all components' loadings into a single data frame
-df_time_all <- data.frame(
-  year = rep(as.numeric(years), times = 3),  # Repeat each year for 3 components
-  component = rep(1:3, each = length(years)),  # Component numbers
-  loadings = c(Time3[1, ], Time3[2, ], Time3[3, ])  # Loadings for each component
-)
+# Convert Orig6, Dest6, and Time6 matrices to data frames with a long format
+Orig6_long <- Orig6 %>%
+  as.data.frame() %>%
+  mutate(Component = paste0("Component ", 1:6)) %>%
+  pivot_longer(cols = -Component, names_to = "County", values_to = "Loading") %>%
+  mutate(Dimension = "Origin")
 
-# Rank the loadings within each component
-df_time_all <- df_time_all %>%
-  group_by(component) %>%
-  mutate(ranked_loadings = rank(loadings))
+Dest6_long <- Dest6 %>%
+  as.data.frame() %>%
+  mutate(Component = paste0("Component ", 1:6)) %>%
+  pivot_longer(cols = -Component, names_to = "County", values_to = "Loading") %>%
+  mutate(Dimension = "Destination")
 
-p <- ggplot(df_time_all, aes(x = year, y = ranked_loadings, color = factor(component), linetype = factor(component))) +
-  geom_line(size = 1.5, alpha = 0.5) +    # Thicker lines with different line types
-  geom_point(size = 2) +     # Larger points without transparency
-  theme_minimal() +
+Time6_long <- Time6 %>%
+  as.data.frame() %>%
+  mutate(Component = paste0("Component ", 1:6)) %>%
+  pivot_longer(cols = -Component, names_to = "County", values_to = "Loading") %>%
+  mutate(Dimension = "Time")
+
+# Combine all dimensions into one data frame
+loadings_long <- bind_rows(Orig6_long, Dest6_long, Time6_long)
+
+# Generate density plots
+ggplot(loadings_long, aes(x = Loading, color = Dimension, fill = Dimension)) +
+  geom_density(alpha = 0.3, adjust = 1) +  # Transparent overlays for fill
+  geom_density(size = 1, aes(linetype = Dimension)) +  # Add line types for clarity
+  facet_wrap(~Component, scales = "free", ncol = 2) +
   labs(
-    x = "Year",
-    y = "Relative Importance",
-    color = "Component",
-    linetype = "Component"
+    title = "Density Plots of Loadings Across Components and Dimensions",
+    x = "Loading Value",
+    y = "Density",
+    color = "Dimension",
+    fill = "Dimension",
+    linetype = "Dimension"
   ) +
-  scale_color_manual(values = c("lightblue", "orange", "darkgreen")) +  # Custom colors for clarity
-  scale_linetype_manual(values = c("solid", "dashed", "dotted"))  # Different line types for each component
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(size = 10, face = "bold")
+  )
 
-print(p)
 
 
 ```
 
-In the plot of the ranked loadings for time, we see that years 2013 and 2018 are most important to explaining the migration trends across all three components of the decomposition. Meanwhile, years 2019, 2017, and 2015 are the least important.
-
-This pattern suggests a possible link between migration trends and policy-driven events, such as the Affordable Care Act (ACA) in 2013 and the Tax Cuts and Jobs Act (TCJA) in 2018, which may have influenced where people filed their taxes and, potentially, where they chose to live. While research using American Community Survey data found no significant impact of the ACA on interstate migration—indicating that it may not have spurred widespread physical relocations [@goodman2017]—evidence of the TCJA’s effect on migration is less clear, with some researchers finding that the TCJA had a significant negative impact on migration to high-tax states [@simonson2022]. IRS data, which tracks tax filing addresses rather than physical moves, could be particularly sensitive to policy changes since it reflects administrative adjustments rather than actual relocations. Such data might capture shifts in filing behavior, as taxpayers adjust addresses to optimize tax benefits, meet healthcare requirements, or take advantage of financial incentives.
-
-It is important to note that our analysis cannot fully capture the reasons behind these address changes or definitively explain why individuals might have relocated. Multiple factors, including personal, social, and economic reasons, can influence migration patterns, and these motivations remain beyond the reach of our current dataset. Consequently, while we observe notable trends for 2013 and 2018, attributing these patterns solely to policy shifts involves a degree of speculation, as the true drivers of migration decisions are inherently complex and multifaceted.
 
 ### Relationship to County-level Health
 
-```{r model selection}
-# Load models
-load("data_processed_aim3/sp_model_3_nopadj.RData")
-sp_model_3_nopadj <- sp_model
-
-load("data_processed_aim3/sp_model_3_nopadj_urb.RData")
-sp_model_3_nopadj_urb <- sp_model
-
-load("data_processed_aim3/sp_model_3_nopadj_min.RData")
-sp_model_3_nopadj_min <- sp_model
-
-load("data_processed_aim3/sp_model_3_nopadj_min_urb.RData")
-sp_model_3_nopadj_min_urb <- sp_model
-
-
-# Function to manually calculate AIC if logLik is accessible
-calculate_AIC <- function(model) {
-  # Attempt to access log-likelihood directly from the model object
-  if (!is.null(model$logLik)) {
-    logLik_val <- model$logLik
-  } else {
-    stop("Log-likelihood not found in model object")
-  }
-  
-  # Number of parameters (can be adjusted depending on model structure)
-  k <- length(model$coefficients)
-  
-  # Calculate AIC
-  AIC_value <- -2 * logLik_val + 2 * k
-  return(AIC_value)
-}
-
-# Calculate AICs for each model
-aic_nopadj <- calculate_AIC(sp_model_3_nopadj)
-aic_nopadj_urb <- calculate_AIC(sp_model_3_nopadj_urb)
-aic_nopadj_min <- calculate_AIC(sp_model_3_nopadj_min)
-aic_nopadj_min_urb <- calculate_AIC(sp_model_3_nopadj_min_urb)
-
-# Create a data frame for comparison
-aic_comparison <- data.frame(
-  Model = c("sp_model_3_nopadj", "sp_model_3_nopadj_urb", "sp_model_3_nopadj_min", "sp_model_3_nopadj_min_urb"),
-  AIC = c(aic_nopadj, aic_nopadj_urb, aic_nopadj_min, aic_nopadj_min_urb)
-)
-
-# Display sorted AIC comparison
-aic_comparison <- aic_comparison[order(aic_comparison$AIC), ]
-#print(aic_comparison)
-
-```
-
-Building on these visuals of migration patterns, we next examined the relationship between migration dynamics and county-level premature age-adjusted mortality rates $y_{it}$, using a spatial panel model. Having settled on a tensor decomposition with three components, the model we selected is as follows:
-
-$$
-y_{it} = \beta_0 + \sum_{n=1}^{3} \beta_{o_{n}} o_{in} + \sum_{n=1}^{3} \beta_{d_n} d_{in} + \sum_{n=1}^{3} \beta_{t_n} t_{tn} + \sum_{k=2}^{6} \gamma_k \text{Urbanicity}_k + \mu_{it}
-$$
-
-The spatial panel model revealed several significant findings, as shown in [Table 3.1](#table-aim3_table1) below. The origin and destination loadings capture variability in health outcomes based on the origin and destination characteristics of migration flows. Notably, the coefficients for the second origin loading $\beta_{o_2}$ and the first and third destination loadings $\beta_{d_1}$ and $\beta_{d_3}$ are statistically significant. Increased $o_2$ (ie increased loadings in Component 2 - *Specific Phenomena*) are associated with higher premature mortality rates increased $d_1$ and $d_3$ (ie loadings in Component 1 - *Urban-to-Rural* and Component 3 - *State borders*) are associated with lower premature mortality rates. This may suggest that counties contributing greatly as an origin of migration is negative for county-level health while contributing greatly as a destination of migration is positive for county-level health.
-
-Among the time components, only the coefficient $\beta_{t_1}$ is statistically significant. This makes sense given that in tensor decomposition, the first component represents the "most typical" or the most common pattern of migration. Since similar patterns in time loadings were seen across all three components, there is little reason to believe we would need to include the second and third components in addition to the first.
-
-The urbanicity codes demonstrate a clear gradient in health outcomes across urban and rural settings. Each rural category has a significant positive coefficient, with the effect size increasing as the areas become more rural. For instance, the most rural category shows the highest estimate (102.75, p \< 0.001), indicating a substantial rural health disadvantage relative to the most urban areas. This gradient highlights persistent health disparities that favor urban areas and suggests that rural-urban differences in health outcomes are crucial to understanding the overall effect of migration on health. This suggests that the effect of urbanicity on county-level health is distinct and separate from the effect of migration on county-level health. Therefore, even after accounting for county position within a migration system, the effect of urbanicity remains significant.
-
-\clearpage
-
-::: {#table-aim3_table1}
-<!--# i had chatgpt make this table by pasting in the output from summary(sp_model) -->
-
-```{r}
-load("data_processed_aim3/sp_model_3_nopadj_urb.Rdata")
-#summary(sp_model)
-```
-
-| Coefficient                | Estimate    | Std. Error | t-value    | p-value          |
-|----------------------------|-------------|------------|------------|------------------|
-| $\beta_0$                  | ***337.8*** | ***4.9***  | ***69.5*** | ***\< 2.2e-16*** |
-| $\beta_{o_1}$              | 1.9         | 39.9       | 0.047      | 0.96             |
-| $\beta_{o_2}$              | ***85.9***  | ***39.8*** | ***2.2***  | ***0.031***      |
-| $\beta_{o_3}$              | -21.7       | 39.8       | -0.55      | 0.59             |
-| $\beta_{d_1}$              | ***-82.0*** | ***39.9*** | ***-2.0*** | ***0.040***      |
-| $\beta_{d_2}$              | 69.6        | 40.5       | 1.7        | 0.085            |
-| $\beta_{d_3}$              | ***-85.4*** | ***40.5*** | ***-2.1*** | ***0.035***      |
-| $\beta_{t_1}$              | ***7.6***   | ***2.1***  | ***3.7***  | ***0.00022***    |
-| $\beta_{t_2}$              | -4.3        | 8.9        | -0.48      | 0.63             |
-| $\beta_{t_3}$              | -11.6       | 8.9        | -1.3       | 0.19             |
-| $\beta_{LargeFringeMetro}$ | ***11.3***  | ***5.3***  | ***2.1***  | ***0.032***      |
-| $\beta_{MediumMetro}$      | ***49.6***  | ***5.3***  | ***9.4***  | ***\< 2.2e-16*** |
-| $\beta_{SmallMetro}$       | ***51.9***  | ***5.3***  | ***9.8***  | ***\< 2.2e-16*** |
-| $\beta_{Micropolitan}$     | ***76.3***  | ***5.1***  | ***15.0*** | ***\< 2.2e-16*** |
-| $\beta_{Noncore}$          | ***102.8*** | ***5.0***  | ***20.7*** | ***\< 2.2e-16*** |
-
-: ***Italicized rows are significant at the 0.05 level***
-:::
-
-Taken together, these results suggest that the relationship between migration and health is multifaceted, with different migration patterns exerting varying effects on county-level mortality. The findings underscore the importance of considering both the origin and destination of migration flows, as well as the temporal dimension, when examining the public health implications of migration. Additionally, the spatial panel model highlights that some migration patterns may exacerbate health disparities, while others may contribute to improved health outcomes across certain regions.
+Because we were unable to establish an interpretable tensor decomposition, we were unable to reliably model the relationship between a county's position within a migration system and county-level premature mortality rates. Without clearly defined components, it was not possible to assign counties to to migration systems, and subsequently link these migration systems to variations in premature mortality rates. This limitation highlights the challenges of applying tensor decomposition to datasets with many nodes and sparse connections, where the complexity and variability of migration flows may obscure patterns necessary for meaningful health analyses. An example model is provided in the appendix to illustrate what might be possible if a more interpretable decomposition were achieved.
 
 <!--# f statistic? to test which components are significant ; likelihood ratio test - model with all predictors , model with some predictors - change in BIC if each predictor is dropped ; get relative importance of predictors to model -->
 
 ## Discussion
 
-Through the use of tensor decomposition, we have established three key migration systems of internal migration in the US: **Urban-to-rural migration** (Component 1), **Specific phenomena**(Component 2), and **State borders** (Component 3). These components represent complex migration dynamics, each with varying effects on health outcomes.
+Through the exploratory use of tensor decomposition, we have attempted to identify and interpret migration systems within the context of internal migration in the US. Our analysis suggested six potential migration systems; however, they were not directly interpretable. While we explored possible associations between migration components and premature mortality rates, the results were inconclusive.  Despite this, we hope that the idea of examining a county's dual role as both an origin and a destination within migration systems - and its potential impact on health outcomes - will prove useful in future research. Understanding these roles could provide valuable insights into how migration-related factors contribute to health disparities and help inform targeted public health interventions. Future studies may benefit from alternative methods or enhanced preprocessing strategies to reduce sparsity and improve the interpretability of tensor components, thereby enabling a more robust exploration of the relationship between migration systems and health outcomes.
 
-Our analysis highlighted significant relationships between migration components and mortality rates. Counties that played a strong role as origins in Components 2 were associated with higher mortality rates, suggesting that areas experiencing out-migration may face health challenges, potentially due to socioeconomic stressors, the outflow of younger, healthier populations, or due to public health emergencies such as the Flint Water Crisis. Conversely, counties that played a strong role as destinations in Components 1 and 3 showed a negative association with mortality rates, indicating that regions that are destinations for migration may experience better health outcomes. These findings suggest that migration can have both positive and negative effects on health, depending on the specific nature of the flows.
+Taken together, these results suggest that the relationship between migration and health is multifaceted, with different migration patterns exerting varying effects on county-level mortality. The findings underscore the importance of considering both the origin and destination of migration flows, as well as the temporal dimension, when examining the public health implications of migration. This study underscores the exploratory nature of using tensor decomposition to examine the relationship between migration patterns and health outcomes. While it provides a novel framework for identifying and characterizing migration systems, further research is needed to establish clear and actionable connections between these systems and county-level health metrics.
 
-An important challenge we encountered in this analysis lies in the instability and inconsistency of tensor decomposition methods. Tensor decomposition, while powerful for capturing multidimensional migration patterns, can often yield non-reproducible results due to its sensitivity to initial parameter settings, the choice of algorithm, and the nature of the data. In this study, we experimented with various initialization strategies to achieve a decomposition that best represented migration dynamics; however, even small variations in the initialization often produced substantially different decompositions. This instability makes it difficult to interpret and replicate findings reliably across different studies or even within the same dataset. One key factor contributing to this inconsistency is the non-convex nature of the optimization involved in tensor decomposition [@adali2022]. Since multiple local minima exist, different runs can converge on distinct solutions that each capture different patterns in the data, even if the underlying data remains the same. This issue is particularly pronounced when using methods like Canonical Polyadic (CP) decomposition, where the model can fit the data well (i.e., minimizing error) but produce multiple different results with the same error that yield varying component interpretations across decompositions [@hale2021]. As a result, we observe contradictory migration patterns across different runs, which poses significant challenges in verifying the robustness of these findings.
+An important challenge we encountered in this analysis lies in the instability and inconsistency of tensor decomposition methods. Tensor decomposition, while powerful for capturing multidimensional migration patterns, can often yield non-reproducible results due to its sensitivity to initial parameter settings, the choice of algorithm, and the nature of the data. In this study, we experimented with various initialization strategies to achieve a decomposition that best represented migration dynamics; however, even small variations in the initialization often produced substantially different decompositions. To address this, we used the Factor Match Score (FMS) based on cosine similarity to evaluate the stability of decomposition across split-half sampling. By quantifying the alignment of factor matrices between independent decompositions, we attempted to identify runs that were more consistent and reproducible. Despite this approach, achieving complete stability remained a challenge, highlighting the inherent variability in tensor decomposition methods.
 
-Another layer of complexity arises from the limited interpretability of certain tensor components, which can shift depending on the data preprocessing steps and tensor rank selection. While methods such as non-negative tensor factorization (NTF) help improve interpretability by applying constraints to ensure positive values that align with real-world quantities, component selection remains subjective, relying heavily on domain expertise and anticipated outcomes. This subjectivity reduces reproducibility and weakens the potential of tensor decomposition as a consistent analytical tool in migration and health research. These challenges with instabililty underscore the need for future research to establish standardized protocols for validating tensor decomposition results [@adali2022]. Methods such as ensemble decomposition or consensus clustering may provide an avenue for reconciling diverse outputs generated by tensor decomposition to identify stable patterns.
+This instability makes it difficult to interpret and replicate findings reliably across different studies or even within the same dataset. One key factor contributing to this inconsistency is the non-convex nature of the optimization involved in tensor decomposition [@adali2022]. Since multiple local minima exist, different runs can converge on distinct solutions that each capture different patterns in the data, even if the underlying data remains the same. This issue is particularly pronounced when using methods like Canonical Polyadic (CP) decomposition, where the model can fit the data well (i.e., minimizing error) but produce multiple different results with the same error that yield varying component interpretations across decompositions [@hale2021]. As a result, we observe contradictory migration patterns across different runs, which poses significant challenges in verifying the robustness of these findings.
+
+Another layer of complexity arises from the limited interpretability of certain tensor components, which can shift depending on the data pre-processing steps and tensor rank selection. While methods such as non-negative tensor factorization (NTF) help improve interpretability by applying constraints to ensure positive values that align with real-world quantities, component selection remains subjective, relying heavily on domain expertise and anticipated outcomes. This subjectivity reduces reproducibility and weakens the potential of tensor decomposition as a consistent analytical tool in migration and health research. These challenges with instability underscore the need for future research to establish standardized protocols for validating tensor decomposition results [@adali2022]. Methods such as ensemble decomposition or consensus clustering may provide an avenue for reconciling diverse outputs generated by tensor decomposition to identify stable patterns.
 
 The use of IRS migration data, which only includes individuals from household that file taxes, introduces a potential bias, as it excludes non-filers, such as low-income populations, undocumented migrants, and others who may not be captured by tax records. This could lead to an under-representation of certain demographic groups in the migration analysis, potentially skewing the results. That said, some researchers suggest that IRS data is actually more inclusive than ACS survey data since tax filings tend to have less non-response bias than survey data [@foster]. Additionally, if we observe a relationship between migration and health using the IRS data, this relationship is likely even stronger in reality as the excluded populations may experience even greater health disparities linked to migration. <!--# cite? -->
 
 The IRS data itself has been subject to criticism for inconsistencies and volatility, particularly after 2011 when the IRS took over data preparation from the US Census Bureau. As DeWaard et al has noted, there are systemic issues with the IRS data that can lead to fluctuations in migration estimates, which are not fully explained by changes in IRS data collection methods [@dewaard2022]. This raises concerns about the reliability of the migration patterns observed in the post-2011 IRS data, which could affect the robustness of our findings.
 
-To accurately capture the multifaceted relationship between migration and health, future studies must also prioritize the development and integration of demographic-specific data sources. Current datasets overlook critical populations—such as undocumented migrants, low-income households, and young adults—whose migration patterns and health needs may significantly differ from the general population. These populations frequently experience unique health vulnerabilities and stressors related to migration, which are not reflected in generalized data. Tailored data sources that account for race, age, socioeconomic status, and immigration status are essential for understanding the nuanced ways migration impacts health disparities across different demographic groups. Access to these demographic-specific data sources would allow researchers to capture a fuller, more accurate picture of how migration affects health outcomes, leading to more effective, equitable public health interventions.
+Tensor decomposition has previously been applied to IRS migration data to analyze migration flows between U.S. metropolitan areas [@almquist2021]. This analysis involved a much less sparse tensor compared to our tensor, which includes all possible county-to-county migration flows for 3109 counties in the contiguous United States. With fewer nodes (metropolitan areas) and more migration events between them, tensor decomposition was better suited to the structure of metropolitan migration data. In contrast, the high sparsity of our tensor—arising from the large number of nodes and relatively rare migration events between many county pairs—complicated the decomposition process. Tensor decomposition is generally more robust when applied to datasets with fewer nodes and many events, such as public transportation data. As a result, the components generated by our decomposition often lacked clear interpretability, further underscoring the challenges of applying tensor decomposition to county-level migration patterns.
+
+To accurately capture the multifaceted relationship between migration and health, future studies must also prioritize the development and integration of demographic-specific data sources. Current datasets overlook critical populations—such as undocumented migrants, low-income households, and young adults—whose migration patterns and health needs may significantly differ from the general population. These populations frequently experience unique health vulnerabilities and stressors related to migration, which are not reflected in generalized data. Tailored data sources that account for race, age, socio-economic status, and immigration status are essential for understanding the nuanced ways migration impacts health disparities across different demographic groups. Access to these demographic-specific data sources would allow researchers to capture a fuller, more accurate picture of how migration affects health outcomes, leading to more effective, equitable public health interventions.
 
 Looking to the future, it is crucial to extend migration research to encompass the growing impacts of climate-related migration, as climate change increasingly disrupts environmental stability and livelihoods across the U.S. This type of migration is expected to intensify in the coming years, especially in areas vulnerable to extreme weather events, rising sea levels, and prolonged droughts. These shifts are likely to disproportionately affect already vulnerable populations, exacerbating health disparities in both origin and destination areas. Climate-induced migration may introduce new health challenges, including mental health stressors, exacerbated chronic diseases, and greater strain on healthcare resources in regions receiving large influxes of climate migrants. Applying tensor decomposition to understand these climate-related migration patterns could reveal critical insights into how climate change and migration jointly impact health outcomes and can help identify high-risk areas that would benefit most from targeted public health resources.
 
-In conclusion, we have explored the complexity of migration’s impact on health outcomes and highlighted the importance of spatial and temporal analysis in understanding these dynamics. The findings underscore the need for tailored public health interventions in regions experiencing significant migration, as well as further research into the multifaceted relationships between migration, geography, and health. By accounting for both origin and destination dynamics, this study provides a more comprehensive view of how migration shapes public health in the United States.
+In conclusion, we explored the application of tensor decomposition to quantify the relationship between a county's position within a migration system and overall county health. While our findings were inconclusive, this study highlights the potential of using spatial and temporal analyses to better understand the complex interplay between migration and health outcomes. The exploratory nature of this work underscores the need for further research and methodological advancements to effectively capture and interpret these dynamics. Tailored public health interventions in regions experiencing significant migration, informed by a deeper understanding of migration systems and their health impacts, remain a critical priority. By considering both origin and destination dynamics, this study contributes to the broader conversation about how migration shapes public health in the United States.

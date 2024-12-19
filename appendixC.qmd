@@ -1,0 +1,150 @@
+---
+title: "Supplementary material for manuscript 3"
+execute:
+  echo: false  # Hides all code
+  warning: false  # Suppresses warnings
+  message: false  # Suppresses messages
+  fig-cap: false 
+  fig-nofloat: false
+editor: visual
+---
+
+\clearpage
+
+## Maps of a 6 component decomposition
+
+In each map below, a county's color intensity reflects its rank in the factor matrix for a specific tensor dimension (either as a destination or an origin), with ranks ranging from 1 to 3109 (the total number of counties in our tensor). Higher-ranked counties are more influential in the migration system. We resolved ties by assigning the lowest rank available to each tied value. Lighter colors represent counties with lower-ranked loadings, indicating lower importance to the migration system while darker colors represent counties with greater importance to the migration system relative to other counties.
+
+```{r load the decomp!}
+
+load("data_processed_aim3/bestrun.RData") #this is called bestrun 
+
+# for interpreting the "bestrun" output 
+
+library(ggplot2)
+library(dplyr)
+
+# Filter the dataset to keep only rows where fms_score = 1 (highest reproducibility)
+filtered_data <- bestrun %>%
+  group_by(rank) %>% 
+  filter(rank != 1 & 
+           fms_score == max(fms_score))
+
+# Create a scatter plot of error vs iterations, colored by rank and faceted by seed
+
+
+# now pull the decomp with ncomp = 6 with fms=score = 1 
+bestseed = bestrun %>% filter(rank == 6) %>% filter(fms_score == max(fms_score)) %>% select(seed)
+bestiter = bestrun %>% filter(rank == 6) %>% filter(fms_score == max(fms_score)) %>% select(iterations)
+bestpath = paste0("data_processed_aim3/ntf_model_rank6_seed", bestseed, "_iter", bestiter, ".RData")
+load(bestpath)
+#this is now called ntf_result
+
+Orig6 <- ntf_result$A[[1]]  # Factor matrix for origin
+Dest6 <- ntf_result$A[[2]]  # Factor matrix for destination
+Time6 <- ntf_result$A[[3]]  # Factor matrix for year
+```
+
+```{r function to create maps}
+create_side_by_side_map <- function(component_num) {
+  # Dataframes for origin and destination loadings
+  df_orig <- data.frame(county_id = origid_unique, loadings = Orig6[component_num, ])
+  df_dest <- data.frame(county_id = destid_unique, loadings = Dest6[component_num, ])
+  
+  # Normalize loadings between 0 and 1 for origin and destination
+  df_orig$normalized_loading <- df_orig$loadings / max(df_orig$loadings, na.rm = TRUE)
+  df_dest$normalized_loading <- df_dest$loadings / max(df_dest$loadings, na.rm = TRUE)
+  
+  # Merge with counties spatial data for origin
+  map_data_orig <- merge(counties, df_orig, by.x = "id", by.y = "county_id")
+  map_data_orig$rank_loading <- rank(map_data_orig$loadings, na.last = "keep", ties.method = "min")
+  
+  # Merge with counties spatial data for destination
+  map_data_dest <- merge(counties, df_dest, by.x = "id", by.y = "county_id")
+  map_data_dest$rank_loading <- rank(map_data_dest$loadings, na.last = "keep", ties.method = "min")
+  
+  # Shared color scale
+  shared_scale <- scale_fill_viridis_c(
+    option = "magma",  # Use a reversed scale where lighter colors are higher
+    direction = -1,    # Reverse the scale
+    name = "Relative Importance",
+    breaks = c(min(map_data_orig$rank_loading, na.rm = TRUE),
+               max(map_data_orig$rank_loading, na.rm = TRUE)),
+    labels = c("Low", "High")
+  )
+  
+  # Create ggplot for origin loadings
+  p_orig <- ggplot(map_data_orig) +
+    geom_sf(aes(fill = rank_loading)) +
+    shared_scale +
+    theme_void() +
+    ggtitle("Origin") +
+    theme(legend.position = "bottom")
+  
+  # Create ggplot for destination loadings
+  p_dest <- ggplot(map_data_dest) +
+    geom_sf(aes(fill = rank_loading)) +
+    shared_scale +
+    theme_void() +
+    ggtitle("Destination") +
+    theme(legend.position = "bottom")
+  
+  # Combine the two maps with a shared title and single legend
+  combined_plot <- cowplot::plot_grid(
+    p_orig + theme(legend.position = "none"),  # Remove legend from origin plot
+    p_dest,  # Keep legend in the destination plot
+    ncol = 1,
+    align = "v",
+    rel_heights = c(1, 1)
+  )
+  
+  return(combined_plot)
+}
+
+```
+
+![: Component 1](aim3_images/Comp1Maps.png){fig-align="center"}
+
+![: Component 2](aim3_images/Comp2Maps.png){fig-align="center"}
+
+![: Component 3](aim3_images/Comp3Maps.png){fig-align="center"}
+
+![: Component 4](aim3_images/Comp4Maps.png){fig-align="center"}
+
+![: Component 5](aim3_images/Comp5Maps.png){fig-align="center"}
+
+![: Component 6](aim3_images/Comp6Maps.png){fig-align="center"}
+
+
+\clearpage
+
+## Relationship to County-Level Health 
+```{r}
+load("data_processed_aim3/sp_model_6_min.Rdata")
+mysummary = summary(sp_model)
+#pasted into chatgpt to produce table below 
+```
+| Coefficient                | Estimate    | Std. Error | t-value    | p-value          |
+|----------------------------|-------------|------------|------------|------------------|
+| $\beta_0$                  | ***338.1*** | ***4.8***  | ***69.7*** | ***\< 2.2e-16*** |
+| $\beta_{o_1}$              | ***87.0***  | ***39.9*** | ***2.2***  | ***0.029***      |
+| $\beta_{d_1}$              | 22.8        | 39.9       | 0.57       | 0.568            |
+| $\beta_{t_1}$              | ***-11.1*** | ***2.1***  | ***-5.3*** | ***9.3e-08***    |
+| $\beta_{LargeFringeMetro}$    | ***11.3***  | ***5.3***  | ***2.2***  | ***0.031***      |
+| $\beta_{MediumMetro}$    | ***49.4***  | ***5.3***  | ***9.4***  | ***\< 2.2e-16*** |
+| $\beta_{SmallMetro}$    | ***51.9***  | ***5.3***  | ***9.8***  | ***\< 2.2e-16*** |
+| $\beta_{Micropolitan}$    | ***76.3***  | ***5.1***  | ***15.0*** | ***\< 2.2e-16*** |
+| $\beta_{Noncore}$    | ***102.8*** | ***5.0***  | ***20.7*** | ***\< 2.2e-16*** |
+
+
+The model output provides insight into the relationships between migration system membership (as represented by origin, destination, and temporal probabilities) and urbanicity categories with **premature mortality** as the outcome.  
+
+The coefficient for $\beta_{o_1}$ (origin probability) is **positive and significant** $(87.0; p = 0.029)$, suggesting that counties with a higher probability of serving as an **origin** in a migration system are associated with higher premature mortality rates. In contrast, the coefficient for $\beta_{d_1}$ (destination probability) is not significant $(22.8; p = 0.568)$, indicating that being a destination in a migration system does not have a statistically meaningful association with premature mortality.  
+
+The coefficient for $\beta_{t_1}$ (temporal probability) is **negative and significant** $(-11.; p < 0.001)$, suggesting that years with a higher probability of belonging to a migration system are associated with **lower premature mortality rates**, potentially indicating a temporal dynamic where periods of higher migration intensity correspond to improvements in health outcomes.
+
+Urbanicity categories show clear gradients. Compared to the baseline (large central metro counties), coefficients increase progressively, with **noncore counties** showing the largest positive and significant coefficient $(102.8; p < 0.001)$. This indicates that rural counties experience significantly **higher premature mortality rates** compared to urban counties. The urban-to-rural gradient aligns with existing evidence of rural health disparities, highlighting the substantial mortality burden in the most rural places.
+
+However, because our tensor decomposition was not fully interpretable, we cannot draw strong conclusions from this model. We include it here in the appendix to provide an example of what might be possible if the decomposition results were more robust and better aligned with theoretical expectations. It is also important to note that this model applies **only to the most important migration system** (Component 1) identified in the decomposition. To fully evaluate the relationships between migration systems and premature mortality, we would need to build separate models for each of the five subsequent migration systems in the decomposition.
+
+While this model serves as a preliminary exploration, future work will require more interpretable decompositions and additional analyses to disentangle the complex relationships between migration, place, and health outcomes.
