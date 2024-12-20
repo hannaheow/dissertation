@@ -2,12 +2,10 @@ project:
   type: book
 
 book:
-  title: "Migration, Urbanicity, and Health: Mutually Reinforcing Contextual and Compositional Place-Based Determinants of Health"
-  subtitle: "A dissertation submitted in partial fulfillment of \n the requirements for the degree of \n Doctor of Philosophy \n (Epidemiology) \n at the \n UNIVERSITY OF WISCONSIN-MADISON \n 2024"
-  author: "by Hannah Olson-Williams"
   chapters:
-    - text: "Title Page"
-      file: index.qmd
+  #  - text: "Title Page"
+  #    file:
+    - "index.qmd"
     - "intro.qmd"
     - "aim1.qmd"
     - "aim2.qmd"
@@ -29,11 +27,24 @@ affiliation: Department of Population Health
 
 format:
   pdf:
-    #documentclass: report
     pdf-engine: xelatex
+    classoption: oneside
+    toc: false
+    #template: template.tex
     header-includes:
       - \usepackage{setspace}
       - \doublespacing
-  #monashthesis-html: default
-  #monashthesis-pdf: default
-  #monashthesis-docx: default
+      - \usepackage{fancyhdr}
+      - \pagestyle{fancy}
+      - \fancyhf{}
+      - \fancyhead[R]{\thepage}
+      - \fancyhead[R]{\thepage}
+      - \renewcommand{\thepage}{\arabic{page}} % Use Arabic numerals for main pages
+      - \renewcommand{\headrulewidth}{0pt}
+      - \renewcommand{\footrulewidth}{0pt}
+      - \usepackage{etoolbox}
+      - \makeatletter
+      - \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+      - \makeatother
+
+

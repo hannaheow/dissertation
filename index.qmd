@@ -2,57 +2,66 @@
 editor: 
   markdown: 
     wrap: 72
----
 
----
-title: "Migration, Urbanicity, and Health: Mutually Reinforcing Contextual and Compositional Place-Based Determinants of Health"
-format: pdf
-pdf-engine: xelatex
+format: 
+  pdf:
+    pdf-engine: xelatex
+    classoption: oneside
+    header-includes:
+      - \usepackage{fancyhdr}
+      - \pagestyle{fancy}
+      - \fancyhf{} % Clear all headers and footers
+      - \fancyhead[R]{\thepage} % Page numbers in the top-right corner
+      - \fancyhead[R]{\thepage} % again so that odd and even match 
+      - \renewcommand{\thepage}{\roman{page}} % Use small Roman numerals
+      - \renewcommand{\headrulewidth}{0pt} % Remove header line
+      - \renewcommand{\footrulewidth}{0pt} % Remove footer line
+      - \usepackage{etoolbox}
+      - \makeatletter
+      - \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+      - \makeatother
 fontsize: 12pt
 output: pdf_document
----
-
-# Migration, Urbanicity, and Health:  
-## Mutually Reinforcing Contextual and Compositional  
-## Place-Based Determinants of Health  
-
-### By  
-
-### Hannah Olson-Williams  
 
 ---
+```{=latex}
+\begin{titlepage}
+\pagestyle{empty} % Disable headers and footers on the title page
+\centering
+{\Huge Migration, Urbanicity, and Health:} \\[1.5em] % Reduced spacing
+{\Large Mutually Reinforcing Contextual and Compositional \\[0.5em]
+Place-Based Determinants of Health} \\[3em] % Reduced spacing
+{\Large \textbf{By Hannah Olson-Williams}} \\[1.5em] % Reduced spacing
+A dissertation submitted in partial fulfillment of the requirements for the degree of \\[0.5em]
+Doctor of Philosophy \\[0.5em]
+(Epidemiology) \\[2em] % Reduced spacing
+{\Large UNIVERSITY OF WISCONSIN-MADISON} \\[0.5em]
+2024 \\[4em] % Reduced spacing
 
-A dissertation submitted in partial fulfillment of  
-the requirements for the degree of  
-Doctor of Philosophy  
-(Epidemiology)  
+Date of final oral examination: November 19, 2024 \\[2em]
 
-at the  
+The dissertation is approved by the following members of the Final Oral Committee: \\[0.5em]
 
-**UNIVERSITY OF WISCONSIN-MADISON**  
-
-2024  
-
----
-
-Date of final oral examination: [Insert Date]  
-
-The dissertation is approved by the following members of the Final Oral Committee:  
-- [Committee Member 1], Professor, [Field]  
-- [Committee Member 2], Professor, [Field]  
-- [Committee Member 3], Associate Professor, [Field]  
-- [Committee Member 4], Assistant Professor, [Field]  
+\raggedright % Left-align the following text
+{\small % Reduce font size for this section
+Amy Cochran (Chair), Assistant Professor, Population Health Sciences and Mathematics \\[0.1em]
+Marjory Givens, Assistant Professor, Population Health Sciences \\[0.1em]
+Jenna Nobles, Professor, Sociology \\[0.1em]
+Paul Peppard, Professor, Population Health Sciences \\[0.1em]
+Shaneda Warren Anderson, Associate Professor, Population Health Sciences
+}
+\end{titlepage}
+\clearpage
+\pagenumbering{roman} % Use Roman numerals for preliminary pages
+\setcounter{page}{1} % Start numbering at 1
+\pagestyle{fancy} % Re-enable headers and footers after the title page
 
 
-# Copyright notice {.unnumbered}
+\tableofcontents
+\clearpage
 
-```{r echo = FALSE, message = FALSE, warning = FALSE}
-#| output: asis
-cat("Produced on",format(Sys.Date(), "%e %B %Y.\n\n"))
-cat("© {{< meta author >}} (",format(Sys.Date(), "%Y"),").", sep="")
-```
 
-# Abstract {.unnumbered}
+\section*{Abstract}
 
 Throughout this dissertation, we explore the interconnected impacts of
 migration and urbanicity on place-based health determinants across the
@@ -71,8 +80,10 @@ aim to provide insight into the dynamics of population health, offering
 implications for localized health policy interventions and resource
 allocation across diverse communities.
 
-# Declaration {.unnumbered}
+\clearpage
+\newpage
 
+\section*{Declaration}
 This thesis is an original work of my research and contains no material
 which has been accepted for the award of any other degree or diploma at
 any university or equivalent institution. To the best of my knowledge
@@ -80,40 +91,34 @@ and belief, this thesis contains no material previously written by
 another person, except where due reference is made in the text of the
 thesis.
 
-I acknowledge the use of [`ChatGPT 4o`](https://chatgpt.com/) to assist
+I acknowledge the use of \href{https://chatgpt.com/}{ChatGPT 4o} to assist
 with editorial writing, R code generation, and error correction. I
 reviewed and edited the material produced by ChatGPT as needed, and I
 take full responsibility for the content of this dissertation.
 
-#### Publications included in this dissertation {.unnumbered}
+\section*{Publications included in this dissertation}
 
-The material in [Manuscript 1](aim1.qmd#aim1) was published in the
-[*Community Mental Health Journal* on January 12,
-2023](https://doi.org/10.1007/s10597-022-01082-x).
+The material in \href{aim1.qmd}{Manuscript 1} was published in the
+\emph{Community Mental Health Journal} on January 12,
+2023 (\href{https://doi.org/10.1007/s10597-022-01082-x}{doi:10.1007/s10597-022-01082-x}).
 
-The material in [Manuscript 2](aim2.qmd#aim2) will be submitted to the
-journal *Spatial and Spatio-temporal Epidemiology* for possible
-publication.
+\section*{Reproducibility statement}
 
-#### Reproducibility statement
-
-This thesis is written referencing the [Monash Thesis
-Template](https://github.com/quarto-monash/thesis) for Quarto to create
+This thesis is written referencing the 
+\href{https://github.com/quarto-monash/thesis}{Monash Thesis Template} for Quarto to create
 a reproducible environment. All materials (including the data sets and
 source files) required to reproduce this document can be found at the
-Github repository
-[`github.com/hannaheow/diss`](https://github.com/hannaheow/diss).
+Github repository \href{https://github.com/hannaheow/dissertation}{github.com/hannaheow/dissertation}.
 
-This work is licensed under a [Creative Commons
-Attribution-NonCommercial-ShareAlike 4.0 International
-License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-# Acknowledgements {.unnumbered}
 
-First, I want to thank County Health Rankings & Roadmaps, especially the
-data team—Christine, Matt, Jennifer, Eunice, Molly, Ganhua, Jess, Kate,
+\clearpage
+\section*{Acknowledgements}
+
+First, I want to thank County Health Rankings and Roadmaps, especially the
+data team: Christine, Matt, Jennifer, Eunice, Molly, Ganhua, Jess, Kate,
 and Heri. You all believe in me and give me purpose, direction, and a
-true sense of community. My identity as a scientist and as a human has
+sense of community. My identity as a scientist and as a human has
 been greatly shaped by the work we do together. I feel so lucky to have
 the opportunity to learn from you all.
 
@@ -135,8 +140,7 @@ Thank you to my parents, whose love gives me confidence to chase big
 goals.
 
 And finally, to Andrew, for keeping me caffeinated and laughing always.
-
-<!--# n4bw, faustina, data carpentries, palesa and themba -->
+```
 
 ```{=html}
 <!--

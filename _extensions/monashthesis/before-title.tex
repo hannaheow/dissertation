@@ -18,10 +18,12 @@
 %% HEADERS AND FOOTERS
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhf{}  % Clear any previous header/footer settings
-\fancyhead[R]{\normalsize\sffamily\thepage}  % Page number in top-right corner
-\renewcommand{\headrulewidth}{0pt}  % No header line
-\renewcommand{\footrulewidth}{0pt}  % No footer line
+\fancypagestyle{plain}{
+  \fancyhf{} % Clear all header/footer
+  \fancyhead[R]{\normalsize\sffamily\thepage} % Page number in top-right corner
+  \renewcommand{\headrulewidth}{0pt} % No header line
+  \renewcommand{\footrulewidth}{0pt} % No footer line
+}
 \cfoot{}  % Clear footer
 
 %% Double Spacing
