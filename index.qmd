@@ -2,7 +2,8 @@
 editor: 
   markdown: 
     wrap: 72
-
+numbered: false
+toc: false 
 format: 
   pdf:
     pdf-engine: xelatex
@@ -48,10 +49,9 @@ Amy Cochran (Chair), Assistant Professor, Population Health Sciences and Mathema
 Marjory Givens, Assistant Professor, Population Health Sciences \\[0.1em]
 Jenna Nobles, Professor, Sociology \\[0.1em]
 Paul Peppard, Professor, Population Health Sciences \\[0.1em]
-Shaneda Warren Anderson, Associate Professor, Population Health Sciences
+Shaneda Warren Andersen, Associate Professor, Population Health Sciences
 }
 \end{titlepage}
-\clearpage
 \pagenumbering{roman} % Use Roman numerals for preliminary pages
 \setcounter{page}{1} % Start numbering at 1
 \pagestyle{fancy} % Re-enable headers and footers after the title page

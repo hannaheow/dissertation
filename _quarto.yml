@@ -3,19 +3,17 @@ project:
 
 book:
   chapters:
-  #  - text: "Title Page"
-  #    file:
-    - "index.qmd"
-    - "intro.qmd"
-    - "aim1.qmd"
-    - "aim2.qmd"
-    - "aim3.qmd"
-    - "conclusion.qmd"
-    - "refs.qmd"
+    - file: "index.qmd"
+    - file: "intro.qmd"
+    - file: "aim1.qmd"
+    - file: "aim2.qmd"
+    - file: "aim3.qmd"
+    - file: "conclusion.qmd"
+    - file: "refs.qmd"
   appendices:
-    - "appendixA.qmd"
-    - "appendixB.qmd"
-    - "appendixC.qmd"
+    - file: "appendixA.qmd"
+    - file: "appendixB.qmd"
+    - file: "appendixC.qmd"
 
 
 bibliography: references.bib
@@ -30,21 +28,32 @@ format:
     pdf-engine: xelatex
     classoption: oneside
     toc: false
+    number-sections: false
     #template: template.tex
-    header-includes:
-      - \usepackage{setspace}
-      - \doublespacing
-      - \usepackage{fancyhdr}
-      - \pagestyle{fancy}
-      - \fancyhf{}
-      - \fancyhead[R]{\thepage}
-      - \fancyhead[R]{\thepage}
-      - \renewcommand{\thepage}{\arabic{page}} % Use Arabic numerals for main pages
-      - \renewcommand{\headrulewidth}{0pt}
-      - \renewcommand{\footrulewidth}{0pt}
-      - \usepackage{etoolbox}
-      - \makeatletter
-      - \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
-      - \makeatother
+    header-includes: |
+       \usepackage{setspace}
+       \doublespacing
+       \usepackage{fancyhdr}
+       \pagestyle{fancy}
+       \fancyhf{}
+       \fancyhead[R]{\thepage}
+       \fancyhead[R]{\thepage}
+       \renewcommand{\thepage}{\arabic{page}} % Use Arabic numerals for main pages
+       \renewcommand{\headrulewidth}{0pt}
+       \renewcommand{\footrulewidth}{0pt}
+       \usepackage{etoolbox}
+       \makeatletter
+       \patchcmd{\chapter}{\cleardoublepage}{\clearpage}{}{}
+       \makeatother
+       \fancypagestyle{plain}{ % Redefine the "plain" style used for chapter pages
+         \fancyhf{} % Clear all headers and footers
+         \fancyhead[R]{\thepage} % Add page number to the top-right corner
+         \renewcommand{\headrulewidth}{0pt} % Remove header line
+         \renewcommand{\footrulewidth}{0pt} % Remove footer line
+       }
+       \usepackage{etoolbox}
+       \makeatletter
+       \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+       \makeatother
 
 
